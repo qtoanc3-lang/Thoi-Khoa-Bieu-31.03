@@ -505,8 +505,8 @@ export default function App() {
         cursor.setDate(cursor.getDate() + 1);
       }
 
-      const startTimeStr = item.session === 'SÁNG' ? '073000' : '130000';
-      const endTimeStr = item.session === 'SÁNG' ? '113000' : '170000';
+      const startTimeStr = item.session === 'SÁNG' ? '070000' : '130000';
+      const endTimeStr = item.session === 'SÁNG' ? '104500' : '164500';
 
       while (cursor <= endObj) {
         const y = cursor.getFullYear();
@@ -563,7 +563,7 @@ export default function App() {
     const headerHeight = 270;
     const rowHeight = 115;
     const tableHeaderHeight = 70;
-    const footerHeight = 220;
+    const footerHeight = 248;
     const height = headerHeight + tableHeaderHeight + items.length * rowHeight + footerHeight;
 
     canvas.width = width;
@@ -741,7 +741,7 @@ export default function App() {
     const footerY = currentY + 22;
     ctx.fillStyle = '#f8fafc';
     ctx.beginPath();
-    ctx.roundRect(colX[0], footerY, colX[5] - colX[0], 145, 12);
+    ctx.roundRect(colX[0], footerY, colX[5] - colX[0], 175, 12);
     ctx.fill();
     ctx.strokeStyle = '#cbd5e1';
     ctx.lineWidth = 1.5;
@@ -757,6 +757,10 @@ export default function App() {
     ctx.fillText('• TH Hóa học (P. C606): Nhóm 5 học Chiều T4 | Nhóm 6 học Sáng T5 (Đã chuyển sang Sáng T5).', colX[0] + 25, footerY + 68);
     ctx.fillText('• TH Giải phẫu (P. C402): Nhóm 5 học Sáng T5 | Nhóm 6 học Chiều T4 (Bắt đầu từ 26/10/2026).', colX[0] + 25, footerY + 96);
     ctx.fillText('• Các phòng lý thuyết: LT Giải phẫu (D112), TNRHM (D210 & D206), Tiếng Anh 1 (C222), Tin 1 (D314), LT Hóa (C208).', colX[0] + 25, footerY + 124);
+
+    ctx.fillStyle = '#b45309';
+    ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText('• Lưu ý môn TNRHM: 2 buổi Sáng T4 & Chiều T6 dự kiến chuyển sang Sáng & Chiều Chủ Nhật (theo GV).', colX[0] + 25, footerY + 152);
 
     // Save as PNG
     const link = document.createElement('a');
@@ -1792,9 +1796,9 @@ export default function App() {
                 <div className="font-black text-teal-950 uppercase mb-0.5">
                   👥 PHÂN NHÓM THỰC HÀNH (27 SV)
                 </div>
-                <div>&bull; <strong>Nhóm 5 (14 SV):</strong> STT 01 &rarr; 14 (Vũ Gia Bảo &rarr; N.N. Quỳnh Mai)</div>
-                <div>&bull; <strong>Nhóm 6 (13 SV):</strong> STT 15 &rarr; 27 (Nguyễn Đắc Minh &rarr; N. Phương Thùy)</div>
-                <div className="text-slate-500 italic mt-0.5">Mã học phần TH Hóa: 191393024</div>
+                <div>&bull; <strong>Nhóm 5 (14 SV):</strong> STT 01 &rarr; 14 (Lê Phan An &rarr; Trương Hoàng Hiệp)</div>
+                <div>&bull; <strong>Nhóm 6 (13 SV):</strong> STT 01 &rarr; 13 (Lê Văn Hòe &rarr; Phạm Đường Vũ)</div>
+                <div className="text-amber-800 font-semibold italic mt-0.5">* Lưu ý: 2 buổi TNRHM (Sáng T4 &amp; Chiều T6) dự kiến chuyển sang Sáng &amp; Chiều Chủ Nhật.</div>
               </div>
 
               <div className="border border-slate-300 rounded p-1 bg-white flex flex-col justify-between">
@@ -2615,6 +2619,9 @@ export default function App() {
                 </div>
                 <div className="text-[11px] leading-relaxed">
                   • <strong>Danh mục phòng lý thuyết:</strong> LT Giải phẫu (P. D112), Thuật ngữ A-V RHM (P. D210 &amp; D206), Tiếng Anh 1 HAT (P. C222), Tin học 1 TINT (P. D314), LT Hóa học (P. C208).
+                </div>
+                <div className="text-[11px] leading-relaxed text-rose-700 dark:text-amber-300 font-semibold">
+                  • <strong>Lưu ý môn TNRHM:</strong> 2 buổi Sáng Thứ 4 &amp; Chiều Thứ 6 giữ theo lịch trường, dự kiến chuyển sang học Sáng &amp; Chiều Chủ Nhật (theo lịch giảng viên).
                 </div>
               </div>
             </div>

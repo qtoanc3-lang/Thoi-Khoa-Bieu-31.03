@@ -225,7 +225,7 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     startDate: '2026-10-12',
     endDate: '2026-12-19',
     totalWeeks: null,
-    durationText: 'Bắt đầu từ 12/10/2026',
+    durationText: 'Từ 12/10 · Dự kiến chuyển sang Sáng & Chiều CN',
     colorTheme: 'indigo'
   },
   // THỨ TƯ - CHIỀU (Nhóm 5 học TH Hóa học C606, Nhóm 6 học TH Giải phẫu C402)
@@ -331,7 +331,7 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     startDate: '2026-10-12',
     endDate: '2026-12-19',
     totalWeeks: null,
-    durationText: 'Bắt đầu từ 12/10/2026',
+    durationText: 'Từ 12/10 · Dự kiến chuyển sang Sáng & Chiều CN',
     colorTheme: 'indigo'
   },
   // THỨ BẢY - SÁNG: TIN 1 (TINT) - Phòng D314

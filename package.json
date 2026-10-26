@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "vite build && cp dist/assets/bundle-*.js public/gh-pages.js && cp dist/assets/bundle-*.css public/gh-pages.css && rm -rf docs/* && cp -r dist/* docs/ && touch .nojekyll docs/.nojekyll public/.nojekyll",
+    "build": "vite build && cp dist/assets/bundle-*.js public/gh-pages.js && cp dist/assets/bundle-*.css public/gh-pages.css && rm -rf docs/* && cp -r dist/* docs/ && cp public/gh-pages.js docs/gh-pages.js && cp public/gh-pages.css docs/gh-pages.css && touch .nojekyll docs/.nojekyll public/.nojekyll",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit"
