@@ -21,6 +21,7 @@ import {
   Moon,
   Printer,
   Search,
+  Smartphone,
   Stethoscope,
   Sun,
   Sunset,
@@ -214,6 +215,9 @@ export default function App() {
 
   const [exportModalOpen, setExportModalOpen] = useState<boolean>(false);
   const [icsGroupSelect, setIcsGroupSelect] = useState<GroupFilter>('all');
+
+  const [phoneModalOpen, setPhoneModalOpen] = useState<boolean>(false);
+  const [phoneModalGroup, setPhoneModalGroup] = useState<GroupFilter>('nhom5');
 
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
@@ -547,6 +551,223 @@ export default function App() {
     showToast('Đã tải file lịch .ICS!', 'success');
   };
 
+  // Generate and download phone-optimized high-resolution PNG image of the concise timetable
+  const exportPhoneScheduleImage = (targetGroup: GroupFilter) => {
+    const items = SCHEDULE_ITEMS.filter((item) => {
+      if (targetGroup === 'all') return true;
+      return item.groups.includes(targetGroup);
+    });
+
+    const canvas = document.createElement('canvas');
+    const width = 1080;
+    const headerHeight = 270;
+    const rowHeight = 115;
+    const tableHeaderHeight = 70;
+    const footerHeight = 220;
+    const height = headerHeight + tableHeaderHeight + items.length * rowHeight + footerHeight;
+
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, width, height);
+
+    // Header gradient
+    const grad = ctx.createLinearGradient(0, 0, width, 0);
+    grad.addColorStop(0, '#0f172a');
+    grad.addColorStop(0.5, '#1e3a8a');
+    grad.addColorStop(1, '#0f766e');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, width, headerHeight);
+
+    // School name
+    ctx.fillStyle = '#5eead4';
+    ctx.font = 'bold 22px system-ui, -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('TRƯỜNG ĐẠI HỌC KINH DOANH VÀ CÔNG NGHỆ HÀ NỘI · KHOA RĂNG HÀM MẶT', width / 2, 48);
+
+    // Title
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 36px system-ui, -apple-system, sans-serif';
+    ctx.fillText('THỜI KHÓA BIỂU LỚP RM31.03 (HK1 2026 - 2027)', width / 2, 102);
+
+    // Target group
+    const groupName =
+      targetGroup === 'all'
+        ? 'CẢ LỚP (27 SINH VIÊN)'
+        : targetGroup === 'nhom5'
+        ? 'NHÓM 5 (14 SINH VIÊN)'
+        : 'NHÓM 6 (13 SINH VIÊN)';
+    ctx.fillStyle = '#fef08a';
+    ctx.font = 'bold 25px system-ui, -apple-system, sans-serif';
+    ctx.fillText(`ĐỐI TƯỢNG: ${groupName} · BÁC SĨ RĂNG HÀM MẶT`, width / 2, 150);
+
+    ctx.fillStyle = '#e2e8f0';
+    ctx.font = '500 20px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Học kỳ I: 12/10/2026 – 19/12/2026 · Mã HP TH Hóa: 191393024', width / 2, 190);
+
+    // Important note on chemistry practical
+    ctx.fillStyle = '#fed7aa';
+    ctx.font = 'bold 18px system-ui, -apple-system, sans-serif';
+    ctx.fillText('⚡ TH Hóa học: Nhóm 5 học Chiều T4 (P. C606) | Nhóm 6 học Sáng T5 (P. C606)', width / 2, 226);
+
+    // Table columns
+    const tableTop = headerHeight + 25;
+    const colX = [40, 150, 320, 720, 870, 1040]; // Thứ, Buổi, Môn học, Phòng, Ngày áp dụng
+
+    // Table Header
+    ctx.fillStyle = '#1e293b';
+    ctx.fillRect(colX[0], tableTop, colX[5] - colX[0], tableHeaderHeight);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 21px system-ui, -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('THỨ', (colX[0] + colX[1]) / 2, tableTop + 43);
+    ctx.fillText('BUỔI', (colX[1] + colX[2]) / 2, tableTop + 43);
+    ctx.textAlign = 'left';
+    ctx.fillText('MÔN HỌC', colX[2] + 25, tableTop + 43);
+    ctx.textAlign = 'center';
+    ctx.fillText('PHÒNG', (colX[3] + colX[4]) / 2, tableTop + 43);
+    ctx.fillText('NGÀY ÁP DỤNG', (colX[4] + colX[5]) / 2, tableTop + 43);
+
+    let currentY = tableTop + tableHeaderHeight;
+
+    items.forEach((item, idx) => {
+      // Row background
+      ctx.fillStyle = idx % 2 === 0 ? '#f8fafc' : '#ffffff';
+      ctx.fillRect(colX[0], currentY, colX[5] - colX[0], rowHeight);
+
+      // Borders
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(colX[0], currentY, colX[5] - colX[0], rowHeight);
+      for (let i = 1; i < colX.length - 1; i++) {
+        ctx.beginPath();
+        ctx.moveTo(colX[i], currentY);
+        ctx.lineTo(colX[i], currentY + rowHeight);
+        ctx.stroke();
+      }
+
+      // 1. Thứ
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#0f172a';
+      ctx.font = '900 32px system-ui, -apple-system, sans-serif';
+      ctx.fillText(`T${item.dayOfWeek}`, (colX[0] + colX[1]) / 2, currentY + 54);
+      ctx.fillStyle = '#64748b';
+      ctx.font = '600 16px system-ui, -apple-system, sans-serif';
+      const dayName = DAYS_INFO.find((d) => d.dayOfWeek === item.dayOfWeek)?.label || '';
+      ctx.fillText(dayName, (colX[0] + colX[1]) / 2, currentY + 80);
+
+      // 2. Buổi
+      const isMorning = item.session === 'SÁNG';
+      ctx.fillStyle = isMorning ? '#fef3c7' : '#dbeafe';
+      const pillW = 126;
+      const pillH = 34;
+      const pillX = (colX[1] + colX[2]) / 2 - pillW / 2;
+      const pillY = currentY + 23;
+      ctx.beginPath();
+      ctx.roundRect(pillX, pillY, pillW, pillH, 8);
+      ctx.fill();
+
+      ctx.fillStyle = isMorning ? '#b45309' : '#1d4ed8';
+      ctx.font = 'bold 18px system-ui, -apple-system, sans-serif';
+      ctx.fillText(item.session, (colX[1] + colX[2]) / 2, pillY + 24);
+
+      ctx.fillStyle = '#475569';
+      ctx.font = 'bold 15px monospace';
+      ctx.fillText(isMorning ? '07:00 – 10:45' : '13:00 – 16:45', (colX[1] + colX[2]) / 2, currentY + 88);
+
+      // 3. Môn học
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 22px system-ui, -apple-system, sans-serif';
+      ctx.fillText(item.subject, colX[2] + 25, currentY + 46);
+
+      ctx.fillStyle = '#64748b';
+      ctx.font = '500 17px system-ui, -apple-system, sans-serif';
+      ctx.fillText(`${item.periods} · ${item.groupBadge}`, colX[2] + 25, currentY + 77);
+
+      // 4. Phòng (pill)
+      const roomStr = item.room.replace('Phòng ', '');
+      const roomPillW = 114;
+      const roomPillH = 46;
+      const roomPillX = (colX[3] + colX[4]) / 2 - roomPillW / 2;
+      const roomPillY = currentY + 34;
+
+      if (roomStr.startsWith('C606')) {
+        ctx.fillStyle = '#7e22ce';
+      } else if (roomStr.startsWith('C402')) {
+        ctx.fillStyle = '#d97706';
+      } else if (roomStr.startsWith('D112')) {
+        ctx.fillStyle = '#1d4ed8';
+      } else if (roomStr.startsWith('C208')) {
+        ctx.fillStyle = '#059669';
+      } else {
+        ctx.fillStyle = '#0284c7';
+      }
+
+      ctx.beginPath();
+      ctx.roundRect(roomPillX, roomPillY, roomPillW, roomPillH, 10);
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'center';
+      ctx.font = '900 23px monospace';
+      ctx.fillText(roomStr, (colX[3] + colX[4]) / 2, roomPillY + 32);
+
+      // 5. Ngày áp dụng
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 18px system-ui, -apple-system, sans-serif';
+      const startStr = item.startDate === '2026-10-12' ? 'Từ 12/10/2026' : 'Từ 26/10/2026';
+      ctx.fillText(startStr, (colX[4] + colX[5]) / 2, currentY + 47);
+
+      ctx.fillStyle = '#64748b';
+      ctx.font = '500 16px system-ui, -apple-system, sans-serif';
+      ctx.fillText(item.totalWeeks ? `(${item.totalWeeks} tuần)` : '(Tuần 1–10)', (colX[4] + colX[5]) / 2, currentY + 77);
+
+      currentY += rowHeight;
+    });
+
+    // Outer table border
+    ctx.strokeStyle = '#0f172a';
+    ctx.lineWidth = 2.5;
+    ctx.strokeRect(colX[0], tableTop, colX[5] - colX[0], currentY - tableTop);
+
+    // Footer summary box
+    const footerY = currentY + 22;
+    ctx.fillStyle = '#f8fafc';
+    ctx.beginPath();
+    ctx.roundRect(colX[0], footerY, colX[5] - colX[0], 145, 12);
+    ctx.fill();
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 19px system-ui, -apple-system, sans-serif';
+    ctx.fillText('📍 DANH MỤC PHÒNG HỌC & LƯU Ý PHÂN NHÓM:', colX[0] + 25, footerY + 36);
+
+    ctx.fillStyle = '#334155';
+    ctx.font = '500 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText('• TH Hóa học (P. C606): Nhóm 5 học Chiều T4 | Nhóm 6 học Sáng T5 (Đã chuyển sang Sáng T5).', colX[0] + 25, footerY + 68);
+    ctx.fillText('• TH Giải phẫu (P. C402): Nhóm 5 học Sáng T5 | Nhóm 6 học Chiều T4 (Bắt đầu từ 26/10/2026).', colX[0] + 25, footerY + 96);
+    ctx.fillText('• Các phòng lý thuyết: LT Giải phẫu (D112), TNRHM (D210 & D206), Tiếng Anh 1 (C222), Tin 1 (D314), LT Hóa (C208).', colX[0] + 25, footerY + 124);
+
+    // Save as PNG
+    const link = document.createElement('a');
+    link.download = `TKB_RM31.03_${targetGroup.toUpperCase()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast(`Đã tải ảnh TKB ${groupName}!`, 'success');
+  };
+
   // Render a compact course card inside the timetable grid or mobile agenda card
   const renderCourseCellCard = (item: ScheduleItem, specificDateObj: Date | null) => {
     const accent = THEME_ACCENTS[item.colorTheme];
@@ -797,33 +1018,15 @@ export default function App() {
 
               <button
                 type="button"
-                onClick={async () => {
-                  try {
-                    const res = await fetch('./assets/aistudio/Paste_October_26__2026_-_12_23PM_1512a169');
-                    if (res.ok) {
-                      const htmlText = await res.text();
-                      const blob = new Blob([htmlText], { type: 'text/html;charset=utf-8' });
-                      const url = URL.createObjectURL(blob);
-                      const a = document.createElement('a');
-                      a.href = url;
-                      a.download = 'index.html';
-                      document.body.appendChild(a);
-                      a.click();
-                      document.body.removeChild(a);
-                      URL.revokeObjectURL(url);
-                      showToast('Đã tải file index.html!', 'success');
-                      return;
-                    }
-                  } catch {
-                    // fallback
-                  }
-                  showToast('Repo đã tích hợp sẵn bộ chạy GitHub Pages!', 'info');
+                onClick={() => {
+                  setPhoneModalGroup(groupFilter === 'all' ? 'nhom5' : groupFilter);
+                  setPhoneModalOpen(true);
                 }}
-                title="Tải file index.html độc lập"
-                className="min-h-[40px] px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 text-xs font-semibold text-white flex items-center justify-center gap-1.5 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                title="Xem và tải bảng thời khóa biểu rút gọn tối ưu cho điện thoại"
+                className="min-h-[40px] px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/35 to-amber-600/35 hover:from-amber-500/50 hover:to-amber-600/50 border border-amber-300/60 text-xs font-bold text-white flex items-center justify-center gap-1.5 transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-xs"
               >
-                <Download className="w-3.5 h-3.5 text-amber-300" />
-                <span>Tải HTML</span>
+                <Smartphone className="w-3.5 h-3.5 text-amber-300" />
+                <span>Tải TKB</span>
               </button>
 
               <button
@@ -1581,8 +1784,8 @@ export default function App() {
                 </div>
                 <div>&bull; <strong>TH Hóa học:</strong> Phòng C606 (N5: Chiều T4 | N6: Sáng T5)</div>
                 <div>&bull; <strong>TH Giải phẫu:</strong> Phòng C402 (N5: Sáng T5 | N6: Chiều T4)</div>
-                <div>&bull; <strong>LT Giải phẫu:</strong> Giảng đường K.RHM (Chiều T2)</div>
-                <div>&bull; <strong>TNRHM / HAT / TINT:</strong> Phòng A00 (Tuần 1–10)</div>
+                <div>&bull; <strong>LT Giải phẫu:</strong> Phòng D112 | <strong>LT Hóa:</strong> Phòng C208</div>
+                <div>&bull; <strong>TNRHM:</strong> D210 &amp; D206 | <strong>HAT:</strong> C222 | <strong>TINT:</strong> D314</div>
               </div>
 
               <div className="border border-slate-300 rounded p-1 bg-white">
@@ -1640,7 +1843,7 @@ export default function App() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs tabular-nums">
               <div className="p-3 rounded-xl bg-blue-50/80 dark:bg-blue-950/35 border border-blue-200 dark:border-blue-800/70 space-y-1">
                 <div className="flex items-center justify-between font-extrabold text-blue-950 dark:text-blue-200">
-                  <span>Lý thuyết Giải phẫu</span>
+                  <span>Lý thuyết Giải phẫu (P. D112)</span>
                   <span className="font-mono text-[11px] px-1.5 py-0.5 rounded bg-blue-600 text-white">
                     4 tiết
                   </span>
@@ -1679,7 +1882,7 @@ export default function App() {
 
               <div className="p-3 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/35 border border-emerald-200 dark:border-emerald-800/70 space-y-1">
                 <div className="flex items-center justify-between font-extrabold text-emerald-950 dark:text-emerald-200">
-                  <span>Lý thuyết Hóa học</span>
+                  <span>Lý thuyết Hóa học (P. C208)</span>
                   <span className="font-mono text-[11px] px-1.5 py-0.5 rounded bg-emerald-600 text-white">
                     4 tiết
                   </span>
@@ -2179,6 +2382,254 @@ export default function App() {
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Tải file .ICS</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =====================================================================
+          MODAL 4: CONCISE PHONE-OPTIMIZED TIMETABLE (TẢI TKB DẠNG BẢNG RÚT GỌN ĐT)
+         ===================================================================== */}
+      {phoneModalOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 no-print">
+          <div className="bg-white dark:bg-slate-900 rounded-t-3xl sm:rounded-2xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+            {/* Modal Header */}
+            <div className="px-4 py-3.5 bg-gradient-to-r from-blue-900 via-blue-800 to-teal-700 text-white flex items-center justify-between gap-3 shrink-0">
+              <div>
+                <div className="flex items-center gap-2">
+                  <Smartphone className="w-4 h-4 text-amber-300" />
+                  <h3 className="text-sm sm:text-base font-extrabold">
+                    Bảng Thời Khóa Biểu Rút Gọn (Dành Cho Điện Thoại)
+                  </h3>
+                </div>
+                <p className="text-[11px] text-blue-100 tabular-nums mt-0.5">
+                  Lớp RM31.03 · Khoa Răng Hàm Mặt HUBT · Học Kỳ I (2026–2027)
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPhoneModalOpen(false)}
+                className="min-h-[38px] min-w-[38px] rounded-xl bg-white/15 hover:bg-white/25 flex items-center justify-center text-white cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Toolbar: Group Selector + Download Actions */}
+            <div className="p-3 bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 shrink-0">
+              {/* Group Tabs */}
+              <div className="grid grid-cols-3 p-1 rounded-xl bg-slate-200/80 dark:bg-slate-800 shrink-0">
+                {(
+                  [
+                    { key: 'nhom5', label: 'Nhóm 5 (14 SV)' },
+                    { key: 'nhom6', label: 'Nhóm 6 (13 SV)' },
+                    { key: 'all', label: 'Cả lớp (Tổng hợp)' }
+                  ] as const
+                ).map((t) => (
+                  <button
+                    key={t.key}
+                    type="button"
+                    onClick={() => setPhoneModalGroup(t.key)}
+                    className={`min-h-[34px] px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+                      phoneModalGroup === t.key
+                        ? 'bg-blue-600 text-white shadow-2xs'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => exportPhoneScheduleImage(phoneModalGroup)}
+                  className="flex-1 sm:flex-none min-h-[36px] px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-xs font-extrabold flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Tải Ảnh PNG (Lưu máy)</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => window.print()}
+                  className="min-h-[36px] px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 text-slate-800 dark:text-slate-200 text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Printer className="w-3.5 h-3.5 text-blue-600" />
+                  <span>In A4</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Body: The concise table mimicking Image 1 with exact rooms */}
+            <div className="p-3 sm:p-5 overflow-y-auto custom-scrollbar flex-1 space-y-3.5">
+              {/* Institution / Class Banner */}
+              <div className="p-3 rounded-xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
+                <div>
+                  <div className="font-extrabold text-blue-950 dark:text-blue-100 uppercase tracking-wide">
+                    LỚP: RM31.03 – KHÓA: 31 – NGÀNH: BÁC SĨ RĂNG HÀM MẶT
+                  </div>
+                  <div className="text-[11px] text-blue-800 dark:text-blue-300 font-semibold mt-0.5">
+                    Học kỳ I (12/10 – 19/12/2026) ·{' '}
+                    <span className="text-amber-800 dark:text-amber-300 font-bold">
+                      {phoneModalGroup === 'all'
+                        ? 'Tổng hợp cả lớp (27 SV)'
+                        : phoneModalGroup === 'nhom5'
+                        ? 'Thời khóa biểu Nhóm 5 (14 Sinh viên)'
+                        : 'Thời khóa biểu Nhóm 6 (13 Sinh viên)'}
+                    </span>
+                  </div>
+                </div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+                  Mã HP TH Hóa: 191393024
+                </div>
+              </div>
+
+              {/* Concise Table Container */}
+              <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden shadow-2xs">
+                <div className="overflow-x-auto w-full custom-scrollbar">
+                  <table className="w-full text-left border-collapse min-w-[540px]">
+                    <thead>
+                      <tr className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-black uppercase tracking-wider border-b border-slate-200 dark:border-slate-700">
+                        <th className="py-2.5 px-3 text-center w-14 border-r border-slate-200 dark:border-slate-700">
+                          Thứ
+                        </th>
+                        <th className="py-2.5 px-3 text-center w-28 border-r border-slate-200 dark:border-slate-700">
+                          Buổi
+                        </th>
+                        <th className="py-2.5 px-3 border-r border-slate-200 dark:border-slate-700">
+                          Môn học
+                        </th>
+                        <th className="py-2.5 px-3 text-center w-24 border-r border-slate-200 dark:border-slate-700">
+                          Phòng
+                        </th>
+                        <th className="py-2.5 px-3 text-center w-36">
+                          Ngày áp dụng
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-xs tabular-nums">
+                      {SCHEDULE_ITEMS.filter((it) => {
+                        if (phoneModalGroup === 'all') return true;
+                        return it.groups.includes(phoneModalGroup);
+                      }).map((item, idx) => {
+                        const isMorning = item.session === 'SÁNG';
+                        const roomClean = item.room.replace('Phòng ', '');
+                        const dayObj = DAYS_INFO.find((d) => d.dayOfWeek === item.dayOfWeek);
+
+                        return (
+                          <tr
+                            key={item.id}
+                            className={`hover:bg-blue-50/50 dark:hover:bg-slate-800/50 transition-colors ${
+                              idx % 2 === 0
+                                ? 'bg-white dark:bg-slate-900'
+                                : 'bg-slate-50/70 dark:bg-slate-800/30'
+                            }`}
+                          >
+                            {/* Thứ */}
+                            <td className="py-2.5 px-2 text-center font-black text-sm text-slate-900 dark:text-white border-r border-slate-200 dark:border-slate-800">
+                              <div>{item.dayOfWeek}</div>
+                              <div className="text-[10px] text-slate-400 font-normal">
+                                {dayObj?.shortLabel}
+                              </div>
+                            </td>
+
+                            {/* Buổi */}
+                            <td className="py-2.5 px-2 text-center border-r border-slate-200 dark:border-slate-800">
+                              <span
+                                className={`inline-block px-2 py-0.5 rounded text-[10px] font-extrabold uppercase ${
+                                  isMorning
+                                    ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300'
+                                    : 'bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300'
+                                }`}
+                              >
+                                {item.session}
+                              </span>
+                              <div className="font-mono text-[9.5px] text-slate-500 dark:text-slate-400 font-semibold mt-0.5">
+                                {isMorning ? '07:00 – 10:45' : '13:00 – 16:45'}
+                              </div>
+                            </td>
+
+                            {/* Môn học */}
+                            <td className="py-2.5 px-3 border-r border-slate-200 dark:border-slate-800">
+                              <div className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
+                                {item.subject}
+                              </div>
+                              <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mt-0.5">
+                                <span>{item.periods}</span>
+                                <span>·</span>
+                                <span className="font-semibold text-teal-700 dark:text-teal-400">
+                                  {item.groupBadge}
+                                </span>
+                              </div>
+                            </td>
+
+                            {/* Phòng */}
+                            <td className="py-2.5 px-2 text-center border-r border-slate-200 dark:border-slate-800">
+                              <span
+                                className={`inline-block px-2 py-1 rounded-lg font-mono font-black text-xs shadow-2xs ${
+                                  roomClean.startsWith('C606')
+                                    ? 'bg-purple-100 text-purple-900 dark:bg-purple-900/60 dark:text-purple-200 border border-purple-300 dark:border-purple-700'
+                                    : roomClean.startsWith('C402')
+                                    ? 'bg-amber-100 text-amber-900 dark:bg-amber-900/60 dark:text-amber-200 border border-amber-300 dark:border-amber-700'
+                                    : roomClean.startsWith('D112')
+                                    ? 'bg-blue-100 text-blue-900 dark:bg-blue-900/60 dark:text-blue-200 border border-blue-300 dark:border-blue-700'
+                                    : roomClean.startsWith('C208')
+                                    ? 'bg-emerald-100 text-emerald-900 dark:bg-emerald-900/60 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700'
+                                    : 'bg-sky-100 text-sky-900 dark:bg-sky-900/60 dark:text-sky-200 border border-sky-300 dark:border-sky-700'
+                                }`}
+                              >
+                                {roomClean}
+                              </span>
+                            </td>
+
+                            {/* Ngày áp dụng */}
+                            <td className="py-2.5 px-3 text-center text-slate-700 dark:text-slate-300">
+                              <div className="font-bold">
+                                {item.startDate === '2026-10-12' ? 'Từ 12/10/2026' : 'Từ 26/10/2026'}
+                              </div>
+                              <div className="text-[10px] text-slate-400">
+                                {item.totalWeeks ? `(${item.totalWeeks} tuần thực học)` : '(Học cả kỳ)'}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Important Notices Box matching user instructions */}
+              <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/60 text-xs space-y-1 text-amber-950 dark:text-amber-200">
+                <div className="font-extrabold flex items-center gap-1.5 text-amber-900 dark:text-amber-300">
+                  <span>📌 LƯU Ý PHÂN PHÒNG HỌC &amp; THỰC HÀNH LỚP RM31.03:</span>
+                </div>
+                <div className="text-[11px] leading-relaxed">
+                  • <strong>Thực hành Hóa học (P. C606):</strong> Nhóm 5 học Chiều Thứ 4 (13:00 - 16:45) | Nhóm 6 học Sáng Thứ 5 (07:00 - 10:45) (Đã điều chỉnh lịch Nhóm 6 sang Thứ 5).
+                </div>
+                <div className="text-[11px] leading-relaxed">
+                  • <strong>Thực hành Giải phẫu (P. C402):</strong> Nhóm 5 học Sáng Thứ 5 | Nhóm 6 học Chiều Thứ 4 (6 tuần từ 26/10 đến 05/12/2026).
+                </div>
+                <div className="text-[11px] leading-relaxed">
+                  • <strong>Danh mục phòng lý thuyết:</strong> LT Giải phẫu (P. D112), Thuật ngữ A-V RHM (P. D210 &amp; D206), Tiếng Anh 1 HAT (P. C222), Tin học 1 TINT (P. D314), LT Hóa học (P. C208).
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-3 bg-slate-100 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2 shrink-0">
+              <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                Nhấn "Tải Ảnh PNG" để lưu ảnh TKB về máy xem offline bất cứ lúc nào.
+              </span>
+              <button
+                type="button"
+                onClick={() => setPhoneModalOpen(false)}
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-800 dark:text-slate-100 cursor-pointer"
+              >
+                Đóng
               </button>
             </div>
           </div>

@@ -199,7 +199,7 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     session: 'CHIỀU',
     subject: 'Lý thuyết Giải phẫu',
     shortCode: 'LT Giải phẫu',
-    room: 'Giảng đường Khoa Răng Hàm Mặt',
+    room: 'Phòng D112',
     groups: ['nhom5', 'nhom6'],
     groupBadge: 'Chung N5–N8',
     rosterKey: null,
@@ -215,20 +215,20 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     id: 'wed-sang-tnrhm',
     dayOfWeek: 4,
     session: 'SÁNG',
-    subject: 'TNRHM',
+    subject: 'TNRHM (Thuật ngữ A-V RHM)',
     shortCode: 'TNRHM',
-    room: 'Phòng A00',
+    room: 'Phòng D210',
     groups: ['nhom5', 'nhom6'],
     groupBadge: 'Cả lớp (27 SV)',
     rosterKey: 'all',
-    periods: 'Theo lịch nhà A',
+    periods: 'Theo lịch nhà D',
     startDate: '2026-10-12',
     endDate: '2026-12-19',
     totalWeeks: null,
     durationText: 'Bắt đầu từ 12/10/2026',
     colorTheme: 'indigo'
   },
-  // THỨ TƯ - CHIỀU (Nhóm 5 học TH Hóa học, Nhóm 6 học TH Giải phẫu)
+  // THỨ TƯ - CHIỀU (Nhóm 5 học TH Hóa học C606, Nhóm 6 học TH Giải phẫu C402)
   {
     id: 'wed-chieu-thhh-n5',
     dayOfWeek: 4,
@@ -298,68 +298,68 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     durationText: '6 tuần (26/10 – 05/12/2026)',
     colorTheme: 'amber'
   },
-  // THỨ NĂM - CHIỀU
+  // THỨ NĂM - CHIỀU: HAT (Tiếng Anh 1) - Phòng C222
   {
     id: 'thu-chieu-hat',
     dayOfWeek: 5,
     session: 'CHIỀU',
-    subject: 'HAT (Ngoại ngữ)',
+    subject: 'Tiếng Anh 1 (HAT)',
     shortCode: 'HAT',
-    room: 'Phòng A00',
+    room: 'Phòng C222',
     groups: ['nhom5', 'nhom6'],
     groupBadge: 'Cả lớp (27 SV)',
     rosterKey: 'all',
-    periods: 'Theo lịch nhà A',
+    periods: 'Theo lịch nhà C',
     startDate: '2026-10-12',
     endDate: '2026-12-19',
     totalWeeks: null,
     durationText: 'Bắt đầu từ 12/10/2026',
     colorTheme: 'rose'
   },
-  // THỨ SÁU - CHIỀU
+  // THỨ SÁU - CHIỀU: TNRHM (Thuật ngữ A-V RHM) - Phòng D206
   {
     id: 'fri-chieu-tnrhm',
     dayOfWeek: 6,
     session: 'CHIỀU',
-    subject: 'TNRHM',
+    subject: 'TNRHM (Thuật ngữ A-V RHM)',
     shortCode: 'TNRHM',
-    room: 'Phòng A00',
+    room: 'Phòng D206',
     groups: ['nhom5', 'nhom6'],
     groupBadge: 'Cả lớp (27 SV)',
     rosterKey: 'all',
-    periods: 'Theo lịch nhà A',
+    periods: 'Theo lịch nhà D',
     startDate: '2026-10-12',
     endDate: '2026-12-19',
     totalWeeks: null,
     durationText: 'Bắt đầu từ 12/10/2026',
     colorTheme: 'indigo'
   },
-  // THỨ BẢY - SÁNG
+  // THỨ BẢY - SÁNG: TIN 1 (TINT) - Phòng D314
   {
     id: 'sat-sang-tint',
     dayOfWeek: 7,
     session: 'SÁNG',
-    subject: 'TINT (Tin học)',
+    subject: 'Tin 1 (TINT - Tin học)',
     shortCode: 'TINT',
-    room: 'Phòng A00',
+    room: 'Phòng D314',
     groups: ['nhom5', 'nhom6'],
     groupBadge: 'Cả lớp (27 SV)',
     rosterKey: 'all',
-    periods: 'Theo lịch nhà A',
+    periods: 'Theo lịch nhà D',
     startDate: '2026-10-12',
     endDate: '2026-12-19',
     totalWeeks: null,
     durationText: 'Bắt đầu từ 12/10/2026',
     colorTheme: 'cyan'
   },
-  // THỨ BẢY - CHIỀU
+  // THỨ BẢY - CHIỀU: Lý thuyết Hóa học - Phòng C208
   {
     id: 'sat-chieu-lthh',
     dayOfWeek: 7,
     session: 'CHIỀU',
     subject: 'Lý thuyết Hóa học',
     shortCode: 'LT Hóa học',
-    room: 'Giảng đường Khoa Răng Hàm Mặt',
+    room: 'Phòng C208',
     groups: ['nhom5', 'nhom6'],
     groupBadge: 'Chung N5–N8',
     rosterKey: null,
