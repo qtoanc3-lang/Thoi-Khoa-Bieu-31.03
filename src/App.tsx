@@ -902,7 +902,212 @@ export default function App() {
           )}
         </section>
 
-        {/* 1. COMPACT FILTER CONTROLS BAR (Placed right near the top for quick phone switching) */}
+        {/* 1. LỊCH HỌC NHANH: HÔM NAY & NGÀY MAI (Đưa lên đầu trang cho sinh viên dễ nhìn, dễ tra cứu tức thì) */}
+        <section
+          id="hom-nay"
+          className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xs border border-slate-200 dark:border-slate-800 p-3.5 sm:p-5 no-print"
+        >
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2.5 pb-3 mb-3.5 border-b border-slate-200 dark:border-slate-800">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <h2 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white">
+                  Lịch Học Nhanh: Hôm Nay &amp; Ngày Mai
+                </h2>
+              </div>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                Xem nhanh môn học, phòng học và ca sáng/chiều mà không cần cuộn trang
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              {/* Nút chọn nhanh Nhóm ngay tại khối Lịch Nhanh */}
+              <div className="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                {(
+                  [
+                    { key: 'all', label: 'Cả lớp' },
+                    { key: 'nhom5', label: 'Nhóm 5' },
+                    { key: 'nhom6', label: 'Nhóm 6' }
+                  ] as const
+                ).map((tab) => (
+                  <button
+                    key={tab.key}
+                    type="button"
+                    onClick={() => setGroupFilter(tab.key)}
+                    className={`min-h-[32px] px-2.5 py-1 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      groupFilter === tab.key
+                        ? 'bg-blue-600 text-white shadow-2xs'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Bộ chọn ngày tham chiếu */}
+              <div className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300 tabular-nums">
+                <input
+                  id="custom-date-picker"
+                  type="date"
+                  value={referenceDateStr}
+                  onChange={(e) => setReferenceDateStr(e.target.value)}
+                  className="min-h-[34px] px-2 py-1 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono text-xs"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setReferenceDateStr(todayISO);
+                    showToast('Đã đặt lại về hôm nay.', 'info');
+                  }}
+                  className="min-h-[34px] px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 font-bold text-blue-700 dark:text-blue-300 whitespace-nowrap shrink-0 cursor-pointer"
+                >
+                  Hôm nay
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            {/* Hôm nay */}
+            <div className="rounded-xl bg-gradient-to-br from-blue-50/90 via-blue-50/50 to-indigo-50/60 dark:from-blue-950/30 dark:to-slate-900 p-3 border border-blue-200 dark:border-blue-800/70">
+              <div className="flex items-center justify-between mb-2.5 pb-2 border-b border-blue-200/70 dark:border-blue-800/60">
+                <div className="flex items-center gap-1.5 tabular-nums">
+                  <span className="px-2 py-0.5 rounded bg-blue-600 text-white text-[10px] font-extrabold uppercase">
+                    Hôm nay
+                  </span>
+                  <span className="text-xs sm:text-sm font-extrabold text-blue-950 dark:text-blue-100">
+                    {todaySummary.dayInfo.label}, {formatDDMMYYYY(todaySummary.dateISO)}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyDaySchedule('today')}
+                  className="text-[11px] font-bold text-blue-700 dark:text-blue-300 hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  <Copy className="w-3 h-3" />
+                  <span>Copy</span>
+                </button>
+              </div>
+
+              {todaySummary.items.length === 0 ? (
+                <div className="py-3 px-2.5 rounded-lg bg-white/80 dark:bg-slate-900/70 text-center text-xs font-medium text-slate-500 dark:text-slate-400">
+                  🎉 Nghỉ cả ngày — Không có lịch học.
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {todaySummary.items.map((item) => {
+                    const st = evaluateItemStatusOnDate(item, todaySummary.dateISO);
+                    const accent = THEME_ACCENTS[item.colorTheme];
+                    return (
+                      <div
+                        key={item.id}
+                        onClick={() => openNoteModalForItem(item)}
+                        className={`p-2.5 rounded-xl bg-white dark:bg-slate-900 border ${accent.border} cursor-pointer flex items-center justify-between gap-2`}
+                      >
+                        <div>
+                          <div className="text-[11px] font-bold tabular-nums flex flex-wrap items-center gap-1">
+                            <span
+                              className={
+                                item.session === 'SÁNG'
+                                  ? 'text-amber-700 dark:text-amber-400'
+                                  : 'text-blue-700 dark:text-blue-400'
+                              }
+                            >
+                              {item.session}
+                            </span>
+                            <span>·</span>
+                            <span className={accent.groupText}>{item.groupBadge}</span>
+                            <span>·</span>
+                            <span className={`font-mono px-1.5 py-0.2 rounded text-[10px] ${accent.roomChip}`}>
+                              {item.room}
+                            </span>
+                          </div>
+                          <div className={`font-extrabold text-xs sm:text-sm mt-0.5 ${accent.title}`}>
+                            {item.subject}
+                          </div>
+                        </div>
+                        <div className={`text-[11px] font-bold tabular-nums shrink-0 ${st.textClass}`}>
+                          {st.label}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Ngày mai */}
+            <div className="rounded-xl bg-gradient-to-br from-teal-50/90 via-teal-50/50 to-emerald-50/60 dark:from-teal-950/30 dark:to-slate-900 p-3 border border-teal-200 dark:border-teal-800/70">
+              <div className="flex items-center justify-between mb-2.5 pb-2 border-b border-teal-200/70 dark:border-teal-800/60">
+                <div className="flex items-center gap-1.5 tabular-nums">
+                  <span className="px-2 py-0.5 rounded bg-teal-600 text-white text-[10px] font-extrabold uppercase">
+                    Ngày mai
+                  </span>
+                  <span className="text-xs sm:text-sm font-extrabold text-teal-950 dark:text-teal-100">
+                    {tomorrowSummary.dayInfo.label}, {formatDDMMYYYY(tomorrowSummary.dateISO)}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyDaySchedule('tomorrow')}
+                  className="text-[11px] font-bold text-teal-700 dark:text-teal-300 hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  <Copy className="w-3 h-3" />
+                  <span>Copy</span>
+                </button>
+              </div>
+
+              {tomorrowSummary.items.length === 0 ? (
+                <div className="py-3 px-2.5 rounded-lg bg-white/80 dark:bg-slate-900/70 text-center text-xs font-medium text-slate-500 dark:text-slate-400">
+                  🎉 Nghỉ cả ngày — Không có lịch học.
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {tomorrowSummary.items.map((item) => {
+                    const st = evaluateItemStatusOnDate(item, tomorrowSummary.dateISO);
+                    const accent = THEME_ACCENTS[item.colorTheme];
+                    return (
+                      <div
+                        key={item.id}
+                        onClick={() => openNoteModalForItem(item)}
+                        className={`p-2.5 rounded-xl bg-white dark:bg-slate-900 border ${accent.border} cursor-pointer flex items-center justify-between gap-2`}
+                      >
+                        <div>
+                          <div className="text-[11px] font-bold tabular-nums flex flex-wrap items-center gap-1">
+                            <span
+                              className={
+                                item.session === 'SÁNG'
+                                  ? 'text-amber-700 dark:text-amber-400'
+                                  : 'text-blue-700 dark:text-blue-400'
+                              }
+                            >
+                              {item.session}
+                            </span>
+                            <span>·</span>
+                            <span className={accent.groupText}>{item.groupBadge}</span>
+                            <span>·</span>
+                            <span className={`font-mono px-1.5 py-0.2 rounded text-[10px] ${accent.roomChip}`}>
+                              {item.room}
+                            </span>
+                          </div>
+                          <div className={`font-extrabold text-xs sm:text-sm mt-0.5 ${accent.title}`}>
+                            {item.subject}
+                          </div>
+                        </div>
+                        <div className={`text-[11px] font-bold tabular-nums shrink-0 ${st.textClass}`}>
+                          {st.label}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* 2. COMPACT FILTER CONTROLS BAR (Thời khóa biểu cả tuần) */}
         <section
           id="bang-lich"
           className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xs border border-slate-200 dark:border-slate-800 p-3 sm:p-4 no-print space-y-3"
@@ -1406,187 +1611,6 @@ export default function App() {
           </div>
         </section>
 
-        {/* 3. TODAY & TOMORROW SCHEDULE LOOKUP WIDGET (Compact for mobile) */}
-        <section
-          id="hom-nay"
-          className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xs border border-slate-200 dark:border-slate-800 p-3.5 sm:p-5 no-print"
-        >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-3.5 border-b border-slate-200 dark:border-slate-800">
-            <div>
-              <h2 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white">
-                Lịch Học Nhanh: Hôm Nay &amp; Ngày Mai
-              </h2>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                Nhóm đang chọn:{' '}
-                <strong className="font-bold text-blue-700 dark:text-teal-400">
-                  {groupFilter === 'all'
-                    ? 'Cả lớp RM31.03 (27 SV)'
-                    : groupFilter === 'nhom5'
-                    ? 'Nhóm 5 (14 SV)'
-                    : 'Nhóm 6 (13 SV)'}
-                </strong>
-              </p>
-            </div>
-
-            <div className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300 tabular-nums">
-              <input
-                id="custom-date-picker"
-                type="date"
-                value={referenceDateStr}
-                onChange={(e) => setReferenceDateStr(e.target.value)}
-                className="min-h-[36px] px-2 py-1 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono text-xs"
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  setReferenceDateStr(todayISO);
-                  showToast('Đã đặt lại về hôm nay.', 'info');
-                }}
-                className="min-h-[36px] px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 font-bold text-blue-700 dark:text-blue-300 whitespace-nowrap shrink-0 cursor-pointer"
-              >
-                Hôm nay
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-            {/* Hôm nay */}
-            <div className="rounded-xl bg-gradient-to-br from-blue-50/90 via-blue-50/50 to-indigo-50/60 dark:from-blue-950/30 dark:to-slate-900 p-3 border border-blue-200 dark:border-blue-800/70">
-              <div className="flex items-center justify-between mb-2.5 pb-2 border-b border-blue-200/70 dark:border-blue-800/60">
-                <div className="flex items-center gap-1.5 tabular-nums">
-                  <span className="px-2 py-0.5 rounded bg-blue-600 text-white text-[10px] font-extrabold uppercase">
-                    Hôm nay
-                  </span>
-                  <span className="text-xs sm:text-sm font-extrabold text-blue-950 dark:text-blue-100">
-                    {todaySummary.dayInfo.label}, {formatDDMMYYYY(todaySummary.dateISO)}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => copyDaySchedule('today')}
-                  className="text-[11px] font-bold text-blue-700 dark:text-blue-300 hover:underline flex items-center gap-1 cursor-pointer"
-                >
-                  <Copy className="w-3 h-3" />
-                  <span>Copy</span>
-                </button>
-              </div>
-
-              {todaySummary.items.length === 0 ? (
-                <div className="py-3 px-2.5 rounded-lg bg-white/80 dark:bg-slate-900/70 text-center text-xs font-medium text-slate-500 dark:text-slate-400">
-                  🎉 Nghỉ cả ngày — Không có lịch học.
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  {todaySummary.items.map((item) => {
-                    const st = evaluateItemStatusOnDate(item, todaySummary.dateISO);
-                    const accent = THEME_ACCENTS[item.colorTheme];
-                    return (
-                      <div
-                        key={item.id}
-                        onClick={() => openNoteModalForItem(item)}
-                        className={`p-2.5 rounded-xl bg-white dark:bg-slate-900 border ${accent.border} cursor-pointer flex items-center justify-between gap-2`}
-                      >
-                        <div>
-                          <div className="text-[11px] font-bold tabular-nums flex flex-wrap items-center gap-1">
-                            <span
-                              className={
-                                item.session === 'SÁNG'
-                                  ? 'text-amber-700 dark:text-amber-400'
-                                  : 'text-blue-700 dark:text-blue-400'
-                              }
-                            >
-                              {item.session}
-                            </span>
-                            <span>·</span>
-                            <span className={accent.groupText}>{item.groupBadge}</span>
-                            <span>·</span>
-                            <span className={`font-mono px-1.5 py-0.2 rounded text-[10px] ${accent.roomChip}`}>
-                              {item.room}
-                            </span>
-                          </div>
-                          <div className={`font-extrabold text-xs sm:text-sm mt-0.5 ${accent.title}`}>
-                            {item.subject}
-                          </div>
-                        </div>
-                        <div className={`text-[11px] font-bold tabular-nums shrink-0 ${st.textClass}`}>
-                          {st.label}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            {/* Ngày mai */}
-            <div className="rounded-xl bg-gradient-to-br from-teal-50/90 via-teal-50/50 to-emerald-50/60 dark:from-teal-950/30 dark:to-slate-900 p-3 border border-teal-200 dark:border-teal-800/70">
-              <div className="flex items-center justify-between mb-2.5 pb-2 border-b border-teal-200/70 dark:border-teal-800/60">
-                <div className="flex items-center gap-1.5 tabular-nums">
-                  <span className="px-2 py-0.5 rounded bg-teal-600 text-white text-[10px] font-extrabold uppercase">
-                    Ngày mai
-                  </span>
-                  <span className="text-xs sm:text-sm font-extrabold text-teal-950 dark:text-teal-100">
-                    {tomorrowSummary.dayInfo.label}, {formatDDMMYYYY(tomorrowSummary.dateISO)}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => copyDaySchedule('tomorrow')}
-                  className="text-[11px] font-bold text-teal-700 dark:text-teal-300 hover:underline flex items-center gap-1 cursor-pointer"
-                >
-                  <Copy className="w-3 h-3" />
-                  <span>Copy</span>
-                </button>
-              </div>
-
-              {tomorrowSummary.items.length === 0 ? (
-                <div className="py-3 px-2.5 rounded-lg bg-white/80 dark:bg-slate-900/70 text-center text-xs font-medium text-slate-500 dark:text-slate-400">
-                  🎉 Nghỉ cả ngày — Không có lịch học.
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  {tomorrowSummary.items.map((item) => {
-                    const st = evaluateItemStatusOnDate(item, tomorrowSummary.dateISO);
-                    const accent = THEME_ACCENTS[item.colorTheme];
-                    return (
-                      <div
-                        key={item.id}
-                        onClick={() => openNoteModalForItem(item)}
-                        className={`p-2.5 rounded-xl bg-white dark:bg-slate-900 border ${accent.border} cursor-pointer flex items-center justify-between gap-2`}
-                      >
-                        <div>
-                          <div className="text-[11px] font-bold tabular-nums flex flex-wrap items-center gap-1">
-                            <span
-                              className={
-                                item.session === 'SÁNG'
-                                  ? 'text-amber-700 dark:text-amber-400'
-                                  : 'text-blue-700 dark:text-blue-400'
-                              }
-                            >
-                              {item.session}
-                            </span>
-                            <span>·</span>
-                            <span className={accent.groupText}>{item.groupBadge}</span>
-                            <span>·</span>
-                            <span className={`font-mono px-1.5 py-0.2 rounded text-[10px] ${accent.roomChip}`}>
-                              {item.room}
-                            </span>
-                          </div>
-                          <div className={`font-extrabold text-xs sm:text-sm mt-0.5 ${accent.title}`}>
-                            {item.subject}
-                          </div>
-                        </div>
-                        <div className={`text-[11px] font-bold tabular-nums shrink-0 ${st.textClass}`}>
-                          {st.label}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
 
         {/* 4. COMPACT COURSE REGULATIONS & PERSONAL NOTES */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 sm:gap-5 no-print">
