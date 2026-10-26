@@ -5,23 +5,31 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import {
+  BookOpen,
   Calendar,
+  Check,
   ChevronLeft,
   ChevronRight,
+  Clock,
   Copy,
   Download,
   FileText,
+  FlaskConical,
+  Laptop,
+  Languages,
   LayoutGrid,
+  MapPin,
   Moon,
   Printer,
   Search,
+  Stethoscope,
   Sun,
+  Sunset,
   Table as TableIcon,
   Trash2,
   UserCheck,
   Users,
-  X,
-  Check
+  X
 } from 'lucide-react';
 import {
   STUDENTS_DATA,
@@ -52,53 +60,103 @@ const THEME_ACCENTS: Record<
   {
     surface: string;
     border: string;
+    hoverBorder: string;
     title: string;
-    roomText: string;
+    roomChip: string;
+    groupText: string;
+    dotColor: string;
+    label: string;
   }
 > = {
   blue: {
-    surface: 'bg-blue-50/70 dark:bg-blue-950/35',
-    border: 'border-blue-200/90 dark:border-blue-800/80',
-    title: 'text-blue-950 dark:text-blue-200',
-    roomText: 'text-blue-700 dark:text-blue-300'
+    surface: 'bg-blue-50/95 dark:bg-blue-950/45',
+    border: 'border-blue-300 dark:border-blue-800',
+    hoverBorder: 'hover:border-blue-500 dark:hover:border-blue-500',
+    title: 'text-blue-950 dark:text-blue-100',
+    roomChip: 'bg-blue-600 text-white',
+    groupText: 'text-blue-800 dark:text-blue-300',
+    dotColor: 'bg-blue-600',
+    label: 'LT Giải phẫu'
   },
   amber: {
-    surface: 'bg-amber-50/80 dark:bg-amber-950/35',
-    border: 'border-amber-200/90 dark:border-amber-800/80',
-    title: 'text-amber-950 dark:text-amber-200',
-    roomText: 'text-amber-800 dark:text-amber-300'
+    surface: 'bg-amber-50/95 dark:bg-amber-950/45',
+    border: 'border-amber-300 dark:border-amber-800',
+    hoverBorder: 'hover:border-amber-500 dark:hover:border-amber-500',
+    title: 'text-amber-950 dark:text-amber-100',
+    roomChip: 'bg-amber-600 text-white',
+    groupText: 'text-amber-900 dark:text-amber-300',
+    dotColor: 'bg-amber-500',
+    label: 'TH Giải phẫu (C402)'
   },
   purple: {
-    surface: 'bg-purple-50/75 dark:bg-purple-950/35',
-    border: 'border-purple-200/90 dark:border-purple-800/80',
-    title: 'text-purple-950 dark:text-purple-200',
-    roomText: 'text-purple-800 dark:text-purple-300'
+    surface: 'bg-purple-50/95 dark:bg-purple-950/45',
+    border: 'border-purple-300 dark:border-purple-800',
+    hoverBorder: 'hover:border-purple-500 dark:hover:border-purple-500',
+    title: 'text-purple-950 dark:text-purple-100',
+    roomChip: 'bg-purple-600 text-white',
+    groupText: 'text-purple-900 dark:text-purple-300',
+    dotColor: 'bg-purple-600',
+    label: 'TH Hóa học (C606)'
   },
   emerald: {
-    surface: 'bg-emerald-50/75 dark:bg-emerald-950/35',
-    border: 'border-emerald-200/90 dark:border-emerald-800/80',
-    title: 'text-emerald-950 dark:text-emerald-200',
-    roomText: 'text-emerald-800 dark:text-emerald-300'
+    surface: 'bg-emerald-50/95 dark:bg-emerald-950/45',
+    border: 'border-emerald-300 dark:border-emerald-800',
+    hoverBorder: 'hover:border-emerald-500 dark:hover:border-emerald-500',
+    title: 'text-emerald-950 dark:text-emerald-100',
+    roomChip: 'bg-emerald-600 text-white',
+    groupText: 'text-emerald-900 dark:text-emerald-300',
+    dotColor: 'bg-emerald-600',
+    label: 'LT Hóa học'
   },
   indigo: {
-    surface: 'bg-indigo-50/75 dark:bg-indigo-950/35',
-    border: 'border-indigo-200/90 dark:border-indigo-800/80',
-    title: 'text-indigo-950 dark:text-indigo-200',
-    roomText: 'text-indigo-800 dark:text-indigo-300'
+    surface: 'bg-indigo-50/95 dark:bg-indigo-950/45',
+    border: 'border-indigo-300 dark:border-indigo-800',
+    hoverBorder: 'hover:border-indigo-500 dark:hover:border-indigo-500',
+    title: 'text-indigo-950 dark:text-indigo-100',
+    roomChip: 'bg-indigo-600 text-white',
+    groupText: 'text-indigo-900 dark:text-indigo-300',
+    dotColor: 'bg-indigo-600',
+    label: 'TNRHM (A00)'
   },
   rose: {
-    surface: 'bg-rose-50/75 dark:bg-rose-950/35',
-    border: 'border-rose-200/90 dark:border-rose-800/80',
-    title: 'text-rose-950 dark:text-rose-200',
-    roomText: 'text-rose-800 dark:text-rose-300'
+    surface: 'bg-rose-50/95 dark:bg-rose-950/45',
+    border: 'border-rose-300 dark:border-rose-800',
+    hoverBorder: 'hover:border-rose-500 dark:hover:border-rose-500',
+    title: 'text-rose-950 dark:text-rose-100',
+    roomChip: 'bg-rose-600 text-white',
+    groupText: 'text-rose-900 dark:text-rose-300',
+    dotColor: 'bg-rose-600',
+    label: 'HAT - Ngoại ngữ (A00)'
   },
   cyan: {
-    surface: 'bg-cyan-50/75 dark:bg-cyan-950/35',
-    border: 'border-cyan-200/90 dark:border-cyan-800/80',
-    title: 'text-cyan-950 dark:text-cyan-200',
-    roomText: 'text-cyan-800 dark:text-cyan-300'
+    surface: 'bg-cyan-50/95 dark:bg-cyan-950/45',
+    border: 'border-cyan-300 dark:border-cyan-800',
+    hoverBorder: 'hover:border-cyan-500 dark:hover:border-cyan-500',
+    title: 'text-cyan-950 dark:text-cyan-100',
+    roomChip: 'bg-cyan-600 text-white',
+    groupText: 'text-cyan-900 dark:text-cyan-300',
+    dotColor: 'bg-cyan-600',
+    label: 'TINT - Tin học (A00)'
   }
 };
+
+function renderSubjectIcon(colorTheme: ScheduleItem['colorTheme']) {
+  switch (colorTheme) {
+    case 'blue':
+      return <BookOpen className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />;
+    case 'amber':
+      return <Stethoscope className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />;
+    case 'purple':
+    case 'emerald':
+      return <FlaskConical className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />;
+    case 'rose':
+      return <Languages className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" />;
+    case 'cyan':
+      return <Laptop className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />;
+    default:
+      return <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />;
+  }
+}
 
 export default function App() {
   // 1. State initialization with localStorage persistence
@@ -498,17 +556,17 @@ export default function App() {
       return null;
     }
 
-    const inactiveStyle = statusInfo && !statusInfo.active ? 'opacity-50 grayscale-[30%]' : '';
+    const inactiveStyle = statusInfo && !statusInfo.active ? 'opacity-55 grayscale-[25%]' : '';
     const strikeStyle = statusInfo && statusInfo.status === 'ended' ? 'line-through' : '';
 
     return (
       <div
         key={item.id}
         onClick={() => openNoteModalForItem(item)}
-        className={`group rounded-xl p-3 border ${accent.surface} ${accent.border} ${inactiveStyle} hover:border-slate-400 dark:hover:border-slate-600 transition-colors cursor-pointer text-left`}
+        className={`group rounded-xl p-3 border ${accent.surface} ${accent.border} ${accent.hoverBorder} ${inactiveStyle} hover:shadow-sm transition-all cursor-pointer text-left`}
       >
-        {/* Top Kicker: Group link + Room */}
-        <div className="flex items-center justify-between gap-2 text-xs mb-1">
+        {/* Top Row: Clickable Group Roster Link + Highlighted Room Tag */}
+        <div className="flex items-center justify-between gap-2 text-xs mb-2">
           {item.rosterKey ? (
             <button
               type="button"
@@ -517,47 +575,58 @@ export default function App() {
                 openStudentModal(item.rosterKey!);
               }}
               title={`Xem danh sách sinh viên ${item.groupBadge}`}
-              className="font-semibold text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2 whitespace-nowrap shrink-0"
+              className={`font-bold ${accent.groupText} hover:underline underline-offset-2 flex items-center gap-1 whitespace-nowrap shrink-0 cursor-pointer`}
             >
-              {item.groupBadge}
+              <Users className="w-3.5 h-3.5 opacity-80" />
+              <span>{item.groupBadge}</span>
             </button>
           ) : (
-            <span className="font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap shrink-0">
+            <span className={`font-bold ${accent.groupText} whitespace-nowrap shrink-0`}>
               {item.groupBadge}
             </span>
           )}
-          <span className={`font-mono font-bold text-xs tabular-nums whitespace-nowrap shrink-0 ${accent.roomText}`}>
+          <span
+            className={`font-mono font-bold text-[11px] px-2 py-0.5 rounded-md shadow-2xs tabular-nums whitespace-nowrap shrink-0 ${accent.roomChip}`}
+          >
             {item.room}
           </span>
         </div>
 
-        {/* Course Title */}
-        <div className={`font-bold text-sm ${accent.title} ${strikeStyle}`}>
-          {item.subject}
+        {/* Course Subject Title */}
+        <div className={`font-extrabold text-sm ${accent.title} ${strikeStyle} flex items-center gap-1.5`}>
+          {renderSubjectIcon(item.colorTheme)}
+          <span>{item.subject}</span>
         </div>
 
-        {/* Metadata line with clean typographic separators */}
-        <div className="mt-1.5 text-[11px] text-slate-600 dark:text-slate-400 tabular-nums leading-relaxed">
-          <span>{item.periods}</span>
-          <span className="mx-1.5" aria-hidden="true">·</span>
-          <span>{item.durationText}</span>
+        {/* Metadata line */}
+        <div className="mt-2 text-[11px] text-slate-700 dark:text-slate-300 tabular-nums space-y-0.5">
+          <div className="flex items-center gap-1.5">
+            <Clock className="w-3 h-3 opacity-70 shrink-0" />
+            <span>{item.periods}</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Calendar className="w-3 h-3 opacity-70 shrink-0" />
+            <span>{item.durationText}</span>
+          </div>
         </div>
 
         {/* Week-specific status line */}
         {statusInfo && (
-          <div className={`mt-1.5 pt-1.5 border-t border-slate-200/60 dark:border-slate-800/80 text-[11px] font-semibold tabular-nums ${statusInfo.textClass}`}>
+          <div
+            className={`mt-2 pt-1.5 border-t border-black/10 dark:border-white/10 text-[11px] font-bold tabular-nums ${statusInfo.textClass}`}
+          >
             {statusInfo.label}
           </div>
         )}
 
         {/* User note if present */}
         {userNote ? (
-          <div className="mt-2 pt-1.5 border-t border-amber-300/70 dark:border-amber-800/70 text-[11px] text-amber-900 dark:text-amber-200 font-medium break-words">
-            Ghi chú: {userNote}
+          <div className="mt-2 p-2 rounded-lg bg-yellow-100/95 dark:bg-yellow-900/50 border border-yellow-300 dark:border-yellow-700 text-[11px] text-yellow-950 dark:text-yellow-100 font-semibold break-words">
+            📌 {userNote}
           </div>
         ) : (
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity mt-1.5 text-[11px] text-slate-500 dark:text-slate-400 no-print">
-            Nhấn để thêm ghi chú
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity mt-1.5 text-[11px] font-medium text-slate-500 dark:text-slate-400 no-print">
+            + Nhấn để ghi chú
           </div>
         )}
       </div>
@@ -568,16 +637,16 @@ export default function App() {
   const noteKeys = Object.keys(notes);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="min-h-screen flex flex-col bg-slate-100/70 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       {/* Toast Notification Stack */}
       <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none no-print">
         {toasts.map((t) => (
           <div
             key={t.id}
-            className={`pointer-events-auto px-4 py-2.5 rounded-xl shadow-md border text-xs sm:text-sm font-medium flex items-center gap-2 transition-all ${
+            className={`pointer-events-auto px-4 py-2.5 rounded-xl shadow-lg border text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all ${
               t.type === 'success'
-                ? 'bg-emerald-700 text-white border-emerald-600'
-                : 'bg-slate-900 dark:bg-slate-800 text-white border-slate-700'
+                ? 'bg-emerald-600 text-white border-emerald-500'
+                : 'bg-blue-900 dark:bg-slate-800 text-white border-blue-700'
             }`}
           >
             <span>{t.message}</span>
@@ -586,46 +655,46 @@ export default function App() {
       </div>
 
       {/* TOP BAR CONTRACT: Strictly 3 zones separated by gap-8 */}
-      <header className="sticky top-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 no-print">
+      <header className="sticky top-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-2xs no-print">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-8">
           {/* Zone 1: Single text element wordmark */}
           <a
             href="#top"
-            className="text-base sm:text-lg font-extrabold tracking-tight text-slate-900 dark:text-white whitespace-nowrap shrink-0"
+            className="text-base sm:text-lg font-extrabold tracking-tight text-blue-900 dark:text-teal-300 whitespace-nowrap shrink-0"
           >
             RM31.03 · Khoa Y HUBT
           </a>
 
           {/* Zone 2: 4–5 clean single-line text navigation links */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
+          <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
             <a
               href="#hom-nay"
-              className="hover:text-slate-900 dark:hover:text-white hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
+              className="hover:text-blue-700 dark:hover:text-teal-400 hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
             >
               Hôm Nay
             </a>
             <a
               href="#bang-lich"
-              className="hover:text-slate-900 dark:hover:text-white hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
+              className="hover:text-blue-700 dark:hover:text-teal-400 hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
             >
               Thời Khóa Biểu
             </a>
             <button
               type="button"
               onClick={() => openStudentModal('all')}
-              className="hover:text-slate-900 dark:hover:text-white hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              className="hover:text-blue-700 dark:hover:text-teal-400 hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
             >
               Danh Sách Lớp
             </button>
             <a
               href="#quy-dinh"
-              className="hover:text-slate-900 dark:hover:text-white hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
+              className="hover:text-blue-700 dark:hover:text-teal-400 hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
             >
               Học Phần
             </a>
             <a
               href="#ghi-chu"
-              className="hover:text-slate-900 dark:hover:text-white hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
+              className="hover:text-blue-700 dark:hover:text-teal-400 hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
             >
               Ghi Chú
             </a>
@@ -639,7 +708,7 @@ export default function App() {
                 setIcsGroupSelect(groupFilter);
                 setExportModalOpen(true);
               }}
-              className="px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-teal-700 hover:bg-teal-800 dark:bg-teal-600 dark:hover:bg-teal-500 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              className="px-4 py-2 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-blue-700 to-teal-600 hover:from-blue-800 hover:to-teal-700 rounded-lg shadow-xs transition-all whitespace-nowrap shrink-0 cursor-pointer"
             >
               Xuất Lịch .ICS
             </button>
@@ -649,26 +718,26 @@ export default function App() {
 
       {/* MAIN WORKSPACE CONTAINER */}
       <main id="top" className="flex-grow max-w-[1360px] w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 space-y-6">
-        {/* HERO / WORKSPACE HEADER & UTILITY BAR */}
-        <section className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 no-print">
+        {/* COLORFUL MEDICAL HERO BANNER & UTILITY BAR */}
+        <section className="bg-gradient-to-r from-blue-900 via-blue-800 to-teal-700 dark:from-slate-900 dark:via-blue-950 dark:to-teal-950 text-white rounded-2xl shadow-md border border-blue-700/40 p-5 sm:p-6 no-print">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div className="space-y-1.5">
-              <div className="text-xs font-medium text-slate-500 dark:text-slate-400 tabular-nums">
+              <div className="text-xs font-semibold text-teal-200 tabular-nums">
                 <span>Khoa Y / Răng Hàm Mặt · Đại học Kinh doanh và Công nghệ Hà Nội</span>
                 <span className="mx-2" aria-hidden="true">·</span>
                 <span>Học kỳ I (2026–2027)</span>
                 <span className="mx-2" aria-hidden="true">·</span>
-                <span className="font-semibold text-teal-700 dark:text-teal-400">{liveDateLabel}</span>
+                <span className="text-amber-300 font-bold">{liveDateLabel}</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
                 Thời Khóa Biểu Lớp RM31.03
               </h1>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
+              <p className="text-sm text-blue-100">
                 Ngành Răng – Hàm – Mặt (Khóa 31) · Phân nhóm thực hành:{' '}
                 <button
                   type="button"
                   onClick={() => openStudentModal('nhom5')}
-                  className="font-semibold text-slate-900 dark:text-white underline decoration-teal-600/60 underline-offset-4 hover:text-teal-700 dark:hover:text-teal-400 cursor-pointer"
+                  className="font-bold text-amber-300 underline decoration-amber-300/70 underline-offset-4 hover:text-white cursor-pointer"
                 >
                   Nhóm 5 (14 SV)
                 </button>{' '}
@@ -676,7 +745,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => openStudentModal('nhom6')}
-                  className="font-semibold text-slate-900 dark:text-white underline decoration-teal-600/60 underline-offset-4 hover:text-teal-700 dark:hover:text-teal-400 cursor-pointer"
+                  className="font-bold text-teal-200 underline decoration-teal-200/70 underline-offset-4 hover:text-white cursor-pointer"
                 >
                   Nhóm 6 (13 SV)
                 </button>
@@ -688,9 +757,9 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => openStudentModal('all')}
-                className="px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                className="px-3.5 py-2 rounded-xl bg-teal-500/30 hover:bg-teal-500/45 border border-teal-300/40 text-xs sm:text-sm font-bold text-white flex items-center gap-2 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
-                <Users className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                <Users className="w-4 h-4 text-teal-200" />
                 <span>Danh sách 27 SV</span>
               </button>
 
@@ -719,18 +788,18 @@ export default function App() {
                   showToast('Repo đã tích hợp sẵn bộ chạy trực tiếp cho GitHub Pages!', 'info');
                 }}
                 title="Tải file index.html độc lập để tải trực tiếp lên GitHub Pages"
-                className="px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                className="px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 text-xs sm:text-sm font-semibold text-white flex items-center gap-2 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
-                <Download className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                <Download className="w-4 h-4 text-amber-300" />
                 <span>Tải index.html (GitHub)</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                className="px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 text-xs sm:text-sm font-semibold text-white flex items-center gap-2 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
-                <Printer className="w-4 h-4 text-slate-600 dark:text-slate-300" />
+                <Printer className="w-4 h-4 text-blue-200" />
                 <span>In chuẩn A4</span>
               </button>
 
@@ -738,17 +807,17 @@ export default function App() {
                 type="button"
                 onClick={() => setIsDark((prev) => !prev)}
                 aria-label="Đổi giao diện Sáng / Tối"
-                className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-1.5 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                className="px-3 py-2 rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 text-xs sm:text-sm font-semibold text-white flex items-center gap-1.5 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
                 {isDark ? (
                   <>
-                    <Sun className="w-4 h-4 text-amber-400" />
-                    <span>Giao diện Sáng</span>
+                    <Sun className="w-4 h-4 text-amber-300" />
+                    <span>Sáng</span>
                   </>
                 ) : (
                   <>
-                    <Moon className="w-4 h-4 text-slate-600" />
-                    <span>Giao diện Tối</span>
+                    <Moon className="w-4 h-4 text-blue-100" />
+                    <span>Tối</span>
                   </>
                 )}
               </button>
@@ -757,26 +826,26 @@ export default function App() {
 
           {/* PERSONALIZED STUDENT BAR (Shown when student selects their profile) */}
           {myStudent && (
-            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="mt-4 pt-4 border-t border-white/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-start sm:items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-teal-600/10 dark:bg-teal-400/10 border border-teal-600/20 flex items-center justify-center text-teal-700 dark:text-teal-300 shrink-0">
+                <div className="w-9 h-9 rounded-xl bg-amber-400/25 border border-amber-300/40 flex items-center justify-center text-amber-200 shrink-0">
                   <UserCheck className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-xs sm:text-sm text-slate-800 dark:text-slate-100 tabular-nums">
-                    <span className="font-medium text-slate-500 dark:text-slate-400">Lịch cá nhân: </span>
-                    <strong className="font-bold">
+                  <div className="text-xs sm:text-sm text-white tabular-nums">
+                    <span className="font-medium text-teal-200">Chế độ cá nhân: </span>
+                    <strong className="font-extrabold text-amber-300">
                       {myStudent.lastName} {myStudent.firstName}
                     </strong>
                     <span className="mx-1.5" aria-hidden="true">·</span>
-                    <span className="font-mono text-xs">MSV {myStudent.id}</span>
+                    <span className="font-mono text-xs text-blue-100">MSV {myStudent.id}</span>
                     <span className="mx-1.5" aria-hidden="true">·</span>
-                    <span className="font-semibold text-teal-700 dark:text-teal-400">{myStudent.groupLabel}</span>
+                    <span className="font-bold text-teal-200">{myStudent.groupLabel}</span>
                   </div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  <p className="text-xs text-blue-100 mt-0.5">
                     {myStudent.group === 'nhom5'
-                      ? 'Thực hành của bạn: TH Hóa học Chiều Thứ Tư (P. C606) · TH Giải phẫu Sáng Thứ Năm (P. C402)'
-                      : 'Thực hành của bạn: TH Hóa học Chiều Thứ Ba (P. C606) · TH Giải phẫu Chiều Thứ Tư (P. C402)'}
+                      ? 'Lịch thực hành của bạn: TH Hóa học Chiều Thứ Tư (P. C606) · TH Giải phẫu Sáng Thứ Năm (P. C402)'
+                      : 'Lịch thực hành của bạn: TH Hóa học Chiều Thứ Ba (P. C606) · TH Giải phẫu Chiều Thứ Tư (P. C402)'}
                   </p>
                 </div>
               </div>
@@ -784,14 +853,14 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => openStudentModal('all')}
-                  className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-xs font-semibold text-white transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   Đổi sinh viên
                 </button>
                 <button
                   type="button"
                   onClick={clearPersonalStudent}
-                  className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs font-semibold text-rose-600 dark:text-rose-400 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                  className="px-2.5 py-1.5 rounded-lg bg-rose-500/30 hover:bg-rose-500/50 border border-rose-300/30 text-xs font-semibold text-white transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   Thoát
                 </button>
@@ -803,16 +872,16 @@ export default function App() {
         {/* 1. TODAY & TOMORROW SCHEDULE LOOKUP WIDGET */}
         <section
           id="hom-nay"
-          className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 no-print"
+          className="bg-white dark:bg-slate-900 rounded-2xl shadow-xs border border-slate-200 dark:border-slate-800 p-5 sm:p-6 no-print"
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-5 border-b border-slate-200 dark:border-slate-800">
             <div>
-              <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-                Tra Cứu Lịch Học Nhanh: Hôm Nay &amp; Ngày Mai
+              <h2 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
+                Lịch Học Nhanh: Hôm Nay &amp; Ngày Mai
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Đang lọc theo:{' '}
-                <strong className="font-semibold text-slate-700 dark:text-slate-200">
+                Đang hiển thị lịch của:{' '}
+                <strong className="font-bold text-blue-700 dark:text-teal-400">
                   {groupFilter === 'all'
                     ? 'Cả lớp RM31.03 (27 SV)'
                     : groupFilter === 'nhom5'
@@ -823,15 +892,15 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 tabular-nums">
-              <label htmlFor="custom-date-picker" className="whitespace-nowrap shrink-0">
-                Ngày tra cứu:
+              <label htmlFor="custom-date-picker" className="font-semibold whitespace-nowrap shrink-0">
+                Chọn ngày:
               </label>
               <input
                 id="custom-date-picker"
                 type="date"
                 value={referenceDateStr}
                 onChange={(e) => setReferenceDateStr(e.target.value)}
-                className="px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono text-xs focus:outline-none focus:ring-2 focus:ring-teal-600"
+                className="px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono text-xs focus:outline-none focus:ring-2 focus:ring-blue-600"
               />
               <button
                 type="button"
@@ -839,7 +908,7 @@ export default function App() {
                   setReferenceDateStr(todayISO);
                   showToast('Đã đặt lại ngày tra cứu về hôm nay.', 'info');
                 }}
-                className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold text-teal-700 dark:text-teal-400 whitespace-nowrap shrink-0 cursor-pointer"
+                className="px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 font-bold text-blue-700 dark:text-blue-300 whitespace-nowrap shrink-0 cursor-pointer"
               >
                 Hôm nay
               </button>
@@ -847,20 +916,21 @@ export default function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {/* Hôm nay */}
-            <div className="rounded-xl bg-slate-50/80 dark:bg-slate-800/40 p-4 border border-slate-200 dark:border-slate-800">
-              <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200/80 dark:border-slate-700/80">
-                <div className="text-sm font-bold text-slate-900 dark:text-white tabular-nums">
-                  <span className="text-teal-700 dark:text-teal-400">Hôm nay</span>
-                  <span className="mx-1.5" aria-hidden="true">·</span>
-                  <span>
+            {/* Hôm nay - Tông Xanh Dương nổi bật */}
+            <div className="rounded-xl bg-gradient-to-br from-blue-50/90 via-blue-50/50 to-indigo-50/60 dark:from-blue-950/30 dark:to-slate-900 p-4 border border-blue-200 dark:border-blue-800/70">
+              <div className="flex items-center justify-between mb-3 pb-2.5 border-b border-blue-200/70 dark:border-blue-800/60">
+                <div className="flex items-center gap-2 tabular-nums">
+                  <span className="px-2.5 py-1 rounded-md bg-blue-600 text-white text-xs font-extrabold uppercase tracking-wider">
+                    Hôm nay
+                  </span>
+                  <span className="text-sm font-extrabold text-blue-950 dark:text-blue-100">
                     {todaySummary.dayInfo.label}, {formatDDMMYYYY(todaySummary.dateISO)}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => copyDaySchedule('today')}
-                  className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-400 flex items-center gap-1 whitespace-nowrap shrink-0 cursor-pointer"
+                  className="text-xs font-bold text-blue-700 dark:text-blue-300 hover:underline flex items-center gap-1 whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   <Copy className="w-3.5 h-3.5" />
                   <span>Sao chép</span>
@@ -868,32 +938,43 @@ export default function App() {
               </div>
 
               {todaySummary.items.length === 0 ? (
-                <div className="py-5 text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-                  Nghỉ cả ngày — Không có lịch học cố định.
+                <div className="py-5 px-3 rounded-lg bg-white/80 dark:bg-slate-900/70 text-center text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400">
+                  🎉 Nghỉ cả ngày — Không có lịch học cố định.
                 </div>
               ) : (
                 <div className="space-y-2.5">
                   {todaySummary.items.map((item) => {
                     const st = evaluateItemStatusOnDate(item, todaySummary.dateISO);
+                    const accent = THEME_ACCENTS[item.colorTheme];
                     return (
                       <div
                         key={item.id}
                         onClick={() => openNoteModalForItem(item)}
-                        className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 transition-colors cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+                        className={`p-3 rounded-xl bg-white dark:bg-slate-900 border ${accent.border} hover:shadow-xs transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-2`}
                       >
                         <div>
-                          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 tabular-nums">
-                            <span>Buổi {item.session}</span>
-                            <span className="mx-1.5" aria-hidden="true">·</span>
-                            <span>{item.groupBadge}</span>
-                            <span className="mx-1.5" aria-hidden="true">·</span>
-                            <span className="font-mono text-slate-800 dark:text-slate-200">{item.room}</span>
+                          <div className="text-xs font-bold tabular-nums flex flex-wrap items-center gap-1.5">
+                            <span
+                              className={
+                                item.session === 'SÁNG'
+                                  ? 'text-amber-700 dark:text-amber-400'
+                                  : 'text-blue-700 dark:text-blue-400'
+                              }
+                            >
+                              Buổi {item.session}
+                            </span>
+                            <span aria-hidden="true">·</span>
+                            <span className={accent.groupText}>{item.groupBadge}</span>
+                            <span aria-hidden="true">·</span>
+                            <span className={`font-mono px-1.5 py-0.5 rounded text-[11px] ${accent.roomChip}`}>
+                              {item.room}
+                            </span>
                           </div>
-                          <div className="font-bold text-sm text-slate-900 dark:text-white mt-0.5">
+                          <div className={`font-extrabold text-sm mt-1 ${accent.title}`}>
                             {item.subject}
                           </div>
                         </div>
-                        <div className={`text-xs font-semibold tabular-nums shrink-0 ${st.textClass}`}>
+                        <div className={`text-xs font-bold tabular-nums shrink-0 ${st.textClass}`}>
                           {st.label}
                         </div>
                       </div>
@@ -903,20 +984,21 @@ export default function App() {
               )}
             </div>
 
-            {/* Ngày mai */}
-            <div className="rounded-xl bg-slate-50/80 dark:bg-slate-800/40 p-4 border border-slate-200 dark:border-slate-800">
-              <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200/80 dark:border-slate-700/80">
-                <div className="text-sm font-bold text-slate-900 dark:text-white tabular-nums">
-                  <span className="text-blue-700 dark:text-blue-400">Ngày mai</span>
-                  <span className="mx-1.5" aria-hidden="true">·</span>
-                  <span>
+            {/* Ngày mai - Tông Xanh Ngọc (Teal/Emerald) tươi mát */}
+            <div className="rounded-xl bg-gradient-to-br from-teal-50/90 via-teal-50/50 to-emerald-50/60 dark:from-teal-950/30 dark:to-slate-900 p-4 border border-teal-200 dark:border-teal-800/70">
+              <div className="flex items-center justify-between mb-3 pb-2.5 border-b border-teal-200/70 dark:border-teal-800/60">
+                <div className="flex items-center gap-2 tabular-nums">
+                  <span className="px-2.5 py-1 rounded-md bg-teal-600 text-white text-xs font-extrabold uppercase tracking-wider">
+                    Ngày mai
+                  </span>
+                  <span className="text-sm font-extrabold text-teal-950 dark:text-teal-100">
                     {tomorrowSummary.dayInfo.label}, {formatDDMMYYYY(tomorrowSummary.dateISO)}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => copyDaySchedule('tomorrow')}
-                  className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 flex items-center gap-1 whitespace-nowrap shrink-0 cursor-pointer"
+                  className="text-xs font-bold text-teal-700 dark:text-teal-300 hover:underline flex items-center gap-1 whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   <Copy className="w-3.5 h-3.5" />
                   <span>Sao chép</span>
@@ -924,32 +1006,43 @@ export default function App() {
               </div>
 
               {tomorrowSummary.items.length === 0 ? (
-                <div className="py-5 text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-                  Nghỉ cả ngày — Không có lịch học cố định.
+                <div className="py-5 px-3 rounded-lg bg-white/80 dark:bg-slate-900/70 text-center text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400">
+                  🎉 Nghỉ cả ngày — Không có lịch học cố định.
                 </div>
               ) : (
                 <div className="space-y-2.5">
                   {tomorrowSummary.items.map((item) => {
                     const st = evaluateItemStatusOnDate(item, tomorrowSummary.dateISO);
+                    const accent = THEME_ACCENTS[item.colorTheme];
                     return (
                       <div
                         key={item.id}
                         onClick={() => openNoteModalForItem(item)}
-                        className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 transition-colors cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+                        className={`p-3 rounded-xl bg-white dark:bg-slate-900 border ${accent.border} hover:shadow-xs transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-2`}
                       >
                         <div>
-                          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 tabular-nums">
-                            <span>Buổi {item.session}</span>
-                            <span className="mx-1.5" aria-hidden="true">·</span>
-                            <span>{item.groupBadge}</span>
-                            <span className="mx-1.5" aria-hidden="true">·</span>
-                            <span className="font-mono text-slate-800 dark:text-slate-200">{item.room}</span>
+                          <div className="text-xs font-bold tabular-nums flex flex-wrap items-center gap-1.5">
+                            <span
+                              className={
+                                item.session === 'SÁNG'
+                                  ? 'text-amber-700 dark:text-amber-400'
+                                  : 'text-blue-700 dark:text-blue-400'
+                              }
+                            >
+                              Buổi {item.session}
+                            </span>
+                            <span aria-hidden="true">·</span>
+                            <span className={accent.groupText}>{item.groupBadge}</span>
+                            <span aria-hidden="true">·</span>
+                            <span className={`font-mono px-1.5 py-0.5 rounded text-[11px] ${accent.roomChip}`}>
+                              {item.room}
+                            </span>
                           </div>
-                          <div className="font-bold text-sm text-slate-900 dark:text-white mt-0.5">
+                          <div className={`font-extrabold text-sm mt-1 ${accent.title}`}>
                             {item.subject}
                           </div>
                         </div>
-                        <div className={`text-xs font-semibold tabular-nums shrink-0 ${st.textClass}`}>
+                        <div className={`text-xs font-bold tabular-nums shrink-0 ${st.textClass}`}>
                           {st.label}
                         </div>
                       </div>
@@ -961,41 +1054,41 @@ export default function App() {
           </div>
         </section>
 
-        {/* 2. FILTER CONTROLS BAR (GROUP, WEEK, VIEW MODE) */}
+        {/* 2. FILTER CONTROLS BAR (GROUP, WEEK, VIEW MODE & COLOR LEGEND) */}
         <section
           id="bang-lich"
-          className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 no-print space-y-4"
+          className="bg-white dark:bg-slate-900 rounded-2xl shadow-xs border border-slate-200 dark:border-slate-800 p-5 sm:p-6 no-print space-y-4"
         >
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
             {/* Group Segmented Control */}
             <div>
               <div className="flex items-center justify-between gap-4 mb-2">
-                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                  01. Nhóm sinh viên
+                <span className="text-xs font-bold text-slate-600 dark:text-slate-300">
+                  1. Chọn Nhóm Sinh Viên
                 </span>
                 <button
                   type="button"
                   onClick={() => openStudentModal(groupFilter)}
-                  className="text-xs font-semibold text-teal-700 dark:text-teal-400 hover:underline whitespace-nowrap shrink-0 cursor-pointer"
+                  className="text-xs font-bold text-teal-700 dark:text-teal-400 hover:underline whitespace-nowrap shrink-0 cursor-pointer"
                 >
-                  Tra cứu tên / Mã SV
+                  Tìm tên / Xem DS nhóm
                 </button>
               </div>
               <div className="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 w-full sm:w-auto">
                 {(
                   [
-                    { key: 'all', label: 'Cả lớp (27)' },
-                    { key: 'nhom5', label: 'Nhóm 5 (14 SV)' },
-                    { key: 'nhom6', label: 'Nhóm 6 (13 SV)' }
+                    { key: 'all', label: 'Cả lớp (27)', activeClass: 'bg-blue-600 text-white shadow-xs' },
+                    { key: 'nhom5', label: 'Nhóm 5 (14 SV)', activeClass: 'bg-indigo-600 text-white shadow-xs' },
+                    { key: 'nhom6', label: 'Nhóm 6 (13 SV)', activeClass: 'bg-teal-600 text-white shadow-xs' }
                   ] as const
                 ).map((tab) => (
                   <button
                     key={tab.key}
                     type="button"
                     onClick={() => setGroupFilter(tab.key)}
-                    className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer tabular-nums ${
+                    className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer tabular-nums ${
                       groupFilter === tab.key
-                        ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs'
+                        ? tab.activeClass
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
@@ -1010,14 +1103,14 @@ export default function App() {
               <div className="flex items-center justify-between mb-2">
                 <label
                   htmlFor="week-selector"
-                  className="text-xs font-semibold text-slate-500 dark:text-slate-400"
+                  className="text-xs font-bold text-slate-600 dark:text-slate-300"
                 >
-                  02. Tuần học thực tế (Kiểm tra môn bắt đầu / kết thúc)
+                  2. Chọn Tuần Học (Kiểm tra môn bắt đầu / kết thúc)
                 </label>
                 <button
                   type="button"
                   onClick={jumpToCurrentWeek}
-                  className="text-xs font-semibold text-teal-700 dark:text-teal-400 hover:underline whitespace-nowrap shrink-0 cursor-pointer"
+                  className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   Về tuần hiện tại
                 </button>
@@ -1027,7 +1120,7 @@ export default function App() {
                   type="button"
                   onClick={() => stepWeek(-1)}
                   title="Tuần trước"
-                  className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors shrink-0 cursor-pointer"
+                  className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors shrink-0 cursor-pointer"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
@@ -1035,7 +1128,7 @@ export default function App() {
                   id="week-selector"
                   value={weekFilter}
                   onChange={(e) => setWeekFilter(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100 tabular-nums focus:outline-none focus:ring-2 focus:ring-teal-600"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 tabular-nums focus:outline-none focus:ring-2 focus:ring-blue-600"
                 >
                   {WEEKS_DATA.map((w) => (
                     <option key={w.id} value={w.id}>
@@ -1047,7 +1140,7 @@ export default function App() {
                   type="button"
                   onClick={() => stepWeek(1)}
                   title="Tuần kế tiếp"
-                  className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors shrink-0 cursor-pointer"
+                  className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors shrink-0 cursor-pointer"
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>
@@ -1056,16 +1149,16 @@ export default function App() {
 
             {/* View Mode Toggle */}
             <div>
-              <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2">
-                03. Chế độ hiển thị
+              <div className="text-xs font-bold text-slate-600 dark:text-slate-300 mb-2">
+                3. Giao Diện Hiển Thị
               </div>
               <div className="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 w-full sm:w-auto">
                 <button
                   type="button"
                   onClick={() => setViewMode('table')}
-                  className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
+                  className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                     viewMode === 'table'
-                      ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs'
+                      ? 'bg-blue-600 text-white shadow-xs'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
@@ -1075,23 +1168,39 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => setViewMode('card')}
-                  className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
+                  className={`flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                     viewMode === 'card'
-                      ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs'
+                      ? 'bg-blue-600 text-white shadow-xs'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   <LayoutGrid className="w-4 h-4" />
-                  <span>Dạng Thẻ</span>
+                  <span>Dạng Thẻ (Mobile)</span>
                 </button>
               </div>
             </div>
           </div>
 
+          {/* Color Legend Bar for fast visual recognition */}
+          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
+            <span className="font-bold text-slate-500 dark:text-slate-400">Bảng màu môn học:</span>
+            {(
+              ['blue', 'amber', 'purple', 'emerald', 'indigo', 'rose', 'cyan'] as const
+            ).map((key) => {
+              const item = THEME_ACCENTS[key];
+              return (
+                <div key={key} className="inline-flex items-center gap-1.5 font-semibold text-slate-700 dark:text-slate-300">
+                  <span className={`w-3 h-3 rounded-sm ${item.dotColor}`} />
+                  <span>{item.label}</span>
+                </div>
+              );
+            })}
+          </div>
+
           {/* Week status summary & Hide inactive checkbox */}
-          <div className="pt-3.5 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-            <div className="text-slate-600 dark:text-slate-300 tabular-nums">
-              <strong className="font-bold text-slate-900 dark:text-white">
+          <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="text-slate-700 dark:text-slate-300 tabular-nums">
+              <strong className="font-extrabold text-blue-800 dark:text-teal-300">
                 {currentWeekObj.shortTitle} ({currentWeekObj.rangeText}):
               </strong>{' '}
               <span>{currentWeekObj.noteSummary}</span>
@@ -1102,9 +1211,9 @@ export default function App() {
                 type="checkbox"
                 checked={hideInactive}
                 onChange={(e) => setHideInactive(e.target.checked)}
-                className="rounded border-slate-300 text-teal-600 focus:ring-teal-500 h-4 w-4"
+                className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 h-4 w-4"
               />
-              <span className="text-slate-600 dark:text-slate-300 font-medium">
+              <span className="text-slate-700 dark:text-slate-300 font-semibold">
                 Ẩn môn chưa bắt đầu / đã kết thúc trong tuần đang chọn
               </span>
             </label>
@@ -1135,13 +1244,13 @@ export default function App() {
           id="table-view-container"
           className={`${
             viewMode === 'table' ? 'block' : 'hidden'
-          } bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden`}
+          } bg-white dark:bg-slate-900 rounded-2xl shadow-xs border border-slate-200 dark:border-slate-800 overflow-hidden`}
         >
           <div className="custom-scrollbar overflow-x-auto w-full">
             <table className="w-full text-left border-collapse min-w-[960px]">
               <thead>
-                <tr className="bg-slate-100/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 text-xs font-bold border-b border-slate-200 dark:border-slate-800">
-                  <th className="p-3.5 border-r border-slate-200 dark:border-slate-800 w-24 text-center">
+                <tr className="bg-gradient-to-r from-slate-100 via-blue-50/60 to-teal-50/60 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800 text-slate-800 dark:text-slate-100 text-xs font-extrabold border-b border-slate-200 dark:border-slate-700">
+                  <th className="p-3.5 border-r border-slate-200 dark:border-slate-700 w-24 text-center uppercase tracking-wider">
                     Buổi
                   </th>
                   {tableDays.map((d) => {
@@ -1153,20 +1262,24 @@ export default function App() {
                     return (
                       <th
                         key={d.dayOfWeek}
-                        className={`p-3.5 border-r last:border-r-0 border-slate-200 dark:border-slate-800 text-center w-[15%] ${
+                        className={`p-3.5 border-r last:border-r-0 border-slate-200 dark:border-slate-700 text-center w-[15%] ${
                           isTodayCol
-                            ? 'bg-teal-50/80 dark:bg-teal-950/40 text-teal-900 dark:text-teal-200'
+                            ? 'bg-blue-600/15 dark:bg-blue-500/25 text-blue-900 dark:text-blue-200 border-t-4 border-t-blue-600'
                             : ''
                         }`}
                       >
                         <div className="flex flex-col items-center tabular-nums">
                           <span className="text-sm font-extrabold">
                             {d.label}
-                            {isTodayCol ? ' (Hôm nay)' : ''}
                           </span>
                           {colDateObj && (
-                            <span className="text-[11px] font-mono font-normal text-slate-500 dark:text-slate-400 mt-0.5">
+                            <span className="text-[11px] font-mono font-semibold text-slate-500 dark:text-slate-400 mt-0.5">
                               {formatDDMM(colDateObj)}/2026
+                            </span>
+                          )}
+                          {isTodayCol && (
+                            <span className="mt-1 px-2 py-0.5 rounded-md bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider">
+                              Hôm nay
                             </span>
                           )}
                         </div>
@@ -1181,8 +1294,21 @@ export default function App() {
                     key={sessionKey}
                     className="divide-x divide-slate-200 dark:divide-slate-800"
                   >
-                    <td className="p-3 bg-slate-50/70 dark:bg-slate-900 text-center align-middle font-bold text-xs tracking-wider text-slate-700 dark:text-slate-300">
-                      {sessionKey}
+                    <td
+                      className={`p-3 text-center align-middle font-extrabold text-xs tracking-wider ${
+                        sessionKey === 'SÁNG'
+                          ? 'bg-amber-50/70 dark:bg-amber-950/25 text-amber-900 dark:text-amber-300'
+                          : 'bg-blue-50/70 dark:bg-blue-950/25 text-blue-900 dark:text-blue-300'
+                      }`}
+                    >
+                      <div className="flex flex-col items-center justify-center gap-1.5">
+                        {sessionKey === 'SÁNG' ? (
+                          <Sun className="w-5 h-5 text-amber-500" />
+                        ) : (
+                          <Sunset className="w-5 h-5 text-blue-500" />
+                        )}
+                        <span>{sessionKey}</span>
+                      </div>
                     </td>
                     {tableDays.map((d) => {
                       const colDateObj = getDateForDayInSelectedWeek(d.offsetFromMonday);
@@ -1206,13 +1332,13 @@ export default function App() {
                         <td
                           key={d.dayOfWeek}
                           className={`p-2.5 align-top ${
-                            isTodayCol ? 'bg-teal-50/25 dark:bg-teal-950/15' : ''
+                            isTodayCol ? 'bg-blue-50/40 dark:bg-blue-950/20' : ''
                           }`}
                         >
                           {renderedCards.length > 0 ? (
                             <div className="space-y-2.5">{renderedCards}</div>
                           ) : (
-                            <div className="h-full min-h-[84px] flex items-center justify-center text-xs text-slate-400 dark:text-slate-600 select-none">
+                            <div className="h-full min-h-[84px] flex items-center justify-center text-xs text-slate-400 dark:text-slate-600 italic select-none">
                               Nghỉ
                             </div>
                           )}
@@ -1243,21 +1369,21 @@ export default function App() {
               return (
                 <div
                   key={d.dayOfWeek}
-                  className={`rounded-2xl bg-white dark:bg-slate-900 border ${
+                  className={`rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-slate-900 dark:to-slate-900 border ${
                     isTodayCard
                       ? 'border-teal-600 dark:border-teal-500'
-                      : 'border-slate-200 dark:border-slate-800'
+                      : 'border-emerald-200 dark:border-slate-800'
                   } p-4 flex items-center justify-between`}
                 >
                   <div>
-                    <h4 className="font-bold text-sm text-slate-900 dark:text-white tabular-nums">
+                    <h4 className="font-extrabold text-sm text-emerald-950 dark:text-white tabular-nums">
                       {d.label} {colDateObj ? `(${formatDDMM(colDateObj)}/2026)` : ''}
                     </h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    <p className="text-xs text-emerald-700 dark:text-slate-400 mt-0.5 font-medium">
                       Nghỉ cả ngày · Cuối tuần
                     </p>
                   </div>
-                  <span className="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400">
+                  <span className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-xs font-mono font-bold">
                     CN
                   </span>
                 </div>
@@ -1283,22 +1409,22 @@ export default function App() {
                 key={d.dayOfWeek}
                 className={`rounded-2xl bg-white dark:bg-slate-900 border ${
                   isTodayCard
-                    ? 'border-teal-600 dark:border-teal-500'
+                    ? 'border-blue-600 ring-2 ring-blue-500/20'
                     : 'border-slate-200 dark:border-slate-800'
-                } overflow-hidden flex flex-col`}
+                } overflow-hidden shadow-xs flex flex-col`}
               >
                 <div
                   className={`px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between tabular-nums ${
                     isTodayCard
-                      ? 'bg-teal-700 text-white'
-                      : 'bg-slate-100/70 dark:bg-slate-800/70 text-slate-900 dark:text-white'
+                      ? 'bg-gradient-to-r from-blue-700 to-teal-600 text-white'
+                      : 'bg-gradient-to-r from-slate-100 to-blue-50/60 dark:from-slate-800 dark:to-slate-800 text-slate-900 dark:text-white'
                   }`}
                 >
                   <span className="font-extrabold text-sm">
                     {d.label} {colDateObj ? `(${formatDDMM(colDateObj)}/2026)` : ''}
                   </span>
                   {isTodayCard && (
-                    <span className="text-xs font-semibold underline underline-offset-2">
+                    <span className="px-2 py-0.5 rounded bg-white text-blue-700 text-[10px] font-extrabold uppercase">
                       Hôm nay
                     </span>
                   )}
@@ -1306,26 +1432,28 @@ export default function App() {
 
                 <div className="p-4 space-y-4 flex-1">
                   <div>
-                    <div className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">
-                      Buổi Sáng
+                    <div className="text-xs font-extrabold text-amber-700 dark:text-amber-400 mb-2 flex items-center gap-1.5">
+                      <Sun className="w-3.5 h-3.5" />
+                      <span>Buổi Sáng</span>
                     </div>
                     {morningCards.length > 0 ? (
                       <div className="space-y-2">{morningCards}</div>
                     ) : (
-                      <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 text-xs text-slate-400 text-center">
+                      <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 text-xs text-slate-400 text-center italic">
                         Nghỉ buổi sáng
                       </div>
                     )}
                   </div>
 
                   <div>
-                    <div className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">
-                      Buổi Chiều
+                    <div className="text-xs font-extrabold text-blue-700 dark:text-blue-400 mb-2 flex items-center gap-1.5">
+                      <Sunset className="w-3.5 h-3.5" />
+                      <span>Buổi Chiều</span>
                     </div>
                     {afternoonCards.length > 0 ? (
                       <div className="space-y-2">{afternoonCards}</div>
                     ) : (
-                      <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 text-xs text-slate-400 text-center">
+                      <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 text-xs text-slate-400 text-center italic">
                         Nghỉ buổi chiều
                       </div>
                     )}
@@ -1338,14 +1466,14 @@ export default function App() {
 
         {/* 4. COURSE REGULATIONS, GROUP ROSTER SUMMARY & PERSONAL NOTES */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Course Implementation Details */}
+          {/* Course Implementation Details with matching color-coded cards */}
           <section
             id="quy-dinh"
-            className="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 space-y-5"
+            className="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl shadow-xs border border-slate-200 dark:border-slate-800 p-5 sm:p-6 space-y-5"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-200 dark:border-slate-800">
               <div>
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+                <h3 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
                   Quy Định &amp; Thời Gian Triển Khai Học Phần
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 tabular-nums">
@@ -1355,47 +1483,60 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => openStudentModal('all')}
-                className="self-start sm:self-auto px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-semibold text-teal-700 dark:text-teal-400 transition-colors whitespace-nowrap shrink-0 cursor-pointer no-print"
+                className="self-start sm:self-auto px-3.5 py-2 rounded-xl bg-teal-50 dark:bg-teal-950/50 border border-teal-200 dark:border-teal-800 hover:bg-teal-100 text-xs font-bold text-teal-800 dark:text-teal-300 transition-colors whitespace-nowrap shrink-0 cursor-pointer no-print"
               >
-                Mở danh sách 27 SV
+                Xem danh sách 27 SV
               </button>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm tabular-nums">
-              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-1.5">
-                <div className="flex items-center justify-between font-bold text-slate-900 dark:text-white">
-                  <span>01. Lý thuyết Giải phẫu</span>
-                  <span className="font-mono text-xs text-blue-700 dark:text-blue-400">4 tiết/buổi</span>
+              {/* LT Giải phẫu - Blue */}
+              <div className="p-4 rounded-xl bg-blue-50/80 dark:bg-blue-950/35 border border-blue-200 dark:border-blue-800/70 space-y-1.5">
+                <div className="flex items-center justify-between font-extrabold text-blue-950 dark:text-blue-200">
+                  <span className="flex items-center gap-1.5">
+                    <BookOpen className="w-4 h-4 text-blue-600" />
+                    <span>Lý thuyết Giải phẫu</span>
+                  </span>
+                  <span className="font-mono text-xs px-2 py-0.5 rounded bg-blue-600 text-white">
+                    4 tiết/buổi
+                  </span>
                 </div>
-                <p className="text-slate-600 dark:text-slate-300 text-xs">
-                  Thời gian: <strong>8 tuần</strong> (12/10/2026 – 05/12/2026)
+                <p className="text-slate-700 dark:text-slate-300 text-xs">
+                  • Thời gian: <strong>8 tuần</strong> (12/10/2026 – 05/12/2026)
                 </p>
-                <p className="text-slate-600 dark:text-slate-300 text-xs">
-                  Lịch học: <strong>Chiều Thứ Hai</strong> · Học chung Nhóm 5, 6, 7, 8
+                <p className="text-slate-700 dark:text-slate-300 text-xs">
+                  • Lịch học: <strong>Chiều Thứ Hai</strong> (Học chung Nhóm 5, 6, 7, 8)
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-1.5">
-                <div className="flex items-center justify-between font-bold text-slate-900 dark:text-white">
-                  <span>02. Thực hành Giải phẫu (TH GP)</span>
-                  <span className="font-mono text-xs text-amber-700 dark:text-amber-400">5 tiết/buổi</span>
+              {/* TH Giải phẫu - Amber */}
+              <div className="p-4 rounded-xl bg-amber-50/85 dark:bg-amber-950/35 border border-amber-200 dark:border-amber-800/70 space-y-1.5">
+                <div className="flex items-center justify-between font-extrabold text-amber-950 dark:text-amber-200">
+                  <span className="flex items-center gap-1.5">
+                    <Stethoscope className="w-4 h-4 text-amber-600" />
+                    <span>Thực hành Giải phẫu (TH GP)</span>
+                  </span>
+                  <span className="font-mono text-xs px-2 py-0.5 rounded bg-amber-600 text-white">
+                    5 tiết/buổi
+                  </span>
                 </div>
-                <p className="text-slate-600 dark:text-slate-300 text-xs">
-                  Thời gian: <strong>6 tuần</strong> (26/10/2026 – 05/12/2026) tại <strong>P. C402</strong>
+                <p className="text-slate-700 dark:text-slate-300 text-xs">
+                  • Thời gian: <strong>6 tuần</strong> (26/10/2026 – 05/12/2026) tại <strong>P. C402</strong>
                 </p>
-                <p className="text-slate-600 dark:text-slate-300 text-xs">
+                <p className="text-slate-700 dark:text-slate-300 text-xs">
+                  •{' '}
                   <button
                     type="button"
                     onClick={() => openStudentModal('nhom5')}
-                    className="underline font-semibold hover:text-teal-700 dark:hover:text-teal-400 cursor-pointer"
+                    className="underline font-bold text-amber-900 dark:text-amber-300 hover:text-blue-700 cursor-pointer"
                   >
                     Nhóm 5 (14 SV):
                   </button>{' '}
-                  Sáng T5 ·{' '}
+                  Sáng T5 |{' '}
                   <button
                     type="button"
                     onClick={() => openStudentModal('nhom6')}
-                    className="underline font-semibold hover:text-teal-700 dark:hover:text-teal-400 cursor-pointer"
+                    className="underline font-bold text-amber-900 dark:text-amber-300 hover:text-blue-700 cursor-pointer"
                   >
                     Nhóm 6 (13 SV):
                   </button>{' '}
@@ -1403,40 +1544,53 @@ export default function App() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-1.5">
-                <div className="flex items-center justify-between font-bold text-slate-900 dark:text-white">
-                  <span>03. Lý thuyết Hóa học</span>
-                  <span className="font-mono text-xs text-emerald-700 dark:text-emerald-400">4 tiết/buổi</span>
+              {/* LT Hóa học - Emerald */}
+              <div className="p-4 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/35 border border-emerald-200 dark:border-emerald-800/70 space-y-1.5">
+                <div className="flex items-center justify-between font-extrabold text-emerald-950 dark:text-emerald-200">
+                  <span className="flex items-center gap-1.5">
+                    <FlaskConical className="w-4 h-4 text-emerald-600" />
+                    <span>Lý thuyết Hóa học</span>
+                  </span>
+                  <span className="font-mono text-xs px-2 py-0.5 rounded bg-emerald-600 text-white">
+                    4 tiết/buổi
+                  </span>
                 </div>
-                <p className="text-slate-600 dark:text-slate-300 text-xs">
-                  Thời gian: <strong>8 tuần</strong> (12/10/2026 – 05/12/2026)
+                <p className="text-slate-700 dark:text-slate-300 text-xs">
+                  • Thời gian: <strong>8 tuần</strong> (12/10/2026 – 05/12/2026)
                 </p>
-                <p className="text-slate-600 dark:text-slate-300 text-xs">
-                  Lịch học: <strong>Chiều Thứ Bảy</strong> · Học chung Nhóm 5, 6, 7, 8
+                <p className="text-slate-700 dark:text-slate-300 text-xs">
+                  • Lịch học: <strong>Chiều Thứ Bảy</strong> (Học chung Nhóm 5, 6, 7, 8)
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-1.5">
-                <div className="flex items-center justify-between font-bold text-slate-900 dark:text-white">
-                  <span>04. Thực hành Hóa học (TH HH)</span>
-                  <span className="font-mono text-xs text-purple-700 dark:text-purple-400">4 tiết/buổi</span>
+              {/* TH Hóa học - Purple */}
+              <div className="p-4 rounded-xl bg-purple-50/80 dark:bg-purple-950/35 border border-purple-200 dark:border-purple-800/70 space-y-1.5">
+                <div className="flex items-center justify-between font-extrabold text-purple-950 dark:text-purple-200">
+                  <span className="flex items-center gap-1.5">
+                    <FlaskConical className="w-4 h-4 text-purple-600" />
+                    <span>Thực hành Hóa học (TH HH)</span>
+                  </span>
+                  <span className="font-mono text-xs px-2 py-0.5 rounded bg-purple-600 text-white">
+                    4 tiết/buổi
+                  </span>
                 </div>
-                <p className="text-slate-600 dark:text-slate-300 text-xs">
-                  Thời gian: <strong>8 tuần</strong> (26/10/2026 – 19/12/2026) tại <strong>P. C606</strong>
+                <p className="text-slate-700 dark:text-slate-300 text-xs">
+                  • Thời gian: <strong>8 tuần</strong> (26/10/2026 – 19/12/2026) tại <strong>P. C606</strong>
                 </p>
-                <p className="text-slate-600 dark:text-slate-300 text-xs">
+                <p className="text-slate-700 dark:text-slate-300 text-xs">
+                  •{' '}
                   <button
                     type="button"
                     onClick={() => openStudentModal('nhom5')}
-                    className="underline font-semibold hover:text-teal-700 dark:hover:text-teal-400 cursor-pointer"
+                    className="underline font-bold text-purple-900 dark:text-purple-300 hover:text-blue-700 cursor-pointer"
                   >
                     Nhóm 5 (14 SV):
                   </button>{' '}
-                  Chiều T4 ·{' '}
+                  Chiều T4 |{' '}
                   <button
                     type="button"
                     onClick={() => openStudentModal('nhom6')}
-                    className="underline font-semibold hover:text-teal-700 dark:hover:text-teal-400 cursor-pointer"
+                    className="underline font-bold text-purple-900 dark:text-purple-300 hover:text-blue-700 cursor-pointer"
                   >
                     Nhóm 6 (13 SV):
                   </button>{' '}
@@ -1445,29 +1599,29 @@ export default function App() {
               </div>
 
               {/* Group Roster Split Summary */}
-              <div className="sm:col-span-2 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="sm:col-span-2 p-4 rounded-xl bg-gradient-to-r from-teal-50/90 via-blue-50/70 to-indigo-50/80 dark:from-slate-800/70 dark:to-slate-800/50 border border-teal-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="space-y-1">
-                  <div className="font-bold text-slate-900 dark:text-white">
+                  <div className="font-extrabold text-slate-900 dark:text-white">
                     Phân chia danh sách nhóm Lớp RM31.03 (Tổng 27 sinh viên):
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-300">
-                    <strong>Nhóm 5 (14 SV):</strong> Lê Phan An → Trương Hoàng Hiệp
-                    <span className="mx-2" aria-hidden="true">·</span>
-                    <strong>Nhóm 6 (13 SV):</strong> Lê Văn Hòe → Phạm Đường Vũ
+                  <p className="text-xs text-slate-700 dark:text-slate-300">
+                    <strong className="text-blue-800 dark:text-blue-300">Nhóm 5 (14 SV):</strong> Lê Phan An → Trương Hoàng Hiệp
+                    <span className="mx-2" aria-hidden="true">|</span>
+                    <strong className="text-teal-800 dark:text-teal-300">Nhóm 6 (13 SV):</strong> Lê Văn Hòe → Phạm Đường Vũ
                   </p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0 no-print">
                   <button
                     type="button"
                     onClick={() => openStudentModal('nhom5')}
-                    className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                    className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-2xs transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                   >
                     DS Nhóm 5
                   </button>
                   <button
                     type="button"
                     onClick={() => openStudentModal('nhom6')}
-                    className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                    className="px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold shadow-2xs transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                   >
                     DS Nhóm 6
                   </button>
@@ -1479,13 +1633,13 @@ export default function App() {
           {/* Personal Notes Panel */}
           <section
             id="ghi-chu"
-            className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 flex flex-col justify-between no-print"
+            className="bg-white dark:bg-slate-900 rounded-2xl shadow-xs border border-slate-200 dark:border-slate-800 p-5 sm:p-6 flex flex-col justify-between no-print"
           >
             <div>
               <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-200 dark:border-slate-800">
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-                    Ghi Chú Cá Nhân
+                  <h3 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
+                    Sổ Tay Ghi Chú
                   </h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                     Nhấn vào bất kỳ môn học nào trên bảng để ghi chú
@@ -1495,7 +1649,7 @@ export default function App() {
                   <button
                     type="button"
                     onClick={clearAllNotes}
-                    className="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline whitespace-nowrap shrink-0 cursor-pointer"
+                    className="text-xs font-bold text-rose-600 dark:text-rose-400 hover:underline whitespace-nowrap shrink-0 cursor-pointer"
                   >
                     Xóa tất cả
                   </button>
@@ -1504,8 +1658,8 @@ export default function App() {
 
               <div className="space-y-2.5 max-h-72 overflow-y-auto custom-scrollbar pr-1">
                 {noteKeys.length === 0 ? (
-                  <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-dashed border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-400 space-y-2">
-                    <FileText className="w-5 h-5 mx-auto text-slate-400" />
+                  <div className="p-5 rounded-xl bg-amber-50/50 dark:bg-slate-800/40 border border-dashed border-amber-300 dark:border-slate-700 text-center text-xs text-slate-600 dark:text-slate-400 space-y-2">
+                    <FileText className="w-5 h-5 mx-auto text-amber-500" />
                     <p>
                       Chưa có ghi chú nào. Nhấn vào ô môn học bất kỳ để lưu lời nhắc (mang áo blouse trắng, lịch kiểm tra, tài liệu).
                     </p>
@@ -1515,22 +1669,23 @@ export default function App() {
                     const item = SCHEDULE_ITEMS.find((i) => i.id === itemId);
                     if (!item) return null;
                     const dayInfo = DAYS_INFO.find((d) => d.dayOfWeek === item.dayOfWeek);
+                    const accent = THEME_ACCENTS[item.colorTheme];
                     return (
                       <div
                         key={itemId}
                         onClick={() => openNoteModalForItem(item)}
-                        className="p-3 rounded-xl bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/60 cursor-pointer hover:border-amber-400 transition-colors text-xs"
+                        className={`p-3 rounded-xl ${accent.surface} border ${accent.border} cursor-pointer hover:shadow-xs transition-all text-xs`}
                       >
-                        <div className="flex items-center justify-between font-bold text-amber-950 dark:text-amber-200">
+                        <div className={`flex items-center justify-between font-extrabold ${accent.title}`}>
                           <span>
-                            {item.subject} · {item.groupBadge}
+                            {item.subject} ({item.groupBadge})
                           </span>
-                          <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400">
+                          <span className="font-mono text-[11px]">
                             {dayInfo?.shortLabel} · {item.session}
                           </span>
                         </div>
-                        <p className="text-slate-700 dark:text-slate-200 mt-1 break-words">
-                          {notes[itemId]}
+                        <p className="text-slate-800 dark:text-slate-200 font-medium mt-1 break-words">
+                          📌 {notes[itemId]}
                         </p>
                       </div>
                     );
@@ -1540,19 +1695,21 @@ export default function App() {
             </div>
 
             <div className="mt-5 pt-3.5 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
-              Ghi chú và cài đặt sinh viên được lưu cục bộ trên trình duyệt của bạn.
+              Ghi chú và cài đặt sinh viên được lưu trực tiếp trên trình duyệt của bạn.
             </div>
           </section>
         </div>
       </main>
 
       {/* FOOTER */}
-      <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-6 text-xs text-slate-500 dark:text-slate-400 mt-8 no-print">
+      <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 py-6 text-xs mt-8 no-print">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="font-medium text-slate-700 dark:text-slate-300">
+          <p className="font-semibold text-white">
             Lớp RM31.03 · Khoa Y / Khoa Răng Hàm Mặt · Trường Đại học Kinh doanh và Công nghệ Hà Nội (HUBT)
           </p>
-          <p className="tabular-nums">Học kỳ I (2026–2027) · Tổng số 27 sinh viên (Nhóm 5 &amp; Nhóm 6)</p>
+          <p className="tabular-nums text-teal-300 font-medium">
+            Học kỳ I (2026–2027) · Tổng số 27 sinh viên (Nhóm 5 &amp; Nhóm 6)
+          </p>
         </div>
       </footer>
 
@@ -1560,31 +1717,31 @@ export default function App() {
           MODAL 1: STUDENT DIRECTORY (NHÓM 5 & NHÓM 6 - 27 SINH VIÊN)
          ===================================================================== */}
       {studentModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 no-print">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-            {/* Modal Header */}
-            <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+        <div className="fixed inset-0 z-50 bg-slate-950/65 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 no-print">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+            {/* Modal Header with Medical Gradient */}
+            <div className="px-5 py-4 bg-gradient-to-r from-blue-900 via-blue-800 to-teal-700 text-white flex items-center justify-between gap-4">
               <div>
-                <h3 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
+                <h3 className="text-base sm:text-lg font-extrabold">
                   Danh Sách Sinh Viên Lớp RM31.03 (Nhóm 5 &amp; Nhóm 6)
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 tabular-nums mt-0.5">
+                <p className="text-xs text-blue-100 tabular-nums mt-0.5">
                   Học phần: Hoá học (Thực hành — 30 tiết) · Mã HP: 191393024 · Số TC: 3 · HK1 (2026–2027)
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setStudentModalOpen(false)}
-                className="p-2 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                className="p-2 rounded-lg bg-white/10 hover:bg-white/25 text-white transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Modal Toolbar: Segmented Group Tabs + Search + Copy List */}
-            <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 space-y-3">
+            <div className="p-4 bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="inline-flex p-1 rounded-xl bg-slate-200/70 dark:bg-slate-800 border border-slate-300/60 dark:border-slate-700">
+                <div className="inline-flex p-1 rounded-xl bg-slate-200/80 dark:bg-slate-800 border border-slate-300/60 dark:border-slate-700">
                   {(
                     [
                       { key: 'all', label: 'Tất cả (27 SV)' },
@@ -1596,9 +1753,9 @@ export default function App() {
                       key={t.key}
                       type="button"
                       onClick={() => setStudentModalTab(t.key)}
-                      className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer tabular-nums ${
+                      className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer tabular-nums ${
                         studentModalTab === t.key
-                          ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs'
+                          ? 'bg-blue-600 text-white shadow-xs'
                           : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
                       }`}
                     >
@@ -1615,7 +1772,7 @@ export default function App() {
                       value={studentSearch}
                       onChange={(e) => setStudentSearch(e.target.value)}
                       placeholder="Tìm theo tên (có/không dấu) hoặc Mã SV..."
-                      className="w-full pl-9 pr-8 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs sm:text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-600"
+                      className="w-full pl-9 pr-8 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs sm:text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
                     {studentSearch && (
                       <button
@@ -1630,20 +1787,20 @@ export default function App() {
                   <button
                     type="button"
                     onClick={copyCurrentStudentList}
-                    className="px-3.5 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-semibold flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-colors cursor-pointer"
+                    className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-colors cursor-pointer"
                   >
                     <Copy className="w-3.5 h-3.5" />
-                    <span>Sao chép DS</span>
+                    <span>Copy DS</span>
                   </button>
                 </div>
               </div>
 
               {/* Lab schedule quick summary for active tab */}
-              <div className="text-xs text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-between gap-2 pt-1">
+              <div className="text-xs text-slate-700 dark:text-slate-200 flex flex-wrap items-center justify-between gap-2 pt-1">
                 {studentModalTab === 'nhom5' ? (
-                  <>
+                  <div className="w-full p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 flex flex-wrap items-center justify-between gap-2">
                     <span>
-                      <strong>Lịch thực hành Nhóm 5 (14 SV):</strong> TH Hóa học{' '}
+                      <strong className="text-blue-800 dark:text-blue-300">Lịch thực hành Nhóm 5 (14 SV):</strong> TH Hóa học{' '}
                       <strong>Chiều Thứ Tư (P. C606)</strong> · TH Giải phẫu{' '}
                       <strong>Sáng Thứ Năm (P. C402)</strong>
                     </span>
@@ -1653,15 +1810,15 @@ export default function App() {
                         setGroupFilter('nhom5');
                         setStudentModalOpen(false);
                       }}
-                      className="font-semibold text-teal-700 dark:text-teal-400 hover:underline cursor-pointer"
+                      className="px-2.5 py-1 rounded-lg bg-blue-600 text-white font-bold text-xs hover:bg-blue-700 cursor-pointer"
                     >
-                      Áp dụng bộ lọc Nhóm 5
+                      Lọc lịch Nhóm 5
                     </button>
-                  </>
+                  </div>
                 ) : studentModalTab === 'nhom6' ? (
-                  <>
+                  <div className="w-full p-2.5 rounded-xl bg-teal-50 dark:bg-teal-950/50 border border-teal-200 dark:border-teal-800 flex flex-wrap items-center justify-between gap-2">
                     <span>
-                      <strong>Lịch thực hành Nhóm 6 (13 SV):</strong> TH Hóa học{' '}
+                      <strong className="text-teal-800 dark:text-teal-300">Lịch thực hành Nhóm 6 (13 SV):</strong> TH Hóa học{' '}
                       <strong>Chiều Thứ Ba (P. C606)</strong> · TH Giải phẫu{' '}
                       <strong>Chiều Thứ Tư (P. C402)</strong>
                     </span>
@@ -1671,17 +1828,20 @@ export default function App() {
                         setGroupFilter('nhom6');
                         setStudentModalOpen(false);
                       }}
-                      className="font-semibold text-teal-700 dark:text-teal-400 hover:underline cursor-pointer"
+                      className="px-2.5 py-1 rounded-lg bg-teal-600 text-white font-bold text-xs hover:bg-teal-700 cursor-pointer"
                     >
-                      Áp dụng bộ lọc Nhóm 6
+                      Lọc lịch Nhóm 6
                     </button>
-                  </>
+                  </div>
                 ) : (
-                  <span>
-                    <strong>Nhóm 5 (14 SV):</strong> TH Hóa Chiều T4 (C606) · TH Giải phẫu Sáng T5 (C402)
-                    <span className="mx-2" aria-hidden="true">|</span>
-                    <strong>Nhóm 6 (13 SV):</strong> TH Hóa Chiều T3 (C606) · TH Giải phẫu Chiều T4 (C402)
-                  </span>
+                  <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="p-2 rounded-xl bg-blue-50/90 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800">
+                      <strong className="text-blue-800 dark:text-blue-300">Nhóm 5 (14 SV):</strong> TH Hóa <strong>Chiều T4 (C606)</strong> · TH Giải phẫu <strong>Sáng T5 (C402)</strong>
+                    </div>
+                    <div className="p-2 rounded-xl bg-teal-50/90 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-800">
+                      <strong className="text-teal-800 dark:text-teal-300">Nhóm 6 (13 SV):</strong> TH Hóa <strong>Chiều T3 (C606)</strong> · TH Giải phẫu <strong>Chiều T4 (C402)</strong>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
@@ -1691,7 +1851,7 @@ export default function App() {
               <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
                 <table className="w-full text-left border-collapse text-xs sm:text-sm tabular-nums">
                   <thead>
-                    <tr className="bg-slate-100/80 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-bold border-b border-slate-200 dark:border-slate-800">
+                    <tr className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-extrabold border-b border-slate-200 dark:border-slate-700">
                       <th className="py-2.5 px-3 text-center w-14">STT</th>
                       <th className="py-2.5 px-3">Mã SV</th>
                       <th className="py-2.5 px-3">Họ và đệm</th>
@@ -1718,14 +1878,14 @@ export default function App() {
                             key={st.id}
                             className={`${
                               isSelected
-                                ? 'bg-teal-50/70 dark:bg-teal-950/30'
-                                : 'hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                                ? 'bg-teal-50/90 dark:bg-teal-950/40'
+                                : 'hover:bg-blue-50/40 dark:hover:bg-slate-800/50'
                             } transition-colors`}
                           >
-                            <td className="py-2.5 px-3 text-center font-mono text-xs text-slate-500 dark:text-slate-400">
+                            <td className="py-2.5 px-3 text-center font-mono text-xs font-semibold text-slate-500 dark:text-slate-400">
                               {st.stt}
                             </td>
-                            <td className="py-2.5 px-3 font-mono text-xs font-semibold text-slate-800 dark:text-slate-200">
+                            <td className="py-2.5 px-3 font-mono text-xs font-bold text-slate-800 dark:text-slate-200">
                               <div className="flex items-center gap-1.5">
                                 <span>{st.id}</span>
                                 <button
@@ -1735,19 +1895,19 @@ export default function App() {
                                     showToast(`Đã sao chép Mã SV: ${st.id}`, 'success');
                                   }}
                                   title="Sao chép Mã SV"
-                                  className="text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 cursor-pointer"
+                                  className="text-slate-400 hover:text-blue-600 dark:hover:text-teal-400 cursor-pointer"
                                 >
                                   <Copy className="w-3.5 h-3.5" />
                                 </button>
                               </div>
                             </td>
-                            <td className="py-2.5 px-3 text-slate-700 dark:text-slate-300">
+                            <td className="py-2.5 px-3 text-slate-700 dark:text-slate-300 font-medium">
                               {st.lastName}
                             </td>
-                            <td className="py-2.5 px-3 font-bold text-slate-900 dark:text-white">
+                            <td className="py-2.5 px-3 font-extrabold text-slate-900 dark:text-white">
                               {st.firstName}
                             </td>
-                            <td className="py-2.5 px-3 text-center font-semibold text-xs">
+                            <td className="py-2.5 px-3 text-center font-bold text-xs">
                               <span
                                 className={
                                   st.group === 'nhom5'
@@ -1760,7 +1920,7 @@ export default function App() {
                             </td>
                             <td className="py-2.5 px-3 text-right">
                               {isSelected ? (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-700 text-white text-xs font-semibold whitespace-nowrap shrink-0">
+                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-600 text-white text-xs font-bold whitespace-nowrap shrink-0">
                                   <Check className="w-3.5 h-3.5" />
                                   <span>Đang chọn</span>
                                 </span>
@@ -1768,7 +1928,7 @@ export default function App() {
                                 <button
                                   type="button"
                                   onClick={() => selectPersonalStudent(st.id)}
-                                  className="px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-teal-700 hover:text-white hover:border-teal-700 text-slate-700 dark:text-slate-200 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                                  className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-blue-600 hover:text-white text-slate-700 dark:text-slate-200 text-xs font-bold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                                 >
                                   Chọn làm lịch của tôi
                                 </button>
@@ -1784,14 +1944,14 @@ export default function App() {
             </div>
 
             {/* Modal Footer */}
-            <div className="px-5 py-3.5 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
+            <div className="px-5 py-3.5 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-600 dark:text-slate-400">
               <span>
-                Nhấn <strong>"Chọn làm lịch của tôi"</strong> cạnh tên bạn để tự động lọc đúng lịch thực hành Nhóm 5 hoặc Nhóm 6.
+                💡 Bấm <strong>"Chọn làm lịch của tôi"</strong> cạnh tên bạn để tự động lọc đúng lịch thực hành Nhóm 5 hoặc Nhóm 6.
               </span>
               <button
                 type="button"
                 onClick={() => setStudentModalOpen(false)}
-                className="self-end sm:self-auto px-4 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-semibold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                className="self-end sm:self-auto px-4 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors cursor-pointer"
               >
                 Đóng
               </button>
@@ -1804,11 +1964,12 @@ export default function App() {
           MODAL 2: COURSE NOTE EDITOR
          ===================================================================== */}
       {activeNoteItem && (
-        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-5 shadow-xl border border-slate-200 dark:border-slate-800">
+        <div className="fixed inset-0 z-50 bg-slate-950/65 backdrop-blur-xs flex items-center justify-center p-4 no-print">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-5 shadow-2xl border border-slate-200 dark:border-slate-800">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                {activeNoteItem.subject}
+              <h3 className="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                {renderSubjectIcon(activeNoteItem.colorTheme)}
+                <span>{activeNoteItem.subject}</span>
               </h3>
               <button
                 type="button"
@@ -1820,7 +1981,7 @@ export default function App() {
             </div>
 
             <div className="py-4 space-y-3">
-              <p className="text-xs text-slate-500 dark:text-slate-400 tabular-nums">
+              <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 tabular-nums">
                 {DAYS_INFO.find((d) => d.dayOfWeek === activeNoteItem.dayOfWeek)?.label} (Buổi{' '}
                 {activeNoteItem.session}) · {activeNoteItem.room} · {activeNoteItem.groupBadge}
               </p>
@@ -1830,7 +1991,7 @@ export default function App() {
                 value={noteDraft}
                 onChange={(e) => setNoteDraft(e.target.value)}
                 placeholder="Nhập ghi chú (VD: Nhớ mang áo blouse trắng, mang giáo trình Giải phẫu, lịch kiểm tra...)"
-                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-teal-600"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-3 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
               />
 
               <div className="flex flex-wrap gap-1.5">
@@ -1841,7 +2002,7 @@ export default function App() {
                     onClick={() =>
                       setNoteDraft((prev) => (prev.trim() ? `${prev.trim()}; ${tpl}` : tpl))
                     }
-                    className="text-xs px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 cursor-pointer"
+                    className="text-xs font-semibold px-2.5 py-1 rounded-lg border border-blue-200 dark:border-slate-700 bg-blue-50/70 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-slate-700 text-blue-800 dark:text-slate-300 cursor-pointer"
                   >
                     + {tpl}
                   </button>
@@ -1854,7 +2015,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={deleteNote}
-                  className="px-3 py-2 rounded-lg text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 mr-auto flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-2 rounded-lg text-xs font-bold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 mr-auto flex items-center gap-1 cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>Xóa ghi chú</span>
@@ -1863,14 +2024,14 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setActiveNoteItem(null)}
-                className="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 cursor-pointer"
+                className="px-4 py-2 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 cursor-pointer"
               >
                 Hủy
               </button>
               <button
                 type="button"
                 onClick={saveNote}
-                className="px-4 py-2 rounded-lg text-xs font-semibold bg-teal-700 hover:bg-teal-800 text-white cursor-pointer"
+                className="px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
               >
                 Lưu ghi chú
               </button>
@@ -1883,12 +2044,12 @@ export default function App() {
           MODAL 3: EXPORT CALENDAR (.ICS)
          ===================================================================== */}
       {exportModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-5 shadow-xl border border-slate-200 dark:border-slate-800">
+        <div className="fixed inset-0 z-50 bg-slate-950/65 backdrop-blur-xs flex items-center justify-center p-4 no-print">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-5 shadow-2xl border border-slate-200 dark:border-slate-800">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-teal-600 dark:text-teal-400" />
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                <h3 className="text-base font-extrabold text-slate-900 dark:text-white">
                   Xuất Lịch Học (.ICS)
                 </h3>
               </div>
@@ -1906,10 +2067,10 @@ export default function App() {
                 Tải file <strong>.ics</strong> chuẩn quốc tế để thêm tự động toàn bộ các buổi học trong Học kỳ I (từ 12/10/2026 đến 19/12/2026) vào <strong>Google Calendar</strong>, <strong>Apple Calendar (iPhone)</strong> hoặc <strong>Outlook</strong>.
               </p>
 
-              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2">
+              <div className="p-3.5 rounded-xl bg-teal-50/70 dark:bg-slate-800 border border-teal-200 dark:border-slate-700 space-y-2">
                 <label
                   htmlFor="ics-group-select"
-                  className="block font-bold text-xs text-slate-700 dark:text-slate-200"
+                  className="block font-bold text-xs text-teal-950 dark:text-slate-200"
                 >
                   Chọn nhóm muốn xuất lịch:
                 </label>
@@ -1917,7 +2078,7 @@ export default function App() {
                   id="ics-group-select"
                   value={icsGroupSelect}
                   onChange={(e) => setIcsGroupSelect(e.target.value as GroupFilter)}
-                  className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 font-semibold text-xs sm:text-sm text-slate-900 dark:text-slate-100"
+                  className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100"
                 >
                   <option value="nhom5">Lịch Nhóm 5 (14 SV) - Lớp RM31.03</option>
                   <option value="nhom6">Lịch Nhóm 6 (13 SV) - Lớp RM31.03</option>
@@ -1936,14 +2097,14 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setExportModalOpen(false)}
-                className="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 cursor-pointer"
+                className="px-4 py-2 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 cursor-pointer"
               >
                 Hủy
               </button>
               <button
                 type="button"
                 onClick={downloadICSFile}
-                className="px-4 py-2 rounded-lg text-xs font-semibold bg-teal-700 hover:bg-teal-800 text-white flex items-center gap-1.5 cursor-pointer"
+                className="px-4 py-2 rounded-lg text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white flex items-center gap-1.5 cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Tải file .ICS ngay</span>

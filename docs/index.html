@@ -12,11 +12,35 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="./assets/index-DbT9ATe-.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CJvj7grf.css">
+    <script>
+      window.__loadGHPagesBundle = function () {
+        if (window.__VITE_REACT_MOUNTED__ || window.__GH_FALLBACK_LOADING__) return;
+        window.__GH_FALLBACK_LOADING__ = true;
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = './public/gh-pages.css';
+        document.head.appendChild(link);
+        var s = document.createElement('script');
+        s.type = 'module';
+        s.src = './public/gh-pages.js';
+        document.body.appendChild(s);
+      };
+    </script>
+    <script type="module" crossorigin src="./assets/index-AnCGEPWh.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-vsBkJjw-.css">
   </head>
   <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased selection:bg-teal-600 selection:text-white">
     <div id="root"></div>
+    <script>
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          var root = document.getElementById('root');
+          if (!window.__VITE_REACT_MOUNTED__ && (!root || !root.innerHTML.trim())) {
+            window.__loadGHPagesBundle();
+          }
+        }, 250);
+      });
+    </script>
   </body>
 </html>
 
