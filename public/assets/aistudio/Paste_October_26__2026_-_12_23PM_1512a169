@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thời Khóa Biểu RM31.03 - Khoa Y HUBT (HK1 2026-2027)</title>
+    <title>Thời Khóa Biểu RM31.03 - Khoa Răng Hàm Mặt HUBT (HK1 2026-2027)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -124,7 +124,7 @@
                     <div>
                         <div class="flex flex-wrap items-center gap-2">
                             <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-teal-400/20 text-teal-100 border border-teal-300/30">
-                                Khoa Y / Răng Hàm Mặt - HUBT
+                                Khoa Răng Hàm Mặt - HUBT
                             </span>
                             <span class="text-xs font-medium text-blue-100">
                                 Học kỳ I • Năm học 2026–2027
@@ -336,7 +336,7 @@
 
         <!-- Tiêu đề chỉ hiển thị khi In A4 -->
         <div class="hidden print-only mb-4 text-center border-b pb-3">
-            <h1 class="text-xl font-bold uppercase">TRƯỜNG ĐẠI HỌC KINH DOANH VÀ CÔNG NGHỆ HÀ NỘI - KHOA Y</h1>
+            <h1 class="text-xl font-bold uppercase">TRƯỜNG ĐẠI HỌC KINH DOANH VÀ CÔNG NGHỆ HÀ NỘI - KHOA RĂNG HÀM MẶT</h1>
             <h2 class="text-lg font-bold mt-1">THỜI KHÓA BIỂU LỚP RM31.03 (HỌC KỲ I NĂM HỌC 2026 - 2027)</h2>
             <p id="print-subtitle" class="text-sm mt-1"></p>
         </div>
@@ -364,7 +364,7 @@
 
         <!-- 4. BẢNG TRA CỨU MỐC THỜI GIAN, DANH SÁCH NHÓM RÚT GỌN & GHI CHÚ HỌC PHẦN -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Thông tin chi tiết các học phần từ lịch gốc Khoa Y -->
+            <!-- Thông tin chi tiết các học phần từ lịch gốc Khoa Răng Hàm Mặt -->
             <section class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700 p-5 space-y-4">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div class="flex items-center gap-2.5">
@@ -373,7 +373,7 @@
                         </div>
                         <div>
                             <h3 class="text-base font-bold text-slate-800 dark:text-white">Quy Định & Thời Gian Triển Khai Học Phần</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Dữ liệu chuẩn theo lịch Khoa Y & Sổ điểm danh Thực hành Hóa học (Mã HP: 191393024)</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Dữ liệu chuẩn theo lịch Khoa Răng Hàm Mặt & Sổ điểm danh Thực hành Hóa học (Mã HP: 191393024)</p>
                         </div>
                     </div>
                     <button onclick="openStudentModal('all')" class="self-start sm:self-auto px-3 py-1.5 rounded-xl bg-teal-50 dark:bg-teal-900/40 hover:bg-teal-100 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-700 text-xs font-bold flex items-center gap-1.5 transition no-print">
@@ -490,7 +490,7 @@
     <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs sm:text-sm mt-8 border-t border-slate-800 no-print">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
             <p class="font-medium text-slate-300">
-                <i class="fa-solid fa-graduation-cap text-teal-400 mr-1.5"></i>Lớp RM31.03 – Khoa Y / Khoa Răng Hàm Mặt – Đại học Kinh doanh và Công nghệ Hà Nội (HUBT)
+                <i class="fa-solid fa-graduation-cap text-teal-400 mr-1.5"></i>Lớp RM31.03 – Khoa Răng Hàm Mặt – Đại học Kinh doanh và Công nghệ Hà Nội (HUBT)
             </p>
             <p>Học kỳ I (2026–2027) • Thiết kế tối ưu cho GitHub Pages</p>
         </div>
@@ -699,7 +699,7 @@
         ];
 
         // =========================================================================
-        // 2. CẤU HÌNH DỮ LIỆU THỜI KHÓA BIỂU KHOA Y - RM31.03
+        // 2. CẤU HÌNH DỮ LIỆU THỜI KHÓA BIỂU KHOA RĂNG HÀM MẶT - RM31.03
         // =========================================================================
         const DAYS_INFO = [
             { dayOfWeek: 2, label: 'Thứ Hai', shortLabel: 'T2', offsetFromMonday: 0 },
@@ -733,7 +733,7 @@
                 session: 'CHIỀU',
                 subject: 'Lý thuyết Giải phẫu',
                 shortCode: 'LT Giải phẫu',
-                room: 'Giảng đường Khoa Y',
+                room: 'Giảng đường Khoa Răng Hàm Mặt',
                 groups: ['nhom5', 'nhom6'],
                 groupBadge: 'Chung N5–N8',
                 rosterKey: null,
@@ -903,7 +903,7 @@
                 session: 'CHIỀU',
                 subject: 'Lý thuyết Hóa học',
                 shortCode: 'LT Hóa học',
-                room: 'Giảng đường Khoa Y',
+                room: 'Giảng đường Khoa Răng Hàm Mặt',
                 groups: ['nhom5', 'nhom6'],
                 groupBadge: 'Chung N5–N8',
                 rosterKey: null,
@@ -1862,7 +1862,7 @@
             let icsLines = [
                 'BEGIN:VCALENDAR',
                 'VERSION:2.0',
-                'PRODID:-//HUBT Khoa Y//Lich Hoc RM31.03//VI',
+                'PRODID:-//HUBT Khoa Răng Hàm Mặt//Lich Hoc RM31.03//VI',
                 'CALSCALE:GREGORIAN',
                 'METHOD:PUBLISH'
             ];
@@ -1887,7 +1887,7 @@
 
                     const summary = `[${item.shortCode}] ${item.subject} - ${item.room} (${item.groupBadge})`;
                     const noteText = state.notes[item.id] ? ` | Ghi chú: ${state.notes[item.id]}` : '';
-                    const desc = `Lớp RM31.03 - Khoa Y HUBT | Thời lượng: ${item.periods} | ${item.durationText}${noteText}`;
+                    const desc = `Lớp RM31.03 - Khoa Răng Hàm Mặt HUBT | Thời lượng: ${item.periods} | ${item.durationText}${noteText}`;
 
                     icsLines.push(
                         'BEGIN:VEVENT',
@@ -1896,7 +1896,7 @@
                         `DTSTART;TZID=Asia/Ho_Chi_Minh:${datePart}T${startTimeStr}`,
                         `DTEND;TZID=Asia/Ho_Chi_Minh:${datePart}T${endTimeStr}`,
                         `SUMMARY:${summary}`,
-                        `LOCATION:${item.room} - Khoa Y HUBT`,
+                        `LOCATION:${item.room} - Khoa Răng Hàm Mặt HUBT`,
                         `DESCRIPTION:${desc}`,
                         'END:VEVENT'
                     );
