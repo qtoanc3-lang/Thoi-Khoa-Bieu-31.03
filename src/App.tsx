@@ -696,6 +696,37 @@ export default function App() {
 
               <button
                 type="button"
+                onClick={async () => {
+                  try {
+                    const res = await fetch('./assets/aistudio/Paste_October_26__2026_-_12_23PM_1512a169');
+                    if (res.ok) {
+                      const htmlText = await res.text();
+                      const blob = new Blob([htmlText], { type: 'text/html;charset=utf-8' });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = 'index.html';
+                      document.body.appendChild(a);
+                      a.click();
+                      document.body.removeChild(a);
+                      URL.revokeObjectURL(url);
+                      showToast('Đã tải file index.html độc lập cho GitHub Pages!', 'success');
+                      return;
+                    }
+                  } catch {
+                    // fallback
+                  }
+                  showToast('Repo đã tích hợp sẵn bộ chạy trực tiếp cho GitHub Pages!', 'info');
+                }}
+                title="Tải file index.html độc lập để tải trực tiếp lên GitHub Pages"
+                className="px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              >
+                <Download className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                <span>Tải index.html (GitHub)</span>
+              </button>
+
+              <button
+                type="button"
                 onClick={() => window.print()}
                 className="px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >

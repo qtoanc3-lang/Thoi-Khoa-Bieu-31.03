@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thời Khóa Biểu RM31.03 - Khoa Y HUBT (HK1 2026-2027)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        medical: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Thanh cuộn tùy chỉnh */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(148, 163, 184, 0.15);
+            border-radius: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(100, 116, 139, 0.4);
+            border-radius: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(100, 116, 139, 0.65);
+        }
+
+        /* Hiệu ứng highlight cột ngày hôm nay */
+        .today-col-header {
+            position: relative;
+            background: linear-gradient(180deg, rgba(37, 99, 235, 0.14) 0%, rgba(37, 99, 235, 0.04) 100%) !important;
+            border-top: 4px solid #2563eb !important;
+        }
+        .dark .today-col-header {
+            background: linear-gradient(180deg, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0.08) 100%) !important;
+            border-top: 4px solid #60a5fa !important;
+        }
+        .today-col-cell {
+            background-color: rgba(239, 246, 255, 0.65) !important;
+        }
+        .dark .today-col-cell {
+            background-color: rgba(30, 58, 138, 0.18) !important;
+        }
+
+        /* Tối ưu khi in A4 */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            #table-view-container {
+                display: block !important;
+                box-shadow: none !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+            #card-view-container {
+                display: none !important;
+            }
+            table {
+                min-width: 100% !important;
+                font-size: 11px !important;
+            }
+            th, td {
+                padding: 6px !important;
+                border: 1px solid #94a3b8 !important;
+            }
+            @page {
+                size: A4 landscape;
+                margin: 10mm;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- Thông báo Toast (Thay thế hoàn toàn alert) -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none no-print"></div>
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-blue-800 via-blue-700 to-teal-600 dark:from-slate-800 dark:via-blue-950 dark:to-teal-950 text-white shadow-lg border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 py-5 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+                <!-- Tên trường & lớp -->
+                <div class="flex items-start sm:items-center gap-3.5">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/25 shadow-inner shrink-0">
+                        <i class="fa-solid fa-tooth text-2xl sm:text-3xl text-teal-200"></i>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-teal-400/20 text-teal-100 border border-teal-300/30">
+                                Khoa Y / Răng Hàm Mặt - HUBT
+                            </span>
+                            <span class="text-xs font-medium text-blue-100">
+                                Học kỳ I • Năm học 2026–2027
+                            </span>
+                        </div>
+                        <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight mt-1">
+                            Thời Khóa Biểu Lớp RM31.03
+                        </h1>
+                        <p class="text-blue-100 text-xs sm:text-sm mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1">
+                            <span>Ngành Răng – Hàm – Mặt (Khóa 31)</span>
+                            <span>•</span>
+                            <button onclick="openStudentModal('all')" class="underline decoration-teal-300/70 hover:text-white font-semibold inline-flex items-center gap-1">
+                                <i class="fa-solid fa-users text-xs text-teal-200"></i> Nhóm 5 (14 SV) & Nhóm 6 (13 SV)
+                            </button>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Cụm nút tiện ích nhanh & Đồng hồ -->
+                <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-between lg:justify-end no-print">
+                    <div class="bg-black/20 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/15 text-xs sm:text-sm flex items-center gap-2">
+                        <i class="fa-regular fa-clock text-teal-300"></i>
+                        <span id="live-date-badge" class="font-medium">Đang tải ngày...</span>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <!-- Nút mở Danh sách nhóm khéo léo trên thanh công cụ -->
+                        <button onclick="openStudentModal('all')" title="Tra cứu Danh sách sinh viên Nhóm 5 & Nhóm 6" class="px-3.5 py-2 rounded-xl bg-teal-500/30 hover:bg-teal-500/45 active:scale-95 transition text-xs sm:text-sm font-bold flex items-center gap-1.5 border border-teal-300/40 shadow-sm">
+                            <i class="fa-solid fa-address-book text-teal-200"></i>
+                            <span>Danh sách nhóm</span>
+                            <span class="px-1.5 py-0.2 rounded-md bg-white/20 text-[11px]">27</span>
+                        </button>
+                        <button onclick="openExportModal()" title="Xuất lịch sang Google/Apple Calendar (.ics)" class="px-3 py-2 rounded-xl bg-white/15 hover:bg-white/25 active:scale-95 transition text-xs sm:text-sm font-semibold flex items-center gap-1.5 border border-white/20">
+                            <i class="fa-regular fa-calendar-plus text-teal-200"></i>
+                            <span class="hidden sm:inline">Tải .ICS</span>
+                        </button>
+                        <button onclick="window.print()" title="In Thời khóa biểu chuẩn A4" class="px-3 py-2 rounded-xl bg-white/15 hover:bg-white/25 active:scale-95 transition text-xs sm:text-sm font-semibold flex items-center gap-1.5 border border-white/20">
+                            <i class="fa-solid fa-print text-blue-200"></i>
+                            <span class="hidden sm:inline">In A4</span>
+                        </button>
+                        <button id="theme-toggle-btn" onclick="toggleDarkMode()" title="Chế độ Sáng / Tối" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/15 hover:bg-white/25 active:scale-95 transition flex items-center justify-center border border-white/20">
+                            <i id="theme-icon" class="fa-solid fa-moon text-sm sm:text-base"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 space-y-6">
+
+        <!-- THANH CÁ NHÂN HÓA SINH VIÊN (Hiển thị tinh tế khi chọn tên trong danh sách) -->
+        <div id="personal-student-banner" class="hidden bg-gradient-to-r from-teal-600 to-blue-600 text-white rounded-2xl p-3.5 sm:px-5 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3 no-print">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center font-extrabold text-sm shrink-0">
+                    <i class="fa-solid fa-user-check text-lg"></i>
+                </div>
+                <div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="text-xs uppercase tracking-wider font-bold text-teal-100">Chế độ cá nhân hóa:</span>
+                        <span id="personal-student-name" class="font-extrabold text-sm sm:text-base"></span>
+                        <span id="personal-student-id" class="text-xs px-2 py-0.5 rounded-md bg-black/25 font-mono"></span>
+                        <span id="personal-student-group" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-white text-blue-800"></span>
+                    </div>
+                    <p id="personal-student-lab-summary" class="text-xs text-blue-100 mt-0.5"></p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 self-end sm:self-center shrink-0">
+                <button onclick="openStudentModal('all')" class="px-3 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-xs font-semibold transition">
+                    Đổi sinh viên
+                </button>
+                <button onclick="clearPersonalStudent()" title="Thoát chế độ cá nhân" class="px-2.5 py-1.5 rounded-lg bg-black/20 hover:bg-black/35 text-xs font-semibold transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 1. WIDGET HÔM NAY & NGÀY MAI HỌC GÌ? -->
+        <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700 p-4 sm:p-5 no-print">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3.5 mb-4 border-b border-slate-100 dark:border-slate-700/70">
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <span class="flex h-3 w-3 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-teal-500"></span>
+                    </span>
+                    <h2 class="text-base sm:text-lg font-bold text-slate-800 dark:text-white">
+                        Lịch Học Nhanh: Hôm Nay & Ngày Mai
+                    </h2>
+                    <span id="widget-group-label" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300">
+                        Cả lớp RM31.03
+                    </span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                    <span>Chọn ngày tra cứu:</span>
+                    <input type="date" id="custom-date-picker" onchange="updateTodayTomorrowWidget(this.value)" class="px-2.5 py-1 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-slate-100 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button onclick="resetDatePickerToToday()" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">Hôm nay</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Hôm nay -->
+                <div class="rounded-xl bg-gradient-to-br from-blue-50/90 to-indigo-50/50 dark:from-slate-700/60 dark:to-slate-800 p-4 border border-blue-200/70 dark:border-slate-600">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-lg bg-blue-600 text-white text-xs font-bold uppercase tracking-wider">Hôm nay</span>
+                            <span id="today-title-date" class="text-sm font-bold text-slate-700 dark:text-slate-200"></span>
+                        </div>
+                        <button onclick="copyDaySchedule('today')" class="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 font-medium flex items-center gap-1" title="Sao chép lịch hôm nay để gửi nhóm chat">
+                            <i class="fa-regular fa-copy"></i> Sao chép
+                        </button>
+                    </div>
+                    <div id="today-schedule-list" class="space-y-2.5"></div>
+                </div>
+
+                <!-- Ngày mai -->
+                <div class="rounded-xl bg-gradient-to-br from-teal-50/80 to-emerald-50/40 dark:from-slate-700/40 dark:to-slate-800 p-4 border border-teal-200/70 dark:border-slate-600">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-lg bg-teal-600 text-white text-xs font-bold uppercase tracking-wider">Ngày mai</span>
+                            <span id="tomorrow-title-date" class="text-sm font-bold text-slate-700 dark:text-slate-200"></span>
+                        </div>
+                        <button onclick="copyDaySchedule('tomorrow')" class="text-xs text-teal-600 dark:text-teal-400 hover:text-teal-800 font-medium flex items-center gap-1" title="Sao chép lịch ngày mai">
+                            <i class="fa-regular fa-copy"></i> Sao chép
+                        </button>
+                    </div>
+                    <div id="tomorrow-schedule-list" class="space-y-2.5"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. BỘ LỌC NHÓM, BỘ LỌC TUẦN & CHẾ ĐỘ XEM -->
+        <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700 p-4 sm:p-5 no-print space-y-4">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                
+                <!-- Bộ lọc Nhóm + Nút mở danh sách từng nhóm khéo léo -->
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">
+                            1. Chọn Nhóm Sinh Viên
+                        </label>
+                        <button onclick="openStudentModal(state.groupFilter)" class="text-xs font-semibold text-teal-600 dark:text-teal-400 hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-magnifying-glass text-[10px]"></i> Tìm tên / Xem DS nhóm
+                        </button>
+                    </div>
+                    <div class="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-700/80 border border-slate-200 dark:border-slate-600 w-full sm:w-auto">
+                        <button id="group-btn-all" onclick="setGroupFilter('all')" class="group-filter-btn flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all">
+                            <i class="fa-solid fa-users mr-1"></i>Cả lớp <span class="text-[11px] opacity-80">(27)</span>
+                        </button>
+                        <button id="group-btn-nhom5" onclick="setGroupFilter('nhom5')" class="group-filter-btn flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all">
+                            <i class="fa-solid fa-user-group mr-1"></i>Nhóm 5 <span class="text-[11px] opacity-80">(14 SV)</span>
+                        </button>
+                        <button id="group-btn-nhom6" onclick="setGroupFilter('nhom6')" class="group-filter-btn flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all">
+                            <i class="fa-solid fa-user-graduate mr-1"></i>Nhóm 6 <span class="text-[11px] opacity-80">(13 SV)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bộ lọc Tuần học thực tế -->
+                <div class="flex-1 lg:max-w-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <label for="week-selector" class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">
+                            2. Chọn Tuần Học (Kiểm tra môn bắt đầu/kết thúc)
+                        </label>
+                        <button onclick="jumpToCurrentWeek()" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+                            Về tuần hiện tại
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="StepWeek(-1)" title="Tuần trước" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 transition">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        </button>
+                        <select id="week-selector" onchange="setWeekFilter(this.value)" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <!-- Được tạo tự động bằng JS -->
+                        </select>
+                        <button onclick="StepWeek(1)" title="Tuần kế tiếp" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 transition">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chế độ hiển thị Bảng / Thẻ -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-2">
+                        3. Giao Diện Hiển Thị
+                    </label>
+                    <div class="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-700/80 border border-slate-200 dark:border-slate-600 w-full sm:w-auto">
+                        <button id="view-btn-table" onclick="setViewMode('table')" class="view-mode-btn flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-table"></i> Dạng Bảng
+                        </button>
+                        <button id="view-btn-card" onclick="setViewMode('card')" class="view-mode-btn flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-grip-vertical"></i> Dạng Thẻ (Mobile)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thanh trạng thái tuần & tùy chọn ẩn môn chưa học -->
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-700/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                <div id="week-status-banner" class="flex flex-wrap items-center gap-2 font-medium text-slate-600 dark:text-slate-300">
+                    <!-- Nội dung trạng thái tuần -->
+                </div>
+                <label class="inline-flex items-center gap-2 cursor-pointer select-none self-start sm:self-auto">
+                    <input type="checkbox" id="hide-inactive-toggle" onchange="toggleHideInactive(this.checked)" class="rounded text-blue-600 focus:ring-blue-500 h-4 w-4">
+                    <span class="text-slate-600 dark:text-slate-300 font-medium">Ẩn các môn chưa bắt đầu / đã kết thúc trong tuần đang chọn</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Tiêu đề chỉ hiển thị khi In A4 -->
+        <div class="hidden print-only mb-4 text-center border-b pb-3">
+            <h1 class="text-xl font-bold uppercase">TRƯỜNG ĐẠI HỌC KINH DOANH VÀ CÔNG NGHỆ HÀ NỘI - KHOA Y</h1>
+            <h2 class="text-lg font-bold mt-1">THỜI KHÓA BIỂU LỚP RM31.03 (HỌC KỲ I NĂM HỌC 2026 - 2027)</h2>
+            <p id="print-subtitle" class="text-sm mt-1"></p>
+        </div>
+
+        <!-- 3A. CHẾ ĐỘ BẢNG (TABLE VIEW) -->
+        <section id="table-view-container" class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700 overflow-hidden">
+            <div class="custom-scrollbar overflow-x-auto w-full">
+                <table class="w-full text-left border-collapse min-w-[920px]">
+                    <thead>
+                        <tr id="table-header-row" class="bg-slate-100/90 dark:bg-slate-700/80 text-slate-600 dark:text-slate-200 text-xs uppercase font-bold tracking-wider">
+                            <!-- Sinh tự động bởi JS -->
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-slate-200 dark:divide-slate-700 text-sm">
+                        <!-- Sinh tự động bởi JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 3B. CHẾ ĐỘ THẺ TỪNG NGÀY (CARD / AGENDA VIEW CHO MOBILE) -->
+        <section id="card-view-container" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 no-print">
+            <!-- Sinh tự động bởi JS -->
+        </section>
+
+        <!-- 4. BẢNG TRA CỨU MỐC THỜI GIAN, DANH SÁCH NHÓM RÚT GỌN & GHI CHÚ HỌC PHẦN -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Thông tin chi tiết các học phần từ lịch gốc Khoa Y -->
+            <section class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700 p-5 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800 dark:text-white">Quy Định & Thời Gian Triển Khai Học Phần</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Dữ liệu chuẩn theo lịch Khoa Y & Sổ điểm danh Thực hành Hóa học (Mã HP: 191393024)</p>
+                        </div>
+                    </div>
+                    <button onclick="openStudentModal('all')" class="self-start sm:self-auto px-3 py-1.5 rounded-xl bg-teal-50 dark:bg-teal-900/40 hover:bg-teal-100 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-700 text-xs font-bold flex items-center gap-1.5 transition no-print">
+                        <i class="fa-solid fa-users-viewfinder"></i> Xem danh sách 27 SV
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs sm:text-sm">
+                    <div class="p-3.5 rounded-xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200/70 dark:border-blue-800/60">
+                        <div class="flex items-center justify-between font-bold text-blue-900 dark:text-blue-300 mb-1">
+                            <span><i class="fa-solid fa-book-medical mr-1.5"></i>Lý thuyết Giải phẫu</span>
+                            <span class="text-xs px-2 py-0.5 rounded bg-blue-200/70 dark:bg-blue-800 text-blue-900 dark:text-blue-100">4 tiết/buổi</span>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 text-xs">• Thời gian: <strong>8 tuần</strong> (12/10/2026 – 05/12/2026)</p>
+                        <p class="text-slate-600 dark:text-slate-300 text-xs mt-0.5">• Lịch học: <strong>Chiều Thứ Hai</strong> (Học chung Nhóm 5, 6, 7, 8)</p>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/60">
+                        <div class="flex items-center justify-between font-bold text-amber-900 dark:text-amber-300 mb-1">
+                            <span><i class="fa-solid fa-bone mr-1.5"></i>Thực hành Giải phẫu (TH GP)</span>
+                            <span class="text-xs px-2 py-0.5 rounded bg-amber-200/80 dark:bg-amber-800 text-amber-900 dark:text-amber-100">5 tiết/buổi</span>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 text-xs">• Thời gian: <strong>6 tuần</strong> (26/10/2026 – 05/12/2026) tại <strong>P. C402</strong></p>
+                        <p class="text-slate-600 dark:text-slate-300 text-xs mt-0.5 flex flex-wrap items-center gap-1">
+                            <span>•</span>
+                            <button onclick="openStudentModal('nhom5')" class="underline font-semibold hover:text-amber-700">Nhóm 5 (14 SV):</button>
+                            <span>Sáng T5 |</span>
+                            <button onclick="openStudentModal('nhom6')" class="underline font-semibold hover:text-amber-700">Nhóm 6 (13 SV):</button>
+                            <span>Chiều T4</span>
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200/70 dark:border-emerald-800/60">
+                        <div class="flex items-center justify-between font-bold text-emerald-900 dark:text-emerald-300 mb-1">
+                            <span><i class="fa-solid fa-flask-vial mr-1.5"></i>Lý thuyết Hóa học</span>
+                            <span class="text-xs px-2 py-0.5 rounded bg-emerald-200/70 dark:bg-emerald-800 text-emerald-900 dark:text-emerald-100">4 tiết/buổi</span>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 text-xs">• Thời gian: <strong>8 tuần</strong> (12/10/2026 – 05/12/2026)</p>
+                        <p class="text-slate-600 dark:text-slate-300 text-xs mt-0.5">• Lịch học: <strong>Chiều Thứ Bảy</strong> (Học chung Nhóm 5, 6, 7, 8)</p>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-purple-50/70 dark:bg-purple-950/30 border border-purple-200/70 dark:border-purple-800/60">
+                        <div class="flex items-center justify-between font-bold text-purple-900 dark:text-purple-300 mb-1">
+                            <span><i class="fa-solid fa-vial-circle-check mr-1.5"></i>Thực hành Hóa học (TH HH)</span>
+                            <span class="text-xs px-2 py-0.5 rounded bg-purple-200/70 dark:bg-purple-800 text-purple-900 dark:text-purple-100">4 tiết/buổi</span>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 text-xs">• Thời gian: <strong>8 tuần</strong> (26/10/2026 – 19/12/2026) tại <strong>P. C606</strong></p>
+                        <p class="text-slate-600 dark:text-slate-300 text-xs mt-0.5 flex flex-wrap items-center gap-1">
+                            <span>•</span>
+                            <button onclick="openStudentModal('nhom5')" class="underline font-semibold hover:text-purple-700">Nhóm 5 (14 SV):</button>
+                            <span>Chiều T4 |</span>
+                            <button onclick="openStudentModal('nhom6')" class="underline font-semibold hover:text-purple-700">Nhóm 6 (13 SV):</button>
+                            <span>Chiều T3</span>
+                        </p>
+                    </div>
+
+                    <!-- Thẻ tóm tắt nhanh phân chia Nhóm 5 & Nhóm 6 -->
+                    <div class="sm:col-span-2 p-3.5 rounded-xl bg-gradient-to-r from-teal-50/90 via-blue-50/70 to-indigo-50/80 dark:from-slate-700/60 dark:via-slate-700/40 dark:to-slate-700/60 border border-teal-200/80 dark:border-slate-600 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div class="space-y-1">
+                            <div class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                                <i class="fa-solid fa-people-group text-teal-600 dark:text-teal-400"></i>
+                                <span>Phân chia danh sách nhóm Lớp RM31.03 (Tổng 27 sinh viên):</span>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300">
+                                • <strong>Nhóm 5 (14 SV):</strong> Từ <em>Lê Phan An</em> đến <em>Trương Hoàng Hiệp</em> &nbsp;|&nbsp;
+                                • <strong>Nhóm 6 (13 SV):</strong> Từ <em>Lê Văn Hòe</em> đến <em>Phạm Đường Vũ</em>
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-2 shrink-0 no-print">
+                            <button onclick="openStudentModal('nhom5')" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 hover:bg-blue-50 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-slate-600 text-xs font-bold shadow-sm transition">
+                                DS Nhóm 5
+                            </button>
+                            <button onclick="openStudentModal('nhom6')" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 hover:bg-teal-50 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-slate-600 text-xs font-bold shadow-sm transition">
+                                DS Nhóm 6
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sổ tay Ghi chú cá nhân -->
+            <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700 p-5 flex flex-col justify-between no-print">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+                                <i class="fa-solid fa-sticky-note"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-bold text-slate-800 dark:text-white">Ghi Chú Cá Nhân</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Nhấn vào bất kỳ môn học nào để ghi chú</p>
+                            </div>
+                        </div>
+                        <button onclick="clearAllNotes()" id="clear-notes-btn" class="hidden text-xs text-rose-600 dark:text-rose-400 hover:underline font-medium">
+                            Xóa hết
+                        </button>
+                    </div>
+
+                    <div id="saved-notes-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1">
+                        <!-- Danh sách ghi chú được tạo bằng JS -->
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-teal-500"></i>
+                    <span>Ghi chú và thông tin sinh viên được lưu trực tiếp trên trình duyệt của bạn.</span>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs sm:text-sm mt-8 border-t border-slate-800 no-print">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <p class="font-medium text-slate-300">
+                <i class="fa-solid fa-graduation-cap text-teal-400 mr-1.5"></i>Lớp RM31.03 – Khoa Y / Khoa Răng Hàm Mặt – Đại học Kinh doanh và Công nghệ Hà Nội (HUBT)
+            </p>
+            <p>Học kỳ I (2026–2027) • Thiết kế tối ưu cho GitHub Pages</p>
+        </div>
+    </footer>
+
+    <!-- MODAL DANH SÁCH SINH VIÊN NHÓM 5 & NHÓM 6 -->
+    <div id="student-modal" class="fixed inset-0 z-50 hidden bg-slate-900/65 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 no-print">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="px-5 py-4 bg-gradient-to-r from-blue-800 via-blue-700 to-teal-600 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center border border-white/20 shrink-0">
+                        <i class="fa-solid fa-users-rectangle text-lg text-teal-200"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-extrabold">Danh Sách Sinh Viên Lớp RM31.03 (Nhóm 5 & Nhóm 6)</h3>
+                        <p class="text-[11px] sm:text-xs text-blue-100">
+                            Học phần: Hoá học (Thực hành — 30 tiết) • Mã HP: 191393024 • Số TC: 3 • HK1 (2026–2027)
+                        </p>
+                    </div>
+                </div>
+                <button onclick="closeStudentModal()" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/25 flex items-center justify-center text-white transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Thanh công cụ: Tabs + Tìm kiếm + Copy danh sách -->
+            <div class="p-4 bg-slate-50 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700 space-y-3">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <!-- Tabs chọn nhóm -->
+                    <div class="inline-flex p-1 rounded-xl bg-slate-200/80 dark:bg-slate-700 border border-slate-300/60 dark:border-slate-600">
+                        <button id="modal-tab-all" onclick="setStudentModalTab('all')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Tất cả (27 SV)
+                        </button>
+                        <button id="modal-tab-nhom5" onclick="setStudentModalTab('nhom5')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Nhóm 5 (14 SV)
+                        </button>
+                        <button id="modal-tab-nhom6" onclick="setStudentModalTab('nhom6')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all">
+                            Nhóm 6 (13 SV)
+                        </button>
+                    </div>
+
+                    <!-- Ô tìm kiếm & Nút sao chép -->
+                    <div class="flex items-center gap-2 flex-1 sm:max-w-md">
+                        <div class="relative flex-1">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="text" id="student-search-input" oninput="renderStudentModalList()" placeholder="Tìm theo tên (có/không dấu) hoặc Mã SV..." class="w-full pl-8 pr-8 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs sm:text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <button id="clear-student-search" onclick="clearStudentSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            </button>
+                        </div>
+                        <button onclick="copyCurrentStudentList()" title="Sao chép danh sách đang hiển thị" class="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 shrink-0 shadow-sm transition">
+                            <i class="fa-regular fa-copy"></i>
+                            <span class="hidden sm:inline">Copy DS</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tóm tắt lịch thực hành của Tab đang xem -->
+                <div id="modal-group-schedule-summary" class="text-xs">
+                    <!-- Sinh tự động bởi JS -->
+                </div>
+            </div>
+
+            <!-- Danh sách bảng sinh viên -->
+            <div class="flex-1 overflow-y-auto custom-scrollbar p-4">
+                <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead>
+                            <tr class="bg-slate-100 dark:bg-slate-700/80 text-slate-600 dark:text-slate-300 uppercase text-[11px] font-bold tracking-wider border-b border-slate-200 dark:border-slate-700">
+                                <th class="py-2.5 px-3 text-center w-12">STT</th>
+                                <th class="py-2.5 px-3">Mã SV</th>
+                                <th class="py-2.5 px-3">Họ và đệm</th>
+                                <th class="py-2.5 px-3">Tên</th>
+                                <th class="py-2.5 px-3 text-center">Nhóm</th>
+                                <th class="py-2.5 px-3 text-right">Cá nhân hóa lịch</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-modal-tbody" class="divide-y divide-slate-200 dark:divide-slate-700/70">
+                            <!-- Sinh tự động bởi JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-5 py-3 bg-slate-50 dark:bg-slate-800/90 border-t border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
+                <span>💡 <strong>Mẹo:</strong> Bấm <strong>"Chọn làm lịch của tôi"</strong> cạnh tên bạn để ứng dụng tự động lọc đúng lịch thực hành Nhóm 5 hoặc Nhóm 6 cho những lần truy cập sau.</span>
+                <button onclick="closeStudentModal()" class="self-end sm:self-auto px-4 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold hover:bg-slate-300 transition shrink-0">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GHI CHÚ MÔN HỌC -->
+    <div id="note-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-5 shadow-2xl border border-slate-200 dark:border-slate-700 transform transition-all">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-700">
+                <h3 id="note-modal-title" class="text-base font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="fa-regular fa-pen-to-square text-blue-500"></i> Ghi chú môn học
+                </h3>
+                <button onclick="closeNoteModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 w-8 h-8 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="py-4 space-y-3">
+                <p id="note-modal-subtitle" class="text-xs font-medium text-slate-500 dark:text-slate-400"></p>
+                <textarea id="note-modal-input" rows="4" placeholder="Nhập ghi chú (VD: Nhớ mang áo blouse trắng, mang giáo trình Giải phẫu, lịch kiểm tra...)" class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/70 p-3 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                <div class="flex flex-wrap gap-1.5">
+                    <button type="button" onclick="appendQuickNote('Nhớ mang áo Blouse trắng')" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-blue-50 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300">+ Áo Blouse</button>
+                    <button type="button" onclick="appendQuickNote('Mang giáo trình & tài liệu')" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-blue-50 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300">+ Giáo trình</button>
+                    <button type="button" onclick="appendQuickNote('Có bài kiểm tra')" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-blue-50 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300">+ Kiểm tra</button>
+                    <button type="button" onclick="appendQuickNote('Điểm danh đầu giờ')" class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-blue-50 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300">+ Điểm danh</button>
+                </div>
+            </div>
+            <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-700">
+                <button onclick="deleteCurrentNote()" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 mr-auto">
+                    Xóa ghi chú
+                </button>
+                <button onclick="closeNoteModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200">
+                    Đóng
+                </button>
+                <button onclick="saveNoteFromModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
+                    Lưu ghi chú
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL XUẤT LỊCH .ICS -->
+    <div id="export-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-5 shadow-2xl border border-slate-200 dark:border-slate-700">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-700">
+                <h3 class="text-base font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="fa-regular fa-calendar-check text-teal-500"></i> Xuất Lịch Học (.ICS)
+                </h3>
+                <button onclick="closeExportModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 w-8 h-8 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="py-4 space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                <p>Tải file <strong>.ics</strong> chuẩn quốc tế để thêm tự động toàn bộ các buổi học trong Học kỳ I (từ 12/10/2026 đến 19/12/2026) vào <strong>Google Calendar</strong>, <strong>Apple Calendar (iPhone)</strong> hoặc <strong>Outlook</strong>.</p>
+                <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-700/60 space-y-2">
+                    <label class="block font-bold text-slate-700 dark:text-slate-200">Chọn nhóm muốn xuất lịch:</label>
+                    <select id="ics-group-select" class="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 font-semibold text-slate-800 dark:text-slate-100">
+                        <option value="nhom5">Lịch Nhóm 5 (14 SV) - Lớp RM31.03</option>
+                        <option value="nhom6">Lịch Nhóm 6 (13 SV) - Lớp RM31.03</option>
+                        <option value="all">Toàn bộ Lớp RM31.03 (Gồm cả N5 & N6)</option>
+                    </select>
+                </div>
+                <ul class="text-xs text-slate-500 dark:text-slate-400 space-y-1 list-disc list-inside">
+                    <li>Tự động khớp ngày bắt đầu Thực hành (từ 26/10/2026).</li>
+                    <li>Tự động dừng Lý thuyết & TH Giải phẫu sau 05/12/2026.</li>
+                    <li>Tự động dừng Thực hành Hóa học sau 19/12/2026.</li>
+                </ul>
+            </div>
+            <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-700">
+                <button onclick="closeExportModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
+                    Hủy
+                </button>
+                <button onclick="downloadICSFile()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-teal-600 hover:bg-teal-700 text-white shadow-sm flex items-center gap-1.5">
+                    <i class="fa-solid fa-download"></i> Tải file .ICS ngay
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // =========================================================================
+        // 1. DỮ LIỆU DANH SÁCH SINH VIÊN NHÓM 5 (14 SV) & NHÓM 6 (13 SV) - RM31.03
+        // =========================================================================
+        const STUDENTS_DATA = [
+            // NHÓM 5 (14 Sinh viên)
+            { stt: 1, id: '3126112818', lastName: 'Lê Phan', firstName: 'An', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 2, id: '3126112829', lastName: 'Nguyễn Đức', firstName: 'Anh', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 3, id: '3126137635', lastName: 'Nguyễn Huy', firstName: 'Anh', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 4, id: '3126129849', lastName: 'Nguyễn Khang', firstName: 'Anh', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 5, id: '3126130270', lastName: 'Trần Thị Quỳnh', firstName: 'Anh', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 6, id: '3126118029', lastName: 'Vũ Gia', firstName: 'Bảo', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 7, id: '3126122196', lastName: 'Hoàng Hữu', firstName: 'Bình', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 8, id: '3126138637', lastName: 'Nguyễn Thái', firstName: 'Bình', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 9, id: '3126124545', lastName: 'Vũ Nguyễn Nguyên', firstName: 'Bình', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 10, id: '3126124300', lastName: 'Lê Quỳnh', firstName: 'Chi', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 11, id: '3126137625', lastName: 'Nguyễn Duy', firstName: 'Cường', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 12, id: '3126122958', lastName: 'Nguyễn Nam', firstName: 'Giang', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 13, id: '3126121421', lastName: 'Trần Như', firstName: 'Hải', group: 'nhom5', groupLabel: 'Nhóm 5' },
+            { stt: 14, id: '3126112564', lastName: 'Trương Hoàng', firstName: 'Hiệp', group: 'nhom5', groupLabel: 'Nhóm 5' },
+
+            // NHÓM 6 (13 Sinh viên)
+            { stt: 1, id: '3126125494', lastName: 'Lê Văn', firstName: 'Hòe', group: 'nhom6', groupLabel: 'Nhóm 6' },
+            { stt: 2, id: '3126136065', lastName: 'Nguyễn Tiến', firstName: 'Huy', group: 'nhom6', groupLabel: 'Nhóm 6' },
+            { stt: 3, id: '3126130050', lastName: 'Nguyễn Thị Mai', firstName: 'Hương', group: 'nhom6', groupLabel: 'Nhóm 6' },
+            { stt: 4, id: '3126138652', lastName: 'Trần Anh', firstName: 'Khoa', group: 'nhom6', groupLabel: 'Nhóm 6' },
+            { stt: 5, id: '3126131483', lastName: 'Hoàng Khánh', firstName: 'Ly', group: 'nhom6', groupLabel: 'Nhóm 6' },
+            { stt: 6, id: '3126129867', lastName: 'Nguyễn Tuấn', firstName: 'Minh', group: 'nhom6', groupLabel: 'Nhóm 6' },
+            { stt: 7, id: '3126137671', lastName: 'Lê Tuấn Anh', firstName: 'Nghĩa', group: 'nhom6', groupLabel: 'Nhóm 6' },
+            { stt: 8, id: '3126132158', lastName: 'Hướng Lương', firstName: 'Nguyên', group: 'nhom6', groupLabel: 'Nhóm 6' },
+            { stt: 9, id: '3126129428', lastName: 'Nguyễn Ngọc Như', firstName: 'Quỳnh', group: 'nhom6', groupLabel: 'Nhóm 6' },
+            { stt: 10, id: '3126118181', lastName: 'Nguyễn Khắc', firstName: 'Sáng', group: 'nhom6', groupLabel: 'Nhóm 6' },
+            { stt: 11, id: '3126115645', lastName: 'Lê Quốc', firstName: 'Toản', group: 'nhom6', groupLabel: 'Nhóm 6' },
+            { stt: 12, id: '3126137658', lastName: 'Dương Gia Anh', firstName: 'Vũ', group: 'nhom6', groupLabel: 'Nhóm 6' },
+            { stt: 13, id: '3126130211', lastName: 'Phạm Đường', firstName: 'Vũ', group: 'nhom6', groupLabel: 'Nhóm 6' }
+        ];
+
+        // =========================================================================
+        // 2. CẤU HÌNH DỮ LIỆU THỜI KHÓA BIỂU KHOA Y - RM31.03
+        // =========================================================================
+        const DAYS_INFO = [
+            { dayOfWeek: 2, label: 'Thứ Hai', shortLabel: 'T2', offsetFromMonday: 0 },
+            { dayOfWeek: 3, label: 'Thứ Ba', shortLabel: 'T3', offsetFromMonday: 1 },
+            { dayOfWeek: 4, label: 'Thứ Tư', shortLabel: 'T4', offsetFromMonday: 2 },
+            { dayOfWeek: 5, label: 'Thứ Năm', shortLabel: 'T5', offsetFromMonday: 3 },
+            { dayOfWeek: 6, label: 'Thứ Sáu', shortLabel: 'T6', offsetFromMonday: 4 },
+            { dayOfWeek: 7, label: 'Thứ Bảy', shortLabel: 'T7', offsetFromMonday: 5 },
+            { dayOfWeek: 8, label: 'Chủ Nhật', shortLabel: 'CN', offsetFromMonday: 6 }
+        ];
+
+        const WEEKS_DATA = [
+            { id: 'all', name: '📌 Lịch tổng quát toàn kỳ (12/10 – 19/12/2026)', start: '2026-10-12', end: '2026-12-20' },
+            { id: '1', name: 'Tuần 1 (12/10 – 18/10/2026) • Bắt đầu Lý thuyết', start: '2026-10-12', end: '2026-10-18' },
+            { id: '2', name: 'Tuần 2 (19/10 – 25/10/2026) • Chưa học TH GP & TH HH', start: '2026-10-19', end: '2026-10-25' },
+            { id: '3', name: 'Tuần 3 (26/10 – 01/11/2026) • Bắt đầu Thực hành GP & HH', start: '2026-10-26', end: '2026-11-01' },
+            { id: '4', name: 'Tuần 4 (02/11 – 08/11/2026) • Học đầy đủ các môn', start: '2026-11-02', end: '2026-11-08' },
+            { id: '5', name: 'Tuần 5 (09/11 – 15/11/2026) • Học đầy đủ các môn', start: '2026-11-09', end: '2026-11-15' },
+            { id: '6', name: 'Tuần 6 (16/11 – 22/11/2026) • Học đầy đủ các môn', start: '2026-11-16', end: '2026-11-22' },
+            { id: '7', name: 'Tuần 7 (23/11 – 29/11/2026) • Học đầy đủ các môn', start: '2026-11-23', end: '2026-11-29' },
+            { id: '8', name: 'Tuần 8 (30/11 – 06/12/2026) • Tuần cuối LT & TH Giải phẫu', start: '2026-11-30', end: '2026-12-06' },
+            { id: '9', name: 'Tuần 9 (07/12 – 13/12/2026) • Còn TH Hóa học & môn A00', start: '2026-12-07', end: '2026-12-13' },
+            { id: '10', name: 'Tuần 10 (14/12 – 20/12/2026) • Tuần cuối TH Hóa học', start: '2026-12-14', end: '2026-12-20' }
+        ];
+
+        const SCHEDULE_ITEMS = [
+            // THỨ HAI - CHIỀU
+            {
+                id: 'mon-chieu-ltgp',
+                dayOfWeek: 2,
+                session: 'CHIỀU',
+                subject: 'Lý thuyết Giải phẫu',
+                shortCode: 'LT Giải phẫu',
+                room: 'Giảng đường Khoa Y',
+                groups: ['nhom5', 'nhom6'],
+                groupBadge: 'Chung N5–N8',
+                rosterKey: null,
+                periods: '4 tiết/buổi',
+                startDate: '2026-10-12',
+                endDate: '2026-12-05',
+                totalWeeks: 8,
+                durationText: '8 tuần (12/10 – 05/12/2026)',
+                colorTheme: 'blue',
+                icon: 'fa-book-medical'
+            },
+            // THỨ BA - CHIỀU (Chỉ Nhóm 6)
+            {
+                id: 'tue-chieu-thhh-n6',
+                dayOfWeek: 3,
+                session: 'CHIỀU',
+                subject: 'Thực hành Hóa học',
+                shortCode: 'TH HH',
+                room: 'Phòng C606',
+                groups: ['nhom6'],
+                groupBadge: 'Nhóm 6 (13 SV)',
+                rosterKey: 'nhom6',
+                periods: '4 tiết/buổi',
+                startDate: '2026-10-26',
+                endDate: '2026-12-19',
+                totalWeeks: 8,
+                durationText: '8 tuần (26/10 – 19/12/2026)',
+                colorTheme: 'purple',
+                icon: 'fa-vial-circle-check'
+            },
+            // THỨ TƯ - SÁNG
+            {
+                id: 'wed-sang-tnrhm',
+                dayOfWeek: 4,
+                session: 'SÁNG',
+                subject: 'TNRHM',
+                shortCode: 'TNRHM',
+                room: 'Phòng A00',
+                groups: ['nhom5', 'nhom6'],
+                groupBadge: 'Cả lớp (27 SV)',
+                rosterKey: 'all',
+                periods: 'Theo lịch nhà A',
+                startDate: '2026-10-12',
+                endDate: '2026-12-19',
+                totalWeeks: null,
+                durationText: 'Bắt đầu từ 12/10/2026',
+                colorTheme: 'indigo',
+                icon: 'fa-tooth'
+            },
+            // THỨ TƯ - CHIỀU (Nhóm 5 học TH Hóa học, Nhóm 6 học TH Giải phẫu)
+            {
+                id: 'wed-chieu-thhh-n5',
+                dayOfWeek: 4,
+                session: 'CHIỀU',
+                subject: 'Thực hành Hóa học',
+                shortCode: 'TH HH',
+                room: 'Phòng C606',
+                groups: ['nhom5'],
+                groupBadge: 'Nhóm 5 (14 SV)',
+                rosterKey: 'nhom5',
+                periods: '4 tiết/buổi',
+                startDate: '2026-10-26',
+                endDate: '2026-12-19',
+                totalWeeks: 8,
+                durationText: '8 tuần (26/10 – 19/12/2026)',
+                colorTheme: 'purple',
+                icon: 'fa-vial-circle-check'
+            },
+            {
+                id: 'wed-chieu-thgp-n6',
+                dayOfWeek: 4,
+                session: 'CHIỀU',
+                subject: 'Thực hành Giải phẫu',
+                shortCode: 'TH GP',
+                room: 'Phòng C402',
+                groups: ['nhom6'],
+                groupBadge: 'Nhóm 6 (13 SV)',
+                rosterKey: 'nhom6',
+                periods: '5 tiết/buổi',
+                startDate: '2026-10-26',
+                endDate: '2026-12-05',
+                totalWeeks: 6,
+                durationText: '6 tuần (26/10 – 05/12/2026)',
+                colorTheme: 'amber',
+                icon: 'fa-bone'
+            },
+            // THỨ NĂM - SÁNG (Chỉ Nhóm 5 học TH Giải phẫu)
+            {
+                id: 'thu-sang-thgp-n5',
+                dayOfWeek: 5,
+                session: 'SÁNG',
+                subject: 'Thực hành Giải phẫu',
+                shortCode: 'TH GP',
+                room: 'Phòng C402',
+                groups: ['nhom5'],
+                groupBadge: 'Nhóm 5 (14 SV)',
+                rosterKey: 'nhom5',
+                periods: '5 tiết/buổi',
+                startDate: '2026-10-26',
+                endDate: '2026-12-05',
+                totalWeeks: 6,
+                durationText: '6 tuần (26/10 – 05/12/2026)',
+                colorTheme: 'amber',
+                icon: 'fa-bone'
+            },
+            // THỨ NĂM - CHIỀU
+            {
+                id: 'thu-chieu-hat',
+                dayOfWeek: 5,
+                session: 'CHIỀU',
+                subject: 'HAT (Ngoại ngữ)',
+                shortCode: 'HAT',
+                room: 'Phòng A00',
+                groups: ['nhom5', 'nhom6'],
+                groupBadge: 'Cả lớp (27 SV)',
+                rosterKey: 'all',
+                periods: 'Theo lịch nhà A',
+                startDate: '2026-10-12',
+                endDate: '2026-12-19',
+                totalWeeks: null,
+                durationText: 'Bắt đầu từ 12/10/2026',
+                colorTheme: 'rose',
+                icon: 'fa-language'
+            },
+            // THỨ SÁU - CHIỀU
+            {
+                id: 'fri-chieu-tnrhm',
+                dayOfWeek: 6,
+                session: 'CHIỀU',
+                subject: 'TNRHM',
+                shortCode: 'TNRHM',
+                room: 'Phòng A00',
+                groups: ['nhom5', 'nhom6'],
+                groupBadge: 'Cả lớp (27 SV)',
+                rosterKey: 'all',
+                periods: 'Theo lịch nhà A',
+                startDate: '2026-10-12',
+                endDate: '2026-12-19',
+                totalWeeks: null,
+                durationText: 'Bắt đầu từ 12/10/2026',
+                colorTheme: 'indigo',
+                icon: 'fa-tooth'
+            },
+            // THỨ BẢY - SÁNG
+            {
+                id: 'sat-sang-tint',
+                dayOfWeek: 7,
+                session: 'SÁNG',
+                subject: 'TINT (Tin học)',
+                shortCode: 'TINT',
+                room: 'Phòng A00',
+                groups: ['nhom5', 'nhom6'],
+                groupBadge: 'Cả lớp (27 SV)',
+                rosterKey: 'all',
+                periods: 'Theo lịch nhà A',
+                startDate: '2026-10-12',
+                endDate: '2026-12-19',
+                totalWeeks: null,
+                durationText: 'Bắt đầu từ 12/10/2026',
+                colorTheme: 'cyan',
+                icon: 'fa-laptop-code'
+            },
+            // THỨ BẢY - CHIỀU
+            {
+                id: 'sat-chieu-lthh',
+                dayOfWeek: 7,
+                session: 'CHIỀU',
+                subject: 'Lý thuyết Hóa học',
+                shortCode: 'LT Hóa học',
+                room: 'Giảng đường Khoa Y',
+                groups: ['nhom5', 'nhom6'],
+                groupBadge: 'Chung N5–N8',
+                rosterKey: null,
+                periods: '4 tiết/buổi',
+                startDate: '2026-10-12',
+                endDate: '2026-12-05',
+                totalWeeks: 8,
+                durationText: '8 tuần (12/10 – 05/12/2026)',
+                colorTheme: 'emerald',
+                icon: 'fa-flask-vial'
+            }
+        ];
+
+        const THEME_STYLES = {
+            blue: {
+                bg: 'bg-blue-50/90 dark:bg-blue-950/45',
+                border: 'border-blue-200 dark:border-blue-800',
+                title: 'text-blue-900 dark:text-blue-200',
+                roomBg: 'bg-blue-600 text-white',
+                badgeBg: 'bg-blue-100 dark:bg-blue-900/70 text-blue-800 dark:text-blue-200'
+            },
+            amber: {
+                bg: 'bg-amber-50/95 dark:bg-amber-950/45',
+                border: 'border-amber-300 dark:border-amber-800',
+                title: 'text-amber-900 dark:text-amber-200',
+                roomBg: 'bg-amber-600 text-white',
+                badgeBg: 'bg-amber-100 dark:bg-amber-900/70 text-amber-800 dark:text-amber-200'
+            },
+            purple: {
+                bg: 'bg-purple-50/95 dark:bg-purple-950/45',
+                border: 'border-purple-300 dark:border-purple-800',
+                title: 'text-purple-900 dark:text-purple-200',
+                roomBg: 'bg-purple-600 text-white',
+                badgeBg: 'bg-purple-100 dark:bg-purple-900/70 text-purple-800 dark:text-purple-200'
+            },
+            emerald: {
+                bg: 'bg-emerald-50/90 dark:bg-emerald-950/45',
+                border: 'border-emerald-200 dark:border-emerald-800',
+                title: 'text-emerald-900 dark:text-emerald-200',
+                roomBg: 'bg-emerald-600 text-white',
+                badgeBg: 'bg-emerald-100 dark:bg-emerald-900/70 text-emerald-800 dark:text-emerald-200'
+            },
+            indigo: {
+                bg: 'bg-indigo-50/90 dark:bg-indigo-950/45',
+                border: 'border-indigo-200 dark:border-indigo-800',
+                title: 'text-indigo-900 dark:text-indigo-200',
+                roomBg: 'bg-indigo-600 text-white',
+                badgeBg: 'bg-indigo-100 dark:bg-indigo-900/70 text-indigo-800 dark:text-indigo-200'
+            },
+            rose: {
+                bg: 'bg-rose-50/90 dark:bg-rose-950/45',
+                border: 'border-rose-200 dark:border-rose-800',
+                title: 'text-rose-900 dark:text-rose-200',
+                roomBg: 'bg-rose-600 text-white',
+                badgeBg: 'bg-rose-100 dark:bg-rose-900/70 text-rose-800 dark:text-rose-200'
+            },
+            cyan: {
+                bg: 'bg-cyan-50/90 dark:bg-cyan-950/45',
+                border: 'border-cyan-200 dark:border-cyan-800',
+                title: 'text-cyan-900 dark:text-cyan-200',
+                roomBg: 'bg-cyan-600 text-white',
+                badgeBg: 'bg-cyan-100 dark:bg-cyan-900/70 text-cyan-800 dark:text-cyan-200'
+            }
+        };
+
+        // =========================================================================
+        // 3. BIẾN TRẠNG THÁI (STATE) & TIỆN ÍCH NGÀY THÁNG
+        // =========================================================================
+        let state = {
+            groupFilter: localStorage.getItem('rm3103_group') || 'all', // 'all' | 'nhom5' | 'nhom6'
+            myStudentId: localStorage.getItem('rm3103_my_student') || null,
+            weekFilter: 'all',
+            viewMode: window.innerWidth < 768 ? 'card' : 'table',
+            hideInactive: false,
+            notes: JSON.parse(localStorage.getItem('rm3103_notes') || '{}'),
+            activeNoteItemId: null,
+            referenceDateStr: null,
+            studentModalTab: 'all' // 'all' | 'nhom5' | 'nhom6'
+        };
+
+        // Loại bỏ dấu tiếng Việt để tìm kiếm thông minh
+        function removeVietnameseTones(str) {
+            return String(str)
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/Đ/g, 'D')
+                .toLowerCase();
+        }
+
+        function parseDateLocal(yyyy_mm_dd) {
+            const [y, m, d] = yyyy_mm_dd.split('-').map(Number);
+            return new Date(y, m - 1, d);
+        }
+
+        function formatDateISO(dateObj) {
+            const y = dateObj.getFullYear();
+            const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const d = String(dateObj.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        function formatDDMM(dateObj) {
+            const d = String(dateObj.getDate()).padStart(2, '0');
+            const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+            return `${d}/${m}`;
+        }
+
+        function formatDDMMYYYY(yyyy_mm_dd) {
+            const [y, m, d] = yyyy_mm_dd.split('-');
+            return `${d}/${m}/${y}`;
+        }
+
+        function getVietnamToday() {
+            const now = new Date();
+            const vnString = now.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' });
+            const vnDate = new Date(vnString);
+            return new Date(vnDate.getFullYear(), vnDate.getMonth(), vnDate.getDate());
+        }
+
+        function getVNDayOfWeek(dateObj) {
+            const jsDay = dateObj.getDay();
+            return jsDay === 0 ? 8 : jsDay + 1;
+        }
+
+        function evaluateItemStatusOnDate(item, targetDateStr) {
+            const targetDate = parseDateLocal(targetDateStr);
+            const startDate = parseDateLocal(item.startDate);
+            const endDate = parseDateLocal(item.endDate);
+
+            if (targetDate < startDate) {
+                return {
+                    status: 'upcoming',
+                    active: false,
+                    badgeText: `Chưa bắt đầu (Học từ ${formatDDMM(startDate)})`,
+                    badgeClass: 'bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-200 border border-amber-300 dark:border-amber-700'
+                };
+            }
+            if (targetDate > endDate) {
+                return {
+                    status: 'ended',
+                    active: false,
+                    badgeText: `Đã kết thúc (${formatDDMM(endDate)})`,
+                    badgeClass: 'bg-slate-200 text-slate-600 dark:bg-slate-700 dark:text-slate-400 border border-slate-300 dark:border-slate-600'
+                };
+            }
+
+            if (item.totalWeeks) {
+                const diffDays = Math.floor((targetDate - startDate) / (1000 * 60 * 60 * 24));
+                const weekNum = Math.floor(diffDays / 7) + 1;
+                return {
+                    status: 'active',
+                    active: true,
+                    badgeText: `Đang học • Buổi ${weekNum}/${item.totalWeeks}`,
+                    badgeClass: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700'
+                };
+            }
+
+            return {
+                status: 'active',
+                active: true,
+                badgeText: 'Đang học tuần này',
+                badgeClass: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700'
+            };
+        }
+
+        // =========================================================================
+        // 4. MODAL DANH SÁCH SINH VIÊN & CÁ NHÂN HÓA LỊCH HỌC
+        // =========================================================================
+        function openStudentModal(tabKey = 'all') {
+            state.studentModalTab = tabKey || 'all';
+            document.getElementById('student-modal').classList.remove('hidden');
+            setStudentModalTab(state.studentModalTab);
+        }
+
+        function closeStudentModal() {
+            document.getElementById('student-modal').classList.add('hidden');
+        }
+
+        function setStudentModalTab(tabKey) {
+            state.studentModalTab = tabKey;
+            ['all', 'nhom5', 'nhom6'].forEach(k => {
+                const btn = document.getElementById(`modal-tab-${k}`);
+                if (k === tabKey) {
+                    btn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-blue-600 text-white shadow-sm';
+                } else {
+                    btn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-600 dark:text-slate-300 hover:bg-slate-300/50 dark:hover:bg-slate-600';
+                }
+            });
+
+            // Hiển thị tóm tắt lịch thực hành tương ứng
+            const summaryEl = document.getElementById('modal-group-schedule-summary');
+            if (tabKey === 'nhom5') {
+                summaryEl.innerHTML = `
+                    <div class="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-blue-900 dark:text-blue-200 flex flex-wrap items-center justify-between gap-2">
+                        <span><i class="fa-solid fa-flask mr-1.5 text-purple-600"></i><strong>Lịch thực hành Nhóm 5 (14 SV):</strong> TH Hóa học <strong>Chiều Thứ Tư (P. C606)</strong> &bull; TH Giải phẫu <strong>Sáng Thứ Năm (P. C402)</strong></span>
+                        <button onclick="setGroupFilter('nhom5'); closeStudentModal();" class="px-2.5 py-1 rounded-lg bg-blue-600 text-white font-bold text-[11px] hover:bg-blue-700">Lọc lịch Nhóm 5</button>
+                    </div>
+                `;
+            } else if (tabKey === 'nhom6') {
+                summaryEl.innerHTML = `
+                    <div class="p-2.5 rounded-xl bg-teal-50 dark:bg-teal-950/50 border border-teal-200 dark:border-teal-800 text-teal-900 dark:text-teal-200 flex flex-wrap items-center justify-between gap-2">
+                        <span><i class="fa-solid fa-flask mr-1.5 text-purple-600"></i><strong>Lịch thực hành Nhóm 6 (13 SV):</strong> TH Hóa học <strong>Chiều Thứ Ba (P. C606)</strong> &bull; TH Giải phẫu <strong>Chiều Thứ Tư (P. C402)</strong></span>
+                        <button onclick="setGroupFilter('nhom6'); closeStudentModal();" class="px-2.5 py-1 rounded-lg bg-teal-600 text-white font-bold text-[11px] hover:bg-teal-700">Lọc lịch Nhóm 6</button>
+                    </div>
+                `;
+            } else {
+                summaryEl.innerHTML = `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div class="p-2 rounded-xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/70 dark:border-blue-800/60 text-slate-700 dark:text-slate-200">
+                            <span class="font-bold text-blue-700 dark:text-blue-300">Nhóm 5 (14 SV):</span> TH Hóa <strong>Chiều T4 (C606)</strong> • TH Giải phẫu <strong>Sáng T5 (C402)</strong>
+                        </div>
+                        <div class="p-2 rounded-xl bg-teal-50/80 dark:bg-teal-950/40 border border-teal-200/70 dark:border-teal-800/60 text-slate-700 dark:text-slate-200">
+                            <span class="font-bold text-teal-700 dark:text-teal-300">Nhóm 6 (13 SV):</span> TH Hóa <strong>Chiều T3 (C606)</strong> • TH Giải phẫu <strong>Chiều T4 (C402)</strong>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderStudentModalList();
+        }
+
+        function clearStudentSearch() {
+            document.getElementById('student-search-input').value = '';
+            renderStudentModalList();
+        }
+
+        function getFilteredStudentsForModal() {
+            const rawQuery = (document.getElementById('student-search-input')?.value || '').trim();
+            const clearBtn = document.getElementById('clear-student-search');
+            if (clearBtn) {
+                clearBtn.classList.toggle('hidden', rawQuery.length === 0);
+            }
+
+            const qNorm = removeVietnameseTones(rawQuery);
+
+            return STUDENTS_DATA.filter(st => {
+                if (state.studentModalTab !== 'all' && st.group !== state.studentModalTab) return false;
+                if (!qNorm) return true;
+                const fullName = `${st.lastName} ${st.firstName}`;
+                const fullNorm = removeVietnameseTones(fullName);
+                return fullNorm.includes(qNorm) || st.id.includes(qNorm);
+            });
+        }
+
+        function renderStudentModalList() {
+            const tbody = document.getElementById('student-modal-tbody');
+            const list = getFilteredStudentsForModal();
+
+            if (list.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="py-8 text-center text-slate-400 dark:text-slate-500">
+                            Không tìm thấy sinh viên nào khớp với từ khóa tìm kiếm.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = list.map((st, idx) => {
+                const isSelected = state.myStudentId === st.id;
+                const groupBadgeClass = st.group === 'nhom5'
+                    ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200'
+                    : 'bg-teal-100 text-teal-800 dark:bg-teal-900/60 dark:text-teal-200';
+
+                return `
+                    <tr class="${isSelected ? 'bg-teal-50/90 dark:bg-teal-950/40' : 'hover:bg-slate-50 dark:hover:bg-slate-700/40'} transition">
+                        <td class="py-2.5 px-3 text-center font-semibold text-slate-500 dark:text-slate-400">
+                            ${st.stt}
+                        </td>
+                        <td class="py-2.5 px-3 font-mono text-xs">
+                            <div class="flex items-center gap-1.5">
+                                <span class="font-semibold text-slate-700 dark:text-slate-200">${st.id}</span>
+                                <button onclick="copyStudentId('${st.id}')" title="Sao chép Mã SV" class="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400">
+                                    <i class="fa-regular fa-copy text-[11px]"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td class="py-2.5 px-3 text-slate-700 dark:text-slate-300">
+                            ${st.lastName}
+                        </td>
+                        <td class="py-2.5 px-3 font-bold text-slate-900 dark:text-white">
+                            ${st.firstName}
+                        </td>
+                        <td class="py-2.5 px-3 text-center">
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${groupBadgeClass}">
+                                ${st.groupLabel}
+                            </span>
+                        </td>
+                        <td class="py-2.5 px-3 text-right">
+                            ${isSelected ? `
+                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-600 text-white text-xs font-bold">
+                                    <i class="fa-solid fa-check"></i> Đang chọn
+                                </span>
+                            ` : `
+                                <button onclick="selectMyStudent('${st.id}')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-600 hover:text-white dark:bg-slate-700 dark:hover:bg-blue-600 text-slate-700 dark:text-slate-200 text-xs font-semibold transition">
+                                    Chọn làm lịch của tôi
+                                </button>
+                            `}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function copyStudentId(id) {
+            copyTextToClipboard(id);
+            showToast(`Đã sao chép Mã SV: ${id}`, 'success');
+        }
+
+        function copyCurrentStudentList() {
+            const list = getFilteredStudentsForModal();
+            if (list.length === 0) {
+                showToast('Không có sinh viên nào trong danh sách để sao chép.', 'info');
+                return;
+            }
+            const title = state.studentModalTab === 'all'
+                ? 'DANH SÁCH LỚP RM31.03 (NHÓM 5 & NHÓM 6 - 27 SV)'
+                : (state.studentModalTab === 'nhom5' ? 'DANH SÁCH NHÓM 5 - LỚP RM31.03 (14 SV)' : 'DANH SÁCH NHÓM 6 - LỚP RM31.03 (13 SV)');
+
+            let lines = [`📋 ${title}:`, `Học phần: Thực hành Hóa học (Mã HP: 191393024)`];
+            list.forEach(st => {
+                lines.push(`${st.stt}. ${st.id} - ${st.lastName} ${st.firstName} (${st.groupLabel})`);
+            });
+            copyTextToClipboard(lines.join('\n'));
+            showToast(`Đã sao chép danh sách ${list.length} sinh viên!`, 'success');
+        }
+
+        function selectMyStudent(studentId) {
+            const st = STUDENTS_DATA.find(s => s.id === studentId);
+            if (!st) return;
+            state.myStudentId = st.id;
+            localStorage.setItem('rm3103_my_student', st.id);
+            setGroupFilter(st.group);
+            renderPersonalStudentBanner();
+            renderStudentModalList();
+            closeStudentModal();
+            showToast(`Đã cài đặt lịch cá nhân của ${st.lastName} ${st.firstName} (${st.groupLabel})!`, 'success');
+        }
+
+        function clearPersonalStudent() {
+            state.myStudentId = null;
+            localStorage.removeItem('rm3103_my_student');
+            renderPersonalStudentBanner();
+            renderStudentModalList();
+            showToast('Đã tắt chế độ cá nhân hóa sinh viên.', 'info');
+        }
+
+        function renderPersonalStudentBanner() {
+            const banner = document.getElementById('personal-student-banner');
+            if (!state.myStudentId) {
+                banner.classList.add('hidden');
+                return;
+            }
+            const st = STUDENTS_DATA.find(s => s.id === state.myStudentId);
+            if (!st) {
+                banner.classList.add('hidden');
+                return;
+            }
+
+            banner.classList.remove('hidden');
+            document.getElementById('personal-student-name').textContent = `${st.lastName} ${st.firstName}`;
+            document.getElementById('personal-student-id').textContent = `MSV: ${st.id}`;
+            document.getElementById('personal-student-group').textContent = `${st.groupLabel} • RM31.03`;
+
+            const labSummary = st.group === 'nhom5'
+                ? 'Lịch thực hành của bạn: TH Hóa học Chiều Thứ Tư (P. C606) • TH Giải phẫu Sáng Thứ Năm (P. C402)'
+                : 'Lịch thực hành của bạn: TH Hóa học Chiều Thứ Ba (P. C606) • TH Giải phẫu Chiều Thứ Tư (P. C402)';
+            document.getElementById('personal-student-lab-summary').textContent = labSummary;
+        }
+
+        // =========================================================================
+        // 5. KHỞI TẠO VÀ ĐIỀU KHIỂN BỘ LỌC THỜI KHÓA BIỂU
+        // =========================================================================
+        function initWeekSelector() {
+            const select = document.getElementById('week-selector');
+            select.innerHTML = WEEKS_DATA.map(w => `<option value="${w.id}">${w.name}</option>`).join('');
+
+            const todayISO = formatDateISO(getVietnamToday());
+            const matchedWeek = WEEKS_DATA.find(w => w.id !== 'all' && todayISO >= w.start && todayISO <= w.end);
+            if (matchedWeek) {
+                state.weekFilter = matchedWeek.id;
+            } else {
+                state.weekFilter = 'all';
+            }
+            select.value = state.weekFilter;
+        }
+
+        function setGroupFilter(groupKey) {
+            state.groupFilter = groupKey;
+            localStorage.setItem('rm3103_group', groupKey);
+
+            ['all', 'nhom5', 'nhom6'].forEach(k => {
+                const btn = document.getElementById(`group-btn-${k}`);
+                if (k === groupKey) {
+                    btn.className = 'group-filter-btn flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-blue-600 text-white shadow-sm';
+                } else {
+                    btn.className = 'group-filter-btn flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-600/50';
+                }
+            });
+
+            const labelMap = {
+                'all': 'Cả lớp RM31.03 (27 SV)',
+                'nhom5': 'Chỉ Nhóm 5 (14 SV)',
+                'nhom6': 'Chỉ Nhóm 6 (13 SV)'
+            };
+            document.getElementById('widget-group-label').textContent = labelMap[groupKey];
+            document.getElementById('ics-group-select').value = groupKey;
+
+            renderAll();
+        }
+
+        function setWeekFilter(weekId) {
+            state.weekFilter = weekId;
+            document.getElementById('week-selector').value = weekId;
+            renderAll();
+        }
+
+        function StepWeek(direction) {
+            const currentIndex = WEEKS_DATA.findIndex(w => w.id === state.weekFilter);
+            let nextIndex = currentIndex + direction;
+            if (nextIndex < 0) nextIndex = WEEKS_DATA.length - 1;
+            if (nextIndex >= WEEKS_DATA.length) nextIndex = 0;
+            setWeekFilter(WEEKS_DATA[nextIndex].id);
+        }
+
+        function jumpToCurrentWeek() {
+            const todayISO = formatDateISO(getVietnamToday());
+            const matchedWeek = WEEKS_DATA.find(w => w.id !== 'all' && todayISO >= w.start && todayISO <= w.end);
+            if (matchedWeek) {
+                setWeekFilter(matchedWeek.id);
+                showToast(`Đã chuyển về ${matchedWeek.name.split('•')[0].trim()}`, 'info');
+            } else {
+                setWeekFilter('all');
+                showToast('Ngày hiện tại nằm ngoài khung 10 tuần học, hiển thị lịch tổng quát.', 'info');
+            }
+        }
+
+        function setViewMode(mode) {
+            state.viewMode = mode;
+            const tableBtn = document.getElementById('view-btn-table');
+            const cardBtn = document.getElementById('view-btn-card');
+            const tableContainer = document.getElementById('table-view-container');
+            const cardContainer = document.getElementById('card-view-container');
+
+            if (mode === 'table') {
+                tableBtn.className = 'view-mode-btn flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 bg-blue-600 text-white shadow-sm';
+                cardBtn.className = 'view-mode-btn flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-600/50';
+                tableContainer.classList.remove('hidden');
+                cardContainer.classList.add('hidden');
+            } else {
+                cardBtn.className = 'view-mode-btn flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 bg-blue-600 text-white shadow-sm';
+                tableBtn.className = 'view-mode-btn flex-1 sm:flex-initial px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-600/50';
+                tableContainer.classList.add('hidden');
+                cardContainer.classList.remove('hidden');
+            }
+        }
+
+        function toggleHideInactive(checked) {
+            state.hideInactive = checked;
+            renderScheduleViews();
+        }
+
+        // =========================================================================
+        // 6. HIỂN THỊ BẢNG (TABLE VIEW) & THẺ (CARD VIEW)
+        // =========================================================================
+        function getDateForDayInSelectedWeek(offsetFromMonday) {
+            if (state.weekFilter === 'all') return null;
+            const weekObj = WEEKS_DATA.find(w => w.id === state.weekFilter);
+            if (!weekObj) return null;
+            const mondayDate = parseDateLocal(weekObj.start);
+            return new Date(mondayDate.getFullYear(), mondayDate.getMonth(), mondayDate.getDate() + offsetFromMonday);
+        }
+
+        function renderWeekBanner() {
+            const banner = document.getElementById('week-status-banner');
+            const weekObj = WEEKS_DATA.find(w => w.id === state.weekFilter);
+            const groupText = state.groupFilter === 'all' ? 'Cả lớp RM31.03 (27 SV)' : (state.groupFilter === 'nhom5' ? 'Nhóm 5 (14 SV) - RM31.03' : 'Nhóm 6 (13 SV) - RM31.03');
+
+            document.getElementById('print-subtitle').textContent = `Đối tượng: ${groupText} | ${weekObj ? weekObj.name : ''}`;
+
+            if (state.weekFilter === 'all') {
+                banner.innerHTML = `
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 font-semibold">
+                        <i class="fa-solid fa-layer-group mr-1.5"></i> Chế độ toàn kỳ
+                    </span>
+                    <span>Hiển thị tất cả các học phần trong Học kỳ I. Bấm vào huy hiệu <strong>Nhóm 5 / Nhóm 6</strong> trên thẻ môn học để xem danh sách SV.</span>
+                `;
+            } else {
+                const wNum = Number(state.weekFilter);
+                let noteHtml = '';
+                if (wNum <= 2) {
+                    noteHtml = `<span class="text-amber-600 dark:text-amber-400 font-semibold">• Lưu ý: Tuần ${wNum} chưa bắt đầu học Thực hành Giải phẫu (C402) và Thực hành Hóa học (C606).</span>`;
+                } else if (wNum >= 3 && wNum <= 8) {
+                    noteHtml = `<span class="text-emerald-600 dark:text-emerald-400 font-semibold">• Tuần ${wNum} học đầy đủ cả Lý thuyết và Thực hành.</span>`;
+                } else if (wNum >= 9) {
+                    noteHtml = `<span class="text-purple-600 dark:text-purple-400 font-semibold">• Lưu ý: LT Giải phẫu, TH Giải phẫu & LT Hóa học đã kết thúc (05/12). Chỉ còn TH Hóa học & các môn nhà A.</span>`;
+                }
+                banner.innerHTML = `
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-teal-100 dark:bg-teal-900/50 text-teal-800 dark:text-teal-200 font-semibold">
+                        <i class="fa-regular fa-calendar-days mr-1.5"></i> Đang xem Tuần ${wNum}
+                    </span>
+                    ${noteHtml}
+                `;
+            }
+        }
+
+        // Sinh HTML cho 1 thẻ môn học trong ô lịch (Tích hợp nút bấm xem DS nhóm khéo léo)
+        function buildCourseCardHTML(item, specificDateObj) {
+            const theme = THEME_STYLES[item.colorTheme] || THEME_STYLES.blue;
+            const userNote = state.notes[item.id] || '';
+            let statusInfo = null;
+
+            if (specificDateObj) {
+                statusInfo = evaluateItemStatusOnDate(item, formatDateISO(specificDateObj));
+                if (!statusInfo.active && state.hideInactive) {
+                    return '';
+                }
+            }
+
+            const inactiveOpacity = (statusInfo && !statusInfo.active) ? 'opacity-50 grayscale-[35%]' : '';
+            const titleStrike = (statusInfo && statusInfo.status === 'ended') ? 'line-through' : '';
+
+            // Nếu môn học thuộc Nhóm 5, Nhóm 6 hoặc Cả lớp RM31.03, cho phép bấm vào huy hiệu nhóm để mở ngay Danh sách SV
+            const groupBadgeHtml = item.rosterKey
+                ? `<button type="button" onclick="event.stopPropagation(); openStudentModal('${item.rosterKey}')" title="Bấm để xem danh sách sinh viên ${item.groupBadge}" class="text-[11px] font-bold px-2 py-0.5 rounded-md ${theme.badgeBg} hover:ring-2 hover:ring-current transition inline-flex items-center gap-1">
+                        <i class="fa-solid fa-users text-[9px] opacity-75"></i>
+                        <span>${item.groupBadge}</span>
+                   </button>`
+                : `<span class="text-[11px] font-bold px-2 py-0.5 rounded-md ${theme.badgeBg}">
+                        ${item.groupBadge}
+                   </span>`;
+
+            return `
+                <div onclick="openNoteModal('${item.id}')" class="group relative rounded-xl p-3 border ${theme.bg} ${theme.border} ${inactiveOpacity} hover:shadow-md transition-all cursor-pointer text-left">
+                    <!-- Dòng trên: Nhóm (Click mở DS) + Phòng học -->
+                    <div class="flex items-center justify-between gap-1.5 mb-1.5">
+                        ${groupBadgeHtml}
+                        <span class="text-[11px] font-extrabold px-2 py-0.5 rounded-md ${theme.roomBg} shadow-sm">
+                            ${item.room}
+                        </span>
+                    </div>
+
+                    <!-- Tên môn học -->
+                    <div class="font-bold text-sm ${theme.title} ${titleStrike} flex items-center gap-1.5">
+                        <i class="fa-solid ${item.icon} text-xs opacity-80"></i>
+                        <span>${item.subject}</span>
+                    </div>
+
+                    <!-- Số tiết & Thời gian -->
+                    <div class="mt-1.5 text-[11px] text-slate-600 dark:text-slate-300 space-y-0.5">
+                        <div class="flex items-center gap-1">
+                            <i class="fa-regular fa-clock text-[10px] opacity-75"></i>
+                            <span>${item.periods}</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fa-regular fa-calendar text-[10px] opacity-75"></i>
+                            <span>${item.durationText}</span>
+                        </div>
+                    </div>
+
+                    <!-- Trạng thái theo tuần cụ thể -->
+                    ${statusInfo ? `
+                        <div class="mt-2 pt-1.5 border-t border-black/5 dark:border-white/10">
+                            <span class="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full ${statusInfo.badgeClass}">
+                                ${statusInfo.badgeText}
+                            </span>
+                        </div>
+                    ` : ''}
+
+                    <!-- Ghi chú cá nhân nếu có -->
+                    ${userNote ? `
+                        <div class="mt-2 p-1.5 rounded-lg bg-yellow-100/90 dark:bg-yellow-900/50 border border-yellow-300 dark:border-yellow-700 text-[11px] text-yellow-900 dark:text-yellow-200 flex items-start gap-1.5">
+                            <i class="fa-solid fa-thumbtack text-[10px] mt-0.5 text-amber-600 dark:text-amber-400 shrink-0"></i>
+                            <span class="break-words font-medium">${escapeHtml(userNote)}</span>
+                        </div>
+                    ` : `
+                        <div class="opacity-0 group-hover:opacity-100 transition-opacity mt-1.5 text-[10px] text-slate-400 dark:text-slate-400 flex items-center justify-between no-print">
+                            <span><i class="fa-regular fa-pen-to-square"></i> Ghi chú</span>
+                            ${item.rosterKey ? `<span><i class="fa-regular fa-address-book"></i> Bấm nhóm xem DS</span>` : ''}
+                        </div>
+                    `}
+                </div>
+            `;
+        }
+
+        function renderScheduleViews() {
+            renderWeekBanner();
+
+            const todayObj = getVietnamToday();
+            const todayISO = formatDateISO(todayObj);
+            const todayVNDay = getVNDayOfWeek(todayObj);
+
+            const tableDays = DAYS_INFO.slice(0, 6); // T2 -> T7
+
+            // 1. Render Header của Bảng
+            const headerRow = document.getElementById('table-header-row');
+            let headerHtml = `<th class="p-3.5 border-b border-r border-slate-200 dark:border-slate-700 w-24 text-center">Buổi</th>`;
+
+            tableDays.forEach(d => {
+                const colDateObj = getDateForDayInSelectedWeek(d.offsetFromMonday);
+                const colDateISO = colDateObj ? formatDateISO(colDateObj) : null;
+                const isTodayCol = (state.weekFilter === 'all' && d.dayOfWeek === todayVNDay) || (colDateISO === todayISO);
+
+                headerHtml += `
+                    <th class="p-3.5 border-b border-r border-slate-200 dark:border-slate-700 text-center w-[15%] ${isTodayCol ? 'today-col-header' : ''}">
+                        <div class="flex flex-col items-center">
+                            <span class="text-xs sm:text-sm font-extrabold text-slate-800 dark:text-white">${d.label}</span>
+                            ${colDateObj ? `<span class="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">${formatDDMM(colDateObj)}/2026</span>` : ''}
+                            ${isTodayCol ? `<span class="mt-1 px-2 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-bold tracking-wider uppercase shadow-sm">Hôm nay</span>` : ''}
+                        </div>
+                    </th>
+                `;
+            });
+            headerRow.innerHTML = headerHtml;
+
+            // 2. Render Body của Bảng (SÁNG & CHIỀU)
+            const sessions = [
+                { key: 'SÁNG', label: 'SÁNG', sub: 'Ca sáng', icon: 'fa-sun text-amber-500' },
+                { key: 'CHIỀU', label: 'CHIỀU', sub: 'Ca chiều', icon: 'fa-cloud-sun text-blue-500' }
+            ];
+
+            const tbody = document.getElementById('table-body');
+            let bodyHtml = '';
+
+            sessions.forEach(sess => {
+                bodyHtml += `<tr class="divide-x divide-slate-200 dark:divide-slate-700">`;
+                bodyHtml += `
+                    <td class="p-3 bg-slate-50/90 dark:bg-slate-800/90 text-center align-middle font-bold text-slate-700 dark:text-slate-200">
+                        <div class="flex flex-col items-center justify-center gap-1">
+                            <i class="fa-solid ${sess.icon} text-base"></i>
+                            <span class="text-xs tracking-wider">${sess.label}</span>
+                        </div>
+                    </td>
+                `;
+
+                tableDays.forEach(d => {
+                    const colDateObj = getDateForDayInSelectedWeek(d.offsetFromMonday);
+                    const colDateISO = colDateObj ? formatDateISO(colDateObj) : null;
+                    const isTodayCol = (state.weekFilter === 'all' && d.dayOfWeek === todayVNDay) || (colDateISO === todayISO);
+
+                    const matchingItems = SCHEDULE_ITEMS.filter(item => {
+                        if (item.dayOfWeek !== d.dayOfWeek || item.session !== sess.key) return false;
+                        if (state.groupFilter === 'all') return true;
+                        return item.groups.includes(state.groupFilter);
+                    });
+
+                    const cardsHtml = matchingItems
+                        .map(item => buildCourseCardHTML(item, colDateObj))
+                        .filter(Boolean)
+                        .join('');
+
+                    bodyHtml += `
+                        <td class="p-2.5 align-top ${isTodayCol ? 'today-col-cell' : ''}">
+                            ${cardsHtml ? `<div class="space-y-2.5">${cardsHtml}</div>` : `
+                                <div class="h-full min-h-[76px] flex items-center justify-center text-xs text-slate-400 dark:text-slate-600 italic select-none">
+                                    Nghỉ
+                                </div>
+                            `}
+                        </td>
+                    `;
+                });
+
+                bodyHtml += `</tr>`;
+            });
+            tbody.innerHTML = bodyHtml;
+
+            // 3. Render Chế độ Thẻ từng ngày (Card / Agenda View)
+            const cardContainer = document.getElementById('card-view-container');
+            let cardsViewHtml = '';
+
+            DAYS_INFO.forEach(d => {
+                const colDateObj = getDateForDayInSelectedWeek(d.offsetFromMonday);
+                const colDateISO = colDateObj ? formatDateISO(colDateObj) : null;
+                const isTodayCard = (state.weekFilter === 'all' && d.dayOfWeek === todayVNDay) || (colDateISO === todayISO);
+
+                const morningItems = SCHEDULE_ITEMS.filter(item => {
+                    if (item.dayOfWeek !== d.dayOfWeek || item.session !== 'SÁNG') return false;
+                    return state.groupFilter === 'all' || item.groups.includes(state.groupFilter);
+                });
+                const afternoonItems = SCHEDULE_ITEMS.filter(item => {
+                    if (item.dayOfWeek !== d.dayOfWeek || item.session !== 'CHIỀU') return false;
+                    return state.groupFilter === 'all' || item.groups.includes(state.groupFilter);
+                });
+
+                const morningHtml = morningItems.map(it => buildCourseCardHTML(it, colDateObj)).filter(Boolean).join('');
+                const afternoonHtml = afternoonItems.map(it => buildCourseCardHTML(it, colDateObj)).filter(Boolean).join('');
+
+                if (d.dayOfWeek === 8) {
+                    cardsViewHtml += `
+                        <div class="rounded-2xl bg-white dark:bg-slate-800 border ${isTodayCard ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-slate-200 dark:border-slate-700'} p-4 shadow-sm flex items-center justify-between">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs flex items-center justify-center">CN</span>
+                                <div>
+                                    <h4 class="font-bold text-sm text-slate-800 dark:text-white">${d.label} ${colDateObj ? `(${formatDDMM(colDateObj)})` : ''}</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Nghỉ cả ngày</p>
+                                </div>
+                            </div>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 font-semibold">Cuối tuần</span>
+                        </div>
+                    `;
+                    return;
+                }
+
+                cardsViewHtml += `
+                    <div class="rounded-2xl bg-white dark:bg-slate-800 border ${isTodayCard ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-slate-200 dark:border-slate-700'} overflow-hidden shadow-sm flex flex-col">
+                        <div class="px-4 py-3 ${isTodayCard ? 'bg-blue-600 text-white' : 'bg-slate-100/80 dark:bg-slate-700/70 text-slate-800 dark:text-white'} flex items-center justify-between border-b border-slate-200/70 dark:border-slate-700">
+                            <div class="flex items-center gap-2">
+                                <span class="font-extrabold text-sm sm:text-base">${d.label}</span>
+                                ${colDateObj ? `<span class="text-xs opacity-85 font-medium">(${formatDDMM(colDateObj)}/2026)</span>` : ''}
+                            </div>
+                            ${isTodayCard ? `<span class="px-2 py-0.5 rounded-full bg-white text-blue-700 text-[10px] font-extrabold uppercase">Hôm nay</span>` : ''}
+                        </div>
+
+                        <div class="p-4 space-y-4 flex-1">
+                            <!-- Buổi sáng -->
+                            <div>
+                                <div class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-2 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-sun text-amber-500"></i> Buổi Sáng
+                                </div>
+                                ${morningHtml ? `<div class="space-y-2">${morningHtml}</div>` : `<div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-700/30 text-xs text-slate-400 italic text-center">Nghỉ buổi sáng</div>`}
+                            </div>
+
+                            <!-- Buổi chiều -->
+                            <div>
+                                <div class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-2 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-cloud-sun text-blue-500"></i> Buổi Chiều
+                                </div>
+                                ${afternoonHtml ? `<div class="space-y-2">${afternoonHtml}</div>` : `<div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-700/30 text-xs text-slate-400 italic text-center">Nghỉ buổi chiều</div>`}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cardContainer.innerHTML = cardsViewHtml;
+        }
+
+        // =========================================================================
+        // 7. WIDGET HÔM NAY & NGÀY MAI HỌC GÌ?
+        // =========================================================================
+        function updateTodayTomorrowWidget(customDateISO) {
+            const baseDate = customDateISO ? parseDateLocal(customDateISO) : getVietnamToday();
+            state.referenceDateStr = formatDateISO(baseDate);
+            document.getElementById('custom-date-picker').value = state.referenceDateStr;
+
+            const tomorrowDate = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate() + 1);
+
+            renderSingleDaySummary(baseDate, 'today-title-date', 'today-schedule-list');
+            renderSingleDaySummary(tomorrowDate, 'tomorrow-title-date', 'tomorrow-schedule-list');
+        }
+
+        function resetDatePickerToToday() {
+            const todayISO = formatDateISO(getVietnamToday());
+            updateTodayTomorrowWidget(todayISO);
+            showToast('Đã đặt lại ngày tra cứu về hôm nay.', 'info');
+        }
+
+        function renderSingleDaySummary(dateObj, titleElemId, listElemId) {
+            const vnDay = getVNDayOfWeek(dateObj);
+            const dayInfo = DAYS_INFO.find(d => d.dayOfWeek === vnDay);
+            const dateISO = formatDateISO(dateObj);
+
+            document.getElementById(titleElemId).textContent = `${dayInfo.label}, ${formatDDMMYYYY(dateISO)}`;
+
+            const dayItems = SCHEDULE_ITEMS.filter(item => {
+                if (item.dayOfWeek !== vnDay) return false;
+                return state.groupFilter === 'all' || item.groups.includes(state.groupFilter);
+            });
+
+            const container = document.getElementById(listElemId);
+            if (dayItems.length === 0) {
+                container.innerHTML = `
+                    <div class="p-3 rounded-xl bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700 text-xs sm:text-sm text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                        <i class="fa-solid fa-mug-hot text-emerald-500"></i>
+                        <span>Nghỉ cả ngày – Không có lịch học cố định.</span>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = dayItems.map(item => {
+                const statusObj = evaluateItemStatusOnDate(item, dateISO);
+                const theme = THEME_STYLES[item.colorTheme] || THEME_STYLES.blue;
+                return `
+                    <div onclick="openNoteModal('${item.id}')" class="p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2 cursor-pointer hover:border-blue-400 transition">
+                        <div class="flex items-start gap-2.5">
+                            <span class="px-2 py-1 rounded-lg text-[10px] font-extrabold uppercase ${item.session === 'SÁNG' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-200' : 'bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200'} shrink-0 mt-0.5">
+                                ${item.session}
+                            </span>
+                            <div>
+                                <div class="font-bold text-xs sm:text-sm text-slate-800 dark:text-white flex flex-wrap items-center gap-1.5">
+                                    <span>${item.subject}</span>
+                                    <span class="text-[10px] px-1.5 py-0.5 rounded ${theme.badgeBg}">${item.groupBadge}</span>
+                                </div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                                    <strong>${item.room}</strong> • ${item.periods}
+                                </div>
+                            </div>
+                        </div>
+                        <span class="self-start sm:self-center text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0 ${statusObj.badgeClass}">
+                            ${statusObj.badgeText}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function copyDaySchedule(which) {
+            const baseDate = state.referenceDateStr ? parseDateLocal(state.referenceDateStr) : getVietnamToday();
+            const targetDate = which === 'today' ? baseDate : new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate() + 1);
+            const vnDay = getVNDayOfWeek(targetDate);
+            const dayInfo = DAYS_INFO.find(d => d.dayOfWeek === vnDay);
+            const dateISO = formatDateISO(targetDate);
+
+            const groupName = state.groupFilter === 'all' ? 'Lớp RM31.03 (N5 & N6)' : (state.groupFilter === 'nhom5' ? 'Nhóm 5 - RM31.03' : 'Nhóm 6 - RM31.03');
+            const items = SCHEDULE_ITEMS.filter(item => item.dayOfWeek === vnDay && (state.groupFilter === 'all' || item.groups.includes(state.groupFilter)));
+
+            let text = `📅 LỊCH HỌC ${groupName.toUpperCase()} - ${dayInfo.label.toUpperCase()} (${formatDDMMYYYY(dateISO)}):\n`;
+            if (items.length === 0) {
+                text += `• Nghỉ cả ngày.`;
+            } else {
+                items.forEach(it => {
+                    const st = evaluateItemStatusOnDate(it, dateISO);
+                    text += `• Buổi ${it.session}: ${it.subject} (${it.groupBadge}) | ${it.room} | ${it.periods} [${st.badgeText}]\n`;
+                });
+            }
+
+            copyTextToClipboard(text.trim());
+            showToast('Đã sao chép lịch học vào bộ nhớ tạm!', 'success');
+        }
+
+        function copyTextToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+            } catch (err) {
+                console.error('Copy error:', err);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // =========================================================================
+        // 8. QUẢN LÝ GHI CHÚ CÁ NHÂN (LOCALSTORAGE)
+        // =========================================================================
+        function openNoteModal(itemId) {
+            const item = SCHEDULE_ITEMS.find(i => i.id === itemId);
+            if (!item) return;
+            state.activeNoteItemId = itemId;
+            const dayInfo = DAYS_INFO.find(d => d.dayOfWeek === item.dayOfWeek);
+
+            document.getElementById('note-modal-title').innerHTML = `<i class="fa-regular fa-pen-to-square text-blue-500"></i> ${item.subject}`;
+            document.getElementById('note-modal-subtitle').textContent = `${dayInfo.label} (Buổi ${item.session}) • ${item.room} • ${item.groupBadge}`;
+            document.getElementById('note-modal-input').value = state.notes[itemId] || '';
+            document.getElementById('note-modal').classList.remove('hidden');
+            setTimeout(() => document.getElementById('note-modal-input').focus(), 50);
+        }
+
+        function closeNoteModal() {
+            document.getElementById('note-modal').classList.add('hidden');
+            state.activeNoteItemId = null;
+        }
+
+        function appendQuickNote(sampleText) {
+            const input = document.getElementById('note-modal-input');
+            const current = input.value.trim();
+            input.value = current ? `${current}; ${sampleText}` : sampleText;
+            input.focus();
+        }
+
+        function saveNoteFromModal() {
+            if (!state.activeNoteItemId) return;
+            const val = document.getElementById('note-modal-input').value.trim();
+            if (val) {
+                state.notes[state.activeNoteItemId] = val;
+                showToast('Đã lưu ghi chú môn học!', 'success');
+            } else {
+                delete state.notes[state.activeNoteItemId];
+                showToast('Đã xóa ghi chú.', 'info');
+            }
+            localStorage.setItem('rm3103_notes', JSON.stringify(state.notes));
+            closeNoteModal();
+            renderAll();
+        }
+
+        function deleteCurrentNote() {
+            if (!state.activeNoteItemId) return;
+            delete state.notes[state.activeNoteItemId];
+            localStorage.setItem('rm3103_notes', JSON.stringify(state.notes));
+            closeNoteModal();
+            renderAll();
+            showToast('Đã xóa ghi chú môn học.', 'info');
+        }
+
+        function clearAllNotes() {
+            state.notes = {};
+            localStorage.removeItem('rm3103_notes');
+            renderAll();
+            showToast('Đã xóa toàn bộ ghi chú cá nhân.', 'info');
+        }
+
+        function renderSavedNotesList() {
+            const listEl = document.getElementById('saved-notes-list');
+            const clearBtn = document.getElementById('clear-notes-btn');
+            const noteKeys = Object.keys(state.notes);
+
+            if (noteKeys.length === 0) {
+                clearBtn.classList.add('hidden');
+                listEl.innerHTML = `
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/30 border border-dashed border-slate-200 dark:border-slate-700 text-center text-xs text-slate-400">
+                        Chưa có ghi chú nào. Bạn có thể bấm vào bất kỳ ô môn học nào trên bảng để thêm lời nhắc (VD: mang áo blouse, lịch kiểm tra).
+                    </div>
+                `;
+                return;
+            }
+
+            clearBtn.classList.remove('hidden');
+            listEl.innerHTML = noteKeys.map(itemId => {
+                const item = SCHEDULE_ITEMS.find(i => i.id === itemId);
+                if (!item) return '';
+                const dayInfo = DAYS_INFO.find(d => d.dayOfWeek === item.dayOfWeek);
+                return `
+                    <div onclick="openNoteModal('${item.id}')" class="p-2.5 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/60 cursor-pointer hover:shadow-sm transition text-xs">
+                        <div class="flex items-center justify-between font-bold text-amber-900 dark:text-amber-300">
+                            <span>${item.subject} (${item.groupBadge})</span>
+                            <span class="text-[10px] text-slate-500 dark:text-slate-400">${dayInfo.shortLabel} - ${item.session}</span>
+                        </div>
+                        <p class="text-slate-700 dark:text-slate-200 mt-1 break-words">${escapeHtml(state.notes[itemId])}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // =========================================================================
+        // 9. XUẤT LỊCH SANG FILE .ICS (GOOGLE / APPLE CALENDAR)
+        // =========================================================================
+        function openExportModal() {
+            document.getElementById('ics-group-select').value = state.groupFilter;
+            document.getElementById('export-modal').classList.remove('hidden');
+        }
+
+        function closeExportModal() {
+            document.getElementById('export-modal').classList.add('hidden');
+        }
+
+        function downloadICSFile() {
+            const targetGroup = document.getElementById('ics-group-select').value;
+            const filteredItems = SCHEDULE_ITEMS.filter(item => targetGroup === 'all' || item.groups.includes(targetGroup));
+
+            let icsLines = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//HUBT Khoa Y//Lich Hoc RM31.03//VI',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH'
+            ];
+
+            filteredItems.forEach(item => {
+                const startObj = parseDateLocal(item.startDate);
+                const endObj = parseDateLocal(item.endDate);
+
+                let cursor = new Date(startObj.getFullYear(), startObj.getMonth(), startObj.getDate());
+                while (getVNDayOfWeek(cursor) !== item.dayOfWeek) {
+                    cursor.setDate(cursor.getDate() + 1);
+                }
+
+                const startTimeStr = item.session === 'SÁNG' ? '073000' : '130000';
+                const endTimeStr = item.session === 'SÁNG' ? '113000' : '170000';
+
+                while (cursor <= endObj) {
+                    const y = cursor.getFullYear();
+                    const m = String(cursor.getMonth() + 1).padStart(2, '0');
+                    const d = String(cursor.getDate()).padStart(2, '0');
+                    const datePart = `${y}${m}${d}`;
+
+                    const summary = `[${item.shortCode}] ${item.subject} - ${item.room} (${item.groupBadge})`;
+                    const noteText = state.notes[item.id] ? ` | Ghi chú: ${state.notes[item.id]}` : '';
+                    const desc = `Lớp RM31.03 - Khoa Y HUBT | Thời lượng: ${item.periods} | ${item.durationText}${noteText}`;
+
+                    icsLines.push(
+                        'BEGIN:VEVENT',
+                        `UID:${item.id}-${datePart}@rm3103.hubt.edu.vn`,
+                        `DTSTAMP:${datePart}T000000Z`,
+                        `DTSTART;TZID=Asia/Ho_Chi_Minh:${datePart}T${startTimeStr}`,
+                        `DTEND;TZID=Asia/Ho_Chi_Minh:${datePart}T${endTimeStr}`,
+                        `SUMMARY:${summary}`,
+                        `LOCATION:${item.room} - Khoa Y HUBT`,
+                        `DESCRIPTION:${desc}`,
+                        'END:VEVENT'
+                    );
+
+                    cursor.setDate(cursor.getDate() + 7);
+                }
+            });
+
+            icsLines.push('END:VCALENDAR');
+
+            const blob = new Blob([icsLines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const fileSuffix = targetGroup === 'all' ? 'CaLop' : (targetGroup === 'nhom5' ? 'Nhom5' : 'Nhom6');
+            a.download = `LichHoc_RM31.03_${fileSuffix}_HK1_2026.ics`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            closeExportModal();
+            showToast('Đã tải file lịch .ICS thành công!', 'success');
+        }
+
+        // =========================================================================
+        // 10. DARK MODE, TOAST & KHỞI ĐỘNG ỨNG DỤNG
+        // =========================================================================
+        function initTheme() {
+            const savedTheme = localStorage.getItem('rm3103_theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('theme-icon').className = 'fa-solid fa-sun text-amber-300 text-sm sm:text-base';
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('theme-icon').className = 'fa-solid fa-moon text-sm sm:text-base';
+            }
+        }
+
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('rm3103_theme', isDark ? 'dark' : 'light');
+            document.getElementById('theme-icon').className = isDark
+                ? 'fa-solid fa-sun text-amber-300 text-sm sm:text-base'
+                : 'fa-solid fa-moon text-sm sm:text-base';
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const colorMap = {
+                success: 'bg-emerald-600 text-white',
+                info: 'bg-slate-800 dark:bg-slate-700 text-white'
+            };
+            toast.className = `pointer-events-auto px-4 py-2.5 rounded-xl shadow-lg text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all duration-300 ${colorMap[type] || colorMap.info}`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-info'}"></i><span>${escapeHtml(message)}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(8px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 2800);
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function updateLiveHeaderClock() {
+            const today = getVietnamToday();
+            const vnDay = getVNDayOfWeek(today);
+            const dayInfo = DAYS_INFO.find(d => d.dayOfWeek === vnDay);
+            const dateISO = formatDateISO(today);
+            document.getElementById('live-date-badge').textContent = `${dayInfo.label}, ${formatDDMMYYYY(dateISO)}`;
+        }
+
+        function renderAll() {
+            renderPersonalStudentBanner();
+            renderScheduleViews();
+            updateTodayTomorrowWidget(state.referenceDateStr);
+            renderSavedNotesList();
+        }
+
+        window.onload = function () {
+            initTheme();
+            updateLiveHeaderClock();
+            initWeekSelector();
+            setViewMode(state.viewMode);
+
+            // Nếu đã chọn sinh viên cá nhân trước đó, đồng bộ nhóm theo sinh viên đó
+            if (state.myStudentId) {
+                const st = STUDENTS_DATA.find(s => s.id === state.myStudentId);
+                if (st) state.groupFilter = st.group;
+            }
+            setGroupFilter(state.groupFilter);
+        };
+    </script>
+</body>
+</html>
