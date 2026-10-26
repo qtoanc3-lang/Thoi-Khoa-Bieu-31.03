@@ -36,7 +36,7 @@ body {
 
 @page {
   size: A4 landscape;
-  margin: 6mm 8mm;
+  margin: 4mm 6mm;
 }
 
 @media print {
@@ -49,7 +49,7 @@ body {
     color: #000000 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    font-size: 10pt !important;
+    font-size: 8.5pt !important;
   }
 
   *, *::before, *::after {
@@ -58,17 +58,39 @@ body {
     box-shadow: none !important;
   }
 
-  header, nav, .sticky, .fixed, button, input, select, .no-print {
+  header, nav, footer, .no-print,
+  #controls-section, #card-view-container, #hom-nay, #quy-dinh, #ghi-chu,
+  .sticky, .fixed, button, input, select {
     display: none !important;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
 
   .print-only {
     display: block !important;
   }
 
+  #print-official-header {
+    display: block !important;
+    margin-bottom: 1.5mm !important;
+    padding-bottom: 1mm !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
   #table-view-container {
     display: block !important;
     width: 100% !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
@@ -84,43 +106,52 @@ body {
     table-layout: fixed !important;
     border-collapse: collapse !important;
     border: 1.5px solid #334155 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   th {
-    padding: 5px 4px !important;
+    padding: 3px 2px !important;
     border: 1px solid #334155 !important;
     background-color: #f1f5f9 !important;
     color: #0f172a !important;
     font-weight: 800 !important;
     text-align: center !important;
-    font-size: 9.5pt !important;
+    font-size: 8.5pt !important;
+    line-height: 1.15 !important;
   }
 
   td {
     border: 1px solid #94a3b8 !important;
-    padding: 4px !important;
+    padding: 2.5px 3px !important;
     vertical-align: top !important;
   }
 
   td:first-child {
-    width: 65px !important;
+    width: 80px !important;
     text-align: center !important;
     vertical-align: middle !important;
     font-weight: 800 !important;
     background-color: #f8fafc !important;
+    padding: 2px !important;
   }
 
   td div[class*="rounded"] {
-    margin-bottom: 3px !important;
-    padding: 4px 5px !important;
+    margin-bottom: 2px !important;
+    padding: 2.5px 3.5px !important;
     border-width: 1px !important;
-    border-radius: 4px !important;
+    border-radius: 3.5px !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
+    font-size: 7.8pt !important;
+    line-height: 1.15 !important;
   }
 
   .print-footer-summary {
     display: block !important;
-    margin-top: 6px !important;
+    margin-top: 1.5mm !important;
+    padding: 1.5mm !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 }

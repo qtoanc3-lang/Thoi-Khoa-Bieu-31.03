@@ -1061,13 +1061,13 @@ export default function App() {
         </section>
 
         {/* PRINT-ONLY OFFICIAL HEADER FOR A4 LANDSCAPE (100% WIDTH) */}
-        <div className="hidden print-only mb-3 border-b-2 border-slate-900 pb-2.5">
-          <div className="grid grid-cols-2 text-center text-[10px] leading-tight pb-2 border-b border-slate-300">
+        <div id="print-official-header" className="hidden print-only mb-2 border-b-2 border-slate-900 pb-1.5">
+          <div className="grid grid-cols-2 text-center text-[9px] leading-tight pb-1 border-b border-slate-300">
             <div>
               <div className="font-semibold uppercase tracking-wider text-slate-700">
                 TRƯỜNG ĐẠI HỌC KINH DOANH VÀ CÔNG NGHỆ HÀ NỘI
               </div>
-              <div className="font-black uppercase tracking-wider text-blue-950 text-[11px] mt-0.5">
+              <div className="font-black uppercase tracking-wider text-blue-950 text-[10.5px] mt-0.5">
                 KHOA RĂNG HÀM MẶT
               </div>
             </div>
@@ -1075,20 +1075,20 @@ export default function App() {
               <div className="font-bold uppercase tracking-wider text-slate-800">
                 CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
               </div>
-              <div className="font-semibold italic text-slate-700 text-[10px] mt-0.5">
+              <div className="font-semibold italic text-slate-700 text-[9.5px] mt-0.5">
                 Độc lập – Tự do – Hạnh phúc
               </div>
             </div>
           </div>
 
-          <div className="text-center mt-2">
-            <h1 className="text-base sm:text-lg font-black uppercase tracking-wide text-blue-950">
+          <div className="text-center mt-1.5">
+            <h1 className="text-sm font-black uppercase tracking-wide text-blue-950">
               THỜI KHÓA BIỂU HỌC KỲ I (NĂM HỌC 2026 – 2027)
             </h1>
-            <div className="text-[11px] font-extrabold text-slate-800 mt-0.5">
+            <div className="text-[10px] font-extrabold text-slate-800 mt-0.5">
               LỚP: RM31.03 &bull; CHUYÊN NGÀNH: BÁC SĨ RĂNG HÀM MẶT (CHÍNH KHÓA)
             </div>
-            <div className="flex items-center justify-center gap-3 text-[10px] text-slate-600 mt-1 tabular-nums font-medium">
+            <div className="flex items-center justify-center gap-3 text-[9px] text-slate-600 mt-0.5 tabular-nums font-medium">
               <span>📅 Thời gian: 12/10/2026 – 19/12/2026 (10 tuần thực học)</span>
               <span>&bull;</span>
               <span className="font-bold text-blue-900">
@@ -1099,9 +1099,9 @@ export default function App() {
                   : 'Nhóm 6 (13 Sinh viên)'}
               </span>
               <span>&bull;</span>
-              <span>
+              <span className="font-semibold text-slate-700">
                 {weekFilter === 'all'
-                  ? 'Tất cả các tuần (Tuần 1 – 10)'
+                  ? 'Toàn bộ học kỳ'
                   : `${currentWeekObj.name} (${currentWeekObj.rangeText})`}
               </span>
             </div>
@@ -1305,19 +1305,25 @@ export default function App() {
                 {(['SÁNG', 'CHIỀU'] as const).map((sessionKey) => (
                   <tr key={sessionKey} className="divide-x divide-slate-200 dark:divide-slate-800">
                     <td
-                      className={`p-2 text-center align-middle font-extrabold text-[11px] ${
+                      className={`p-1.5 sm:p-2 text-center align-middle font-extrabold text-[11px] ${
                         sessionKey === 'SÁNG'
                           ? 'bg-amber-50/70 dark:bg-amber-950/25 text-amber-900 dark:text-amber-300'
                           : 'bg-blue-50/70 dark:bg-blue-950/25 text-blue-900 dark:text-blue-300'
                       }`}
                     >
-                      <div className="flex flex-col items-center justify-center gap-1">
+                      <div className="flex flex-col items-center justify-center gap-0.5 text-center leading-tight">
                         {sessionKey === 'SÁNG' ? (
-                          <Sun className="w-4 h-4 text-amber-500" />
+                          <Sun className="w-4 h-4 text-amber-500 no-print" />
                         ) : (
-                          <Sunset className="w-4 h-4 text-blue-500" />
+                          <Sunset className="w-4 h-4 text-blue-500 no-print" />
                         )}
-                        <span>{sessionKey}</span>
+                        <span className="font-black text-xs uppercase tracking-wide">{sessionKey}</span>
+                        <span className="font-mono text-[9px] font-bold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                          {sessionKey === 'SÁNG' ? '07:00 – 10:45' : '13:00 – 16:45'}
+                        </span>
+                        <span className="text-[8.5px] font-semibold text-slate-500 dark:text-slate-400 whitespace-nowrap">
+                          {sessionKey === 'SÁNG' ? '(Tiết 1 – 4)' : '(Tiết 7 – 10)'}
+                        </span>
                       </div>
                     </td>
                     {tableDays.map((d) => {
@@ -1361,39 +1367,39 @@ export default function App() {
             </table>
           </div>
 
-          {/* PRINT-ONLY FOOTER SUMMARY: TẬN DỤNG TOÀN BỘ KHỔ GIẤY A4 XOAY NGANG */}
-          <div className="hidden print-only print-footer-summary p-2.5 bg-slate-50 border-t-2 border-slate-900">
-            <div className="grid grid-cols-3 gap-2.5 text-[9.5px] leading-snug">
-              <div className="border border-slate-300 rounded p-2 bg-white">
-                <div className="font-black text-blue-950 uppercase mb-1 flex items-center gap-1">
-                  <span>📍 ĐỊA ĐIỂM &amp; PHÒNG HỌC</span>
+          {/* PRINT-ONLY FOOTER SUMMARY: GỌN GÀNG VỪA KHÍT TRONG 1 TRANG A4 */}
+          <div className="hidden print-only print-footer-summary p-1.5 bg-slate-50 border-t-2 border-slate-900 text-[8.5px] leading-tight">
+            <div className="grid grid-cols-3 gap-2">
+              <div className="border border-slate-300 rounded p-1 bg-white">
+                <div className="font-black text-blue-950 uppercase mb-0.5">
+                  📍 ĐỊA ĐIỂM &amp; PHÒNG HỌC
                 </div>
-                <div>&bull; <strong>LT Giải phẫu:</strong> Giảng đường Khoa Răng Hàm Mặt (T1–T8, Chiều T2)</div>
-                <div>&bull; <strong>TH Hóa học:</strong> Phòng C606 (N5: Chiều T4, N6: Sáng T5, 8 tuần)</div>
-                <div>&bull; <strong>TH Giải phẫu:</strong> Phòng C402 (N5: Sáng T5, N6: Chiều T4, 6 tuần)</div>
+                <div>&bull; <strong>TH Hóa học:</strong> Phòng C606 (N5: Chiều T4 | N6: Sáng T5)</div>
+                <div>&bull; <strong>TH Giải phẫu:</strong> Phòng C402 (N5: Sáng T5 | N6: Chiều T4)</div>
+                <div>&bull; <strong>LT Giải phẫu:</strong> Giảng đường K.RHM (Chiều T2)</div>
                 <div>&bull; <strong>TNRHM / HAT / TINT:</strong> Phòng A00 (Tuần 1–10)</div>
               </div>
 
-              <div className="border border-slate-300 rounded p-2 bg-white">
-                <div className="font-black text-teal-950 uppercase mb-1 flex items-center gap-1">
-                  <span>👥 PHÂN CHIA NHÓM THỰC HÀNH</span>
+              <div className="border border-slate-300 rounded p-1 bg-white">
+                <div className="font-black text-teal-950 uppercase mb-0.5">
+                  👥 PHÂN NHÓM THỰC HÀNH (27 SV)
                 </div>
-                <div>&bull; <strong>Nhóm 5 (14 SV):</strong> Thứ tự 01 &rarr; 14 (Vũ Gia Bảo &rarr; N.N. Quỳnh Mai)</div>
-                <div>&bull; <strong>Nhóm 6 (13 SV):</strong> Thứ tự 15 &rarr; 27 (Nguyễn Đắc Minh &rarr; N. Phương Thùy)</div>
-                <div className="mt-0.5 text-slate-500 italic">Tổng số sinh viên chính khóa: 27 sinh viên.</div>
+                <div>&bull; <strong>Nhóm 5 (14 SV):</strong> STT 01 &rarr; 14 (Vũ Gia Bảo &rarr; N.N. Quỳnh Mai)</div>
+                <div>&bull; <strong>Nhóm 6 (13 SV):</strong> STT 15 &rarr; 27 (Nguyễn Đắc Minh &rarr; N. Phương Thùy)</div>
+                <div className="text-slate-500 italic mt-0.5">Mã học phần TH Hóa: 191393024</div>
               </div>
 
-              <div className="border border-slate-300 rounded p-2 bg-white flex flex-col justify-between">
+              <div className="border border-slate-300 rounded p-1 bg-white flex flex-col justify-between">
                 <div>
-                  <div className="font-black text-slate-900 uppercase mb-1 flex items-center gap-1">
-                    <span>⏰ KHUNG GIỜ &amp; GHI CHÚ</span>
+                  <div className="font-black text-slate-900 uppercase mb-0.5">
+                    ⏰ KHUNG GIỜ HỌC
                   </div>
                   <div>&bull; <strong>Sáng:</strong> Tiết 1 &ndash; 4 (07:00 &ndash; 10:45)</div>
                   <div>&bull; <strong>Chiều:</strong> Tiết 7 &ndash; 10 (13:00 &ndash; 16:45)</div>
                 </div>
-                <div className="text-[8.5px] text-slate-500 pt-1 border-t border-slate-200 flex items-center justify-between">
-                  <span>RM31.03 Khoa Răng Hàm Mặt HUBT</span>
-                  <span>In bản A4 Landscape</span>
+                <div className="text-[8px] text-slate-500 pt-0.5 border-t border-slate-200 flex items-center justify-between">
+                  <span>RM31.03 Khoa RHM - HUBT</span>
+                  <span className="font-bold text-slate-700">Trang 1/1</span>
                 </div>
               </div>
             </div>
@@ -1583,11 +1589,11 @@ export default function App() {
         </section>
 
         {/* 4. COMPACT COURSE REGULATIONS & PERSONAL NOTES */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 sm:gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 sm:gap-5 no-print">
           {/* Course Implementation Details */}
           <section
             id="quy-dinh"
-            className="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl shadow-2xs border border-slate-200 dark:border-slate-800 p-3.5 sm:p-5 space-y-3.5"
+            className="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl shadow-2xs border border-slate-200 dark:border-slate-800 p-3.5 sm:p-5 space-y-3.5 no-print"
           >
             <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-200 dark:border-slate-800">
               <div>
