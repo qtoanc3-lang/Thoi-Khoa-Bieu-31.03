@@ -15,12 +15,12 @@
     <link rel="stylesheet" href="./public/gh-pages.css" />
     <style>
       @page {
-        size: A4 landscape; /* Ép khổ A4 nằm ngang toàn bộ trang */
-        margin: 5mm 6mm;    /* Thu gọn lề giấy tối đa */
+        size: A4 landscape; /* Ép khổ A4 nằm ngang */
+        margin: 6mm 8mm;
       }
 
       @media print {
-        /* 1. Ép khổ giấy ngang và tỷ lệ tràn đều 100% trang A4 */
+        /* 1. Thiết lập toàn trang in */
         html, body {
           width: 100% !important;
           height: auto !important;
@@ -30,10 +30,10 @@
           color: #000000 !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
-          font-size: 11px !important;
+          font-size: 10pt !important;
         }
 
-        /* 2. Mở khóa toàn bộ khung cuộn ngang và ẩn các nút bấm web */
+        /* 2. Mở khóa cuộn và ẩn các thành phần giao diện web không cần thiết khi in */
         *, *::before, *::after {
           overflow: visible !important;
           max-height: none !important;
@@ -51,9 +51,6 @@
         #table-view-container {
           display: block !important;
           width: 100% !important;
-          border: 1.5px solid #1e293b !important;
-          border-radius: 6px !important;
-          margin: 0 !important;
           page-break-inside: avoid !important;
           break-inside: avoid !important;
         }
@@ -62,43 +59,44 @@
           display: none !important;
         }
 
-        /* 3. Ép bảng TKB dàn đều 100% chiều ngang A4 xoay ngang */
+        /* 3. Ép bảng thời khóa biểu hiển thị trọn vẹn 1 trang */
         table {
           width: 100% !important;
           min-width: 100% !important;
           max-width: 100% !important;
           table-layout: fixed !important;
           border-collapse: collapse !important;
+          border: 1.5px solid #334155 !important;
         }
 
-        thead th {
-          padding: 6px 4px !important;
+        th {
+          padding: 5px 4px !important;
           border: 1px solid #334155 !important;
           background-color: #f1f5f9 !important;
           color: #0f172a !important;
           font-weight: 800 !important;
           text-align: center !important;
+          font-size: 9.5pt !important;
         }
 
-        tbody td {
-          border: 1px solid #cbd5e1 !important;
+        td {
+          border: 1px solid #94a3b8 !important;
           padding: 4px !important;
           vertical-align: top !important;
-          height: 64mm !important; /* Tận dụng chiều cao khổ A4 ngang */
         }
 
-        tbody td:first-child {
-          width: 58px !important;
+        td:first-child {
+          width: 65px !important;
           text-align: center !important;
           vertical-align: middle !important;
           font-weight: 800 !important;
           background-color: #f8fafc !important;
         }
 
-        /* Thẻ môn học in rõ nét, đầy đủ thông tin */
-        tbody td .group {
-          margin-bottom: 4px !important;
-          padding: 4px 6px !important;
+        /* Định dạng thẻ môn học khi in */
+        td div[class*="rounded"] {
+          margin-bottom: 3px !important;
+          padding: 4px 5px !important;
           border-width: 1px !important;
           border-radius: 4px !important;
           page-break-inside: avoid !important;
@@ -108,26 +106,28 @@
         .print-footer-summary {
           display: block !important;
           margin-top: 6px !important;
-          font-size: 10px !important;
-          line-height: 1.35 !important;
         }
       }
     </style>
   </head>
   <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased selection:bg-teal-600 selection:text-white">
     <div id="root"></div>
-    <script type="module" src="./public/gh-pages.js"></script>
+    <div id="fallback-notice"></div>
+    <script type="module" src="./public/gh-pages.js" onerror="handleLoadError()"></script>
     <script>
-      // Cảnh báo nếu người dùng mở trực tiếp bằng giao thức file:// bị chặn CORS
+      function handleLoadError() {
+        if (document.getElementById('root').innerHTML.trim() === '') {
+          document.getElementById('fallback-notice').innerHTML = `
+            <div style="padding:20px; font-family:sans-serif; max-width:650px; margin:30px auto; background:#fffbeb; border:1px solid #f59e0b; border-radius:10px; color:#92400e;">
+              <strong>⚠️ Lưu ý khi mở file độc lập:</strong><br>
+              Bạn đang mở file <code>index.html</code> mà thiếu thư mục <code>public/</code> đi kèm. Vui lòng đặt thư mục <code>public chứa gh-pages.js và gh-pages.css</code> nằm cùng cấp với file index.html này, hoặc sử dụng extension <b>Live Server</b> trên VS Code.
+            </div>
+          `;
+        }
+      }
+
       if (window.location.protocol === 'file:') {
-        document.getElementById('root').innerHTML =
-          '<div style="padding:24px;font-family:sans-serif;max-width:600px;margin:40px auto;border:1px solid #f87171;background:#fef2f2;border-radius:12px;color:#991b1b;">' +
-          '<b>⚠️ Không thể mở trực tiếp qua giao thức file://</b><br><br>' +
-          'Trình duyệt chặn ES Module khi nháy đúp mở file trên ổ cứng. Để mở được:<br>' +
-          '1. Mở bằng tiện ích <b>Live Server</b> trên VS Code, hoặc<br>' +
-          '2. Đưa cả file <code>index.html</code> và thư mục <code>public/</code> lên <b>GitHub Pages</b>.<br>' +
-          '3. Hoặc nhấn nút <b>"Tải bản độc lập (Mở không cần server)"</b> trong ứng dụng.' +
-          '</div>';
+        console.warn("Đang chạy ở chế độ cục bộ (file://). Đảm bảo thư mục public nằm cùng cấp.");
       }
     </script>
   </body>
