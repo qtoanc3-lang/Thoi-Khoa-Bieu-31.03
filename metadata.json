@@ -1,0 +1,6 @@
+{
+  "name": "Thời Khóa Biểu RM31.03 - Khoa Y HUBT",
+  "description": "Hệ thống tra cứu thời khóa biểu, danh sách phân nhóm thực hành (Nhóm 5 & Nhóm 6), ghi chú học phần và xuất lịch .ICS dành cho sinh viên lớp RM31.03 Khoa Răng Hàm Mặt - HUBT (HK1 2026-2027).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
