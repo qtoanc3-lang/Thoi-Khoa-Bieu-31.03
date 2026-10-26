@@ -73,12 +73,49 @@
         }
 
         /* Tối ưu khi in A4 */
+        @page {
+            size: A4 landscape; /* Ép khổ A4 nằm ngang để đủ 7 cột TKB */
+            margin: 6mm 8mm;    /* Thu gọn lề giấy */
+        }
+
         @media print {
-            body {
+            /* 1. Giữ nguyên màu sắc môn học và ép tỷ lệ vừa trang A4 */
+            html, body {
                 background: #ffffff !important;
                 color: #000000 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                zoom: 82%; /* Thu nhỏ tự động để toàn bộ TKB nằm gọn trong 1 mặt A4 */
             }
-            .no-print {
+
+            /* 2. Mở khóa toàn bộ khung cuộn ngang (overflow) đang làm mất cột TKB */
+            *, *::before, *::after {
+                overflow: visible !important;
+                max-height: none !important;
+            }
+
+            /* 3. Ép bảng TKB co giãn vừa khít 100% khổ giấy A4 thay vì tràn lề */
+            table {
+                width: 100% !important;
+                min-width: 0 !important;
+                max-width: 100% !important;
+                table-layout: fixed !important;
+                border-collapse: collapse !important;
+            }
+
+            th, td {
+                word-break: break-word !important;
+                white-space: normal !important;
+                padding: 4px !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            /* 4. Tắt thanh neo (sticky) và ẩn nút bấm/ô tìm kiếm để không đẩy lệch trang */
+            header, nav, .sticky, .fixed {
+                position: static !important;
+            }
+            button, input, select, .no-print {
                 display: none !important;
             }
             .print-only {
@@ -91,18 +128,6 @@
             }
             #card-view-container {
                 display: none !important;
-            }
-            table {
-                min-width: 100% !important;
-                font-size: 11px !important;
-            }
-            th, td {
-                padding: 6px !important;
-                border: 1px solid #94a3b8 !important;
-            }
-            @page {
-                size: A4 landscape;
-                margin: 10mm;
             }
         }
     </style>

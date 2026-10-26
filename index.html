@@ -12,33 +12,71 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <script>
-      window.__loadGHPagesBundle = function () {
-        if (window.__VITE_REACT_MOUNTED__ || window.__GH_FALLBACK_LOADING__) return;
-        window.__GH_FALLBACK_LOADING__ = true;
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = './public/gh-pages.css';
-        document.head.appendChild(link);
-        var s = document.createElement('script');
-        s.type = 'module';
-        s.src = './public/gh-pages.js';
-        document.body.appendChild(s);
-      };
-    </script>
+    <link rel="stylesheet" href="./public/gh-pages.css" />
+    <style>
+      @page {
+        size: A4 landscape; /* Ép khổ A4 nằm ngang để đủ 7 cột TKB */
+        margin: 6mm 8mm;    /* Thu gọn lề giấy */
+      }
+
+      @media print {
+        /* 1. Giữ nguyên màu sắc môn học và ép tỷ lệ vừa trang A4 */
+        html, body {
+          background: #ffffff !important;
+          color: #000000 !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          zoom: 82%; /* Thu nhỏ tự động để toàn bộ TKB nằm gọn trong 1 mặt A4 */
+        }
+
+        /* 2. Mở khóa toàn bộ khung cuộn ngang (overflow) đang làm mất cột TKB */
+        *, *::before, *::after {
+          overflow: visible !important;
+          max-height: none !important;
+        }
+
+        /* 3. Ép bảng TKB co giãn vừa khít 100% khổ giấy A4 thay vì tràn lề */
+        table {
+          width: 100% !important;
+          min-width: 0 !important;
+          max-width: 100% !important;
+          table-layout: fixed !important;
+          border-collapse: collapse !important;
+        }
+
+        th, td {
+          word-break: break-word !important;
+          white-space: normal !important;
+          padding: 4px !important;
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+        }
+
+        /* 4. Tắt thanh neo (sticky) và ẩn nút bấm/ô tìm kiếm để không đẩy lệch trang */
+        header, nav, .sticky, .fixed {
+          position: static !important;
+        }
+        button, input, select, .no-print {
+          display: none !important;
+        }
+      }
+    </style>
   </head>
   <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased selection:bg-teal-600 selection:text-white">
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx" onerror="window.__loadGHPagesBundle()"></script>
+    <script type="module" src="./public/gh-pages.js"></script>
     <script>
-      window.addEventListener('load', function () {
-        setTimeout(function () {
-          var root = document.getElementById('root');
-          if (!window.__VITE_REACT_MOUNTED__ && (!root || !root.innerHTML.trim())) {
-            window.__loadGHPagesBundle();
-          }
-        }, 250);
-      });
+      // Cảnh báo nếu người dùng mở trực tiếp bằng giao thức file:// bị chặn CORS
+      if (window.location.protocol === 'file:') {
+        document.getElementById('root').innerHTML =
+          '<div style="padding:24px;font-family:sans-serif;max-width:600px;margin:40px auto;border:1px solid #f87171;background:#fef2f2;border-radius:12px;color:#991b1b;">' +
+          '<b>⚠️ Không thể mở trực tiếp qua giao thức file://</b><br><br>' +
+          'Trình duyệt chặn ES Module khi nháy đúp mở file trên ổ cứng. Để mở được:<br>' +
+          '1. Mở bằng tiện ích <b>Live Server</b> trên VS Code, hoặc<br>' +
+          '2. Đưa cả file <code>index.html</code> và thư mục <code>public/</code> lên <b>GitHub Pages</b>.<br>' +
+          '3. Hoặc nhấn nút <b>"Tải bản độc lập (Mở không cần server)"</b> trong ứng dụng.' +
+          '</div>';
+      }
     </script>
   </body>
 </html>
