@@ -878,7 +878,7 @@ export default function App() {
                   <p className="text-[11px] text-blue-100 mt-0.5 leading-snug">
                     {myStudent.group === 'nhom5'
                       ? 'TH Hóa: Chiều T4 (C606) · TH Giải phẫu: Sáng T5 (C402)'
-                      : 'TH Hóa: Chiều T3 (C606) · TH Giải phẫu: Chiều T4 (C402)'}
+                      : 'TH Hóa: Sáng T5 (C606) · TH Giải phẫu: Chiều T4 (C402)'}
                   </p>
                 </div>
               </div>
@@ -1368,9 +1368,9 @@ export default function App() {
                 <div className="font-black text-blue-950 uppercase mb-1 flex items-center gap-1">
                   <span>📍 ĐỊA ĐIỂM &amp; PHÒNG HỌC</span>
                 </div>
-                <div>&bull; <strong>LT Giải phẫu:</strong> Giảng đường Khoa Răng Hàm Mặt (T1–T10)</div>
-                <div>&bull; <strong>TH Giải phẫu:</strong> Phòng C402 (Tuần 5–10, T7 Chiều)</div>
-                <div>&bull; <strong>TH Hóa học:</strong> Phòng C606 (Tuần 1–4, T5 Chiều)</div>
+                <div>&bull; <strong>LT Giải phẫu:</strong> Giảng đường Khoa Răng Hàm Mặt (T1–T8, Chiều T2)</div>
+                <div>&bull; <strong>TH Hóa học:</strong> Phòng C606 (N5: Chiều T4, N6: Sáng T5, 8 tuần)</div>
+                <div>&bull; <strong>TH Giải phẫu:</strong> Phòng C402 (N5: Sáng T5, N6: Chiều T4, 6 tuần)</div>
                 <div>&bull; <strong>TNRHM / HAT / TINT:</strong> Phòng A00 (Tuần 1–10)</div>
               </div>
 
@@ -1681,7 +1681,7 @@ export default function App() {
                     onClick={() => openStudentModal('nhom6')}
                     className="underline font-bold text-purple-900 dark:text-purple-300 cursor-pointer"
                   >
-                    N6: Chiều T3
+                    N6: Sáng T5
                   </button>
                 </p>
               </div>

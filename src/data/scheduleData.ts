@@ -210,24 +210,6 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     durationText: '8 tuần (12/10 – 05/12/2026)',
     colorTheme: 'blue'
   },
-  // THỨ BA - CHIỀU (Chỉ Nhóm 6)
-  {
-    id: 'tue-chieu-thhh-n6',
-    dayOfWeek: 3,
-    session: 'CHIỀU',
-    subject: 'Thực hành Hóa học',
-    shortCode: 'TH HH',
-    room: 'Phòng C606',
-    groups: ['nhom6'],
-    groupBadge: 'Nhóm 6 (13 SV)',
-    rosterKey: 'nhom6',
-    periods: '4 tiết/buổi',
-    startDate: '2026-10-26',
-    endDate: '2026-12-19',
-    totalWeeks: 8,
-    durationText: '8 tuần (26/10 – 19/12/2026)',
-    colorTheme: 'purple'
-  },
   // THỨ TƯ - SÁNG
   {
     id: 'wed-sang-tnrhm',
@@ -281,7 +263,24 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     durationText: '6 tuần (26/10 – 05/12/2026)',
     colorTheme: 'amber'
   },
-  // THỨ NĂM - SÁNG (Chỉ Nhóm 5 học TH Giải phẫu)
+  // THỨ NĂM - SÁNG: Nhóm 6 học TH Hóa học (C606), Nhóm 5 học TH Giải phẫu (C402)
+  {
+    id: 'thu-sang-thhh-n6',
+    dayOfWeek: 5,
+    session: 'SÁNG',
+    subject: 'Thực hành Hóa học',
+    shortCode: 'TH HH',
+    room: 'Phòng C606',
+    groups: ['nhom6'],
+    groupBadge: 'Nhóm 6 (13 SV)',
+    rosterKey: 'nhom6',
+    periods: '4 tiết/buổi',
+    startDate: '2026-10-26',
+    endDate: '2026-12-19',
+    totalWeeks: 8,
+    durationText: '8 tuần (26/10 – 19/12/2026)',
+    colorTheme: 'purple'
+  },
   {
     id: 'thu-sang-thgp-n5',
     dayOfWeek: 5,
