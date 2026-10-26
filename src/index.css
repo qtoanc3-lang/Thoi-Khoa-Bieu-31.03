@@ -36,44 +36,29 @@ body {
 
 @page {
   size: A4 landscape;
-  margin: 6mm 8mm;
+  margin: 5mm 6mm;
 }
 
 @media print {
   html, body {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
     background: #ffffff !important;
     color: #000000 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    zoom: 82%;
+    font-size: 11px !important;
   }
 
   *, *::before, *::after {
     overflow: visible !important;
     max-height: none !important;
+    box-shadow: none !important;
   }
 
-  table {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    table-layout: fixed !important;
-    border-collapse: collapse !important;
-  }
-
-  th, td {
-    word-break: break-word !important;
-    white-space: normal !important;
-    padding: 4px !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-
-  header, nav, .sticky, .fixed {
-    position: static !important;
-  }
-
-  button, input, select, .no-print {
+  header, nav, .sticky, .fixed, button, input, select, .no-print {
     display: none !important;
   }
 
@@ -83,11 +68,63 @@ body {
 
   #table-view-container {
     display: block !important;
-    box-shadow: none !important;
-    border: 1px solid #cbd5e1 !important;
+    width: 100% !important;
+    border: 1.5px solid #1e293b !important;
+    border-radius: 6px !important;
+    margin: 0 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   #card-view-container {
     display: none !important;
+  }
+
+  table {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+  }
+
+  thead th {
+    padding: 6px 4px !important;
+    border: 1px solid #334155 !important;
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+  }
+
+  tbody td {
+    border: 1px solid #cbd5e1 !important;
+    padding: 4px !important;
+    vertical-align: top !important;
+    height: 64mm !important;
+  }
+
+  tbody td:first-child {
+    width: 58px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    font-weight: 800 !important;
+    background-color: #f8fafc !important;
+  }
+
+  tbody td .group {
+    margin-bottom: 4px !important;
+    padding: 4px 6px !important;
+    border-width: 1px !important;
+    border-radius: 4px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .print-footer-summary {
+    display: block !important;
+    margin-top: 6px !important;
+    font-size: 10px !important;
+    line-height: 1.35 !important;
   }
 }

@@ -829,10 +829,11 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => window.print()}
+                title="In hoặc xuất PDF thời khóa biểu ra khổ A4 xoay ngang (Landscape) tràn đều 100% trang giấy"
                 className="min-h-[40px] px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 text-xs font-semibold text-white flex items-center justify-center gap-1.5 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
                 <Printer className="w-3.5 h-3.5 text-blue-200" />
-                <span>In A4</span>
+                <span>In A4 Ngang</span>
               </button>
 
               <button
@@ -1059,23 +1060,52 @@ export default function App() {
           </div>
         </section>
 
-        {/* PRINT-ONLY HEADER FOR A4 LANDSCAPE */}
-        <div className="hidden print-only mb-4 text-center border-b border-slate-400 pb-3">
-          <h1 className="text-xl font-bold uppercase">
-            TRƯỜNG ĐẠI HỌC KINH DOANH VÀ CÔNG NGHỆ HÀ NỘI - KHOA RĂNG HÀM MẶT
-          </h1>
-          <h2 className="text-lg font-bold mt-1">
-            THỜI KHÓA BIỂU LỚP RM31.03 (HỌC KỲ I NĂM HỌC 2026 - 2027)
-          </h2>
-          <p className="text-sm mt-1 tabular-nums">
-            Đối tượng:{' '}
-            {groupFilter === 'all'
-              ? 'Cả lớp RM31.03 (27 SV)'
-              : groupFilter === 'nhom5'
-              ? 'Nhóm 5 (14 SV) - RM31.03'
-              : 'Nhóm 6 (13 SV) - RM31.03'}{' '}
-            | {currentWeekObj.name}
-          </p>
+        {/* PRINT-ONLY OFFICIAL HEADER FOR A4 LANDSCAPE (100% WIDTH) */}
+        <div className="hidden print-only mb-3 border-b-2 border-slate-900 pb-2.5">
+          <div className="grid grid-cols-2 text-center text-[10px] leading-tight pb-2 border-b border-slate-300">
+            <div>
+              <div className="font-semibold uppercase tracking-wider text-slate-700">
+                TRƯỜNG ĐẠI HỌC KINH DOANH VÀ CÔNG NGHỆ HÀ NỘI
+              </div>
+              <div className="font-black uppercase tracking-wider text-blue-950 text-[11px] mt-0.5">
+                KHOA RĂNG HÀM MẶT
+              </div>
+            </div>
+            <div>
+              <div className="font-bold uppercase tracking-wider text-slate-800">
+                CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+              </div>
+              <div className="font-semibold italic text-slate-700 text-[10px] mt-0.5">
+                Độc lập – Tự do – Hạnh phúc
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-2">
+            <h1 className="text-base sm:text-lg font-black uppercase tracking-wide text-blue-950">
+              THỜI KHÓA BIỂU HỌC KỲ I (NĂM HỌC 2026 – 2027)
+            </h1>
+            <div className="text-[11px] font-extrabold text-slate-800 mt-0.5">
+              LỚP: RM31.03 &bull; CHUYÊN NGÀNH: BÁC SĨ RĂNG HÀM MẶT (CHÍNH KHÓA)
+            </div>
+            <div className="flex items-center justify-center gap-3 text-[10px] text-slate-600 mt-1 tabular-nums font-medium">
+              <span>📅 Thời gian: 12/10/2026 – 19/12/2026 (10 tuần thực học)</span>
+              <span>&bull;</span>
+              <span className="font-bold text-blue-900">
+                Chế độ xem: {groupFilter === 'all'
+                  ? 'Cả lớp RM31.03 (27 Sinh viên)'
+                  : groupFilter === 'nhom5'
+                  ? 'Nhóm 5 (14 Sinh viên)'
+                  : 'Nhóm 6 (13 Sinh viên)'}
+              </span>
+              <span>&bull;</span>
+              <span>
+                {weekFilter === 'all'
+                  ? 'Tất cả các tuần (Tuần 1 – 10)'
+                  : `${currentWeekObj.name} (${currentWeekObj.rangeText})`}
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* 2A. MOBILE-OPTIMIZED CARD VIEW (WITH QUICK DAY FILTER STRIP) */}
@@ -1329,6 +1359,44 @@ export default function App() {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* PRINT-ONLY FOOTER SUMMARY: TẬN DỤNG TOÀN BỘ KHỔ GIẤY A4 XOAY NGANG */}
+          <div className="hidden print-only print-footer-summary p-2.5 bg-slate-50 border-t-2 border-slate-900">
+            <div className="grid grid-cols-3 gap-2.5 text-[9.5px] leading-snug">
+              <div className="border border-slate-300 rounded p-2 bg-white">
+                <div className="font-black text-blue-950 uppercase mb-1 flex items-center gap-1">
+                  <span>📍 ĐỊA ĐIỂM &amp; PHÒNG HỌC</span>
+                </div>
+                <div>&bull; <strong>LT Giải phẫu:</strong> Giảng đường Khoa Răng Hàm Mặt (T1–T10)</div>
+                <div>&bull; <strong>TH Giải phẫu:</strong> Phòng C402 (Tuần 5–10, T7 Chiều)</div>
+                <div>&bull; <strong>TH Hóa học:</strong> Phòng C606 (Tuần 1–4, T5 Chiều)</div>
+                <div>&bull; <strong>TNRHM / HAT / TINT:</strong> Phòng A00 (Tuần 1–10)</div>
+              </div>
+
+              <div className="border border-slate-300 rounded p-2 bg-white">
+                <div className="font-black text-teal-950 uppercase mb-1 flex items-center gap-1">
+                  <span>👥 PHÂN CHIA NHÓM THỰC HÀNH</span>
+                </div>
+                <div>&bull; <strong>Nhóm 5 (14 SV):</strong> Thứ tự 01 &rarr; 14 (Vũ Gia Bảo &rarr; N.N. Quỳnh Mai)</div>
+                <div>&bull; <strong>Nhóm 6 (13 SV):</strong> Thứ tự 15 &rarr; 27 (Nguyễn Đắc Minh &rarr; N. Phương Thùy)</div>
+                <div className="mt-0.5 text-slate-500 italic">Tổng số sinh viên chính khóa: 27 sinh viên.</div>
+              </div>
+
+              <div className="border border-slate-300 rounded p-2 bg-white flex flex-col justify-between">
+                <div>
+                  <div className="font-black text-slate-900 uppercase mb-1 flex items-center gap-1">
+                    <span>⏰ KHUNG GIỜ &amp; GHI CHÚ</span>
+                  </div>
+                  <div>&bull; <strong>Sáng:</strong> Tiết 1 &ndash; 4 (07:00 &ndash; 10:45)</div>
+                  <div>&bull; <strong>Chiều:</strong> Tiết 7 &ndash; 10 (13:00 &ndash; 16:45)</div>
+                </div>
+                <div className="text-[8.5px] text-slate-500 pt-1 border-t border-slate-200 flex items-center justify-between">
+                  <span>RM31.03 Khoa Răng Hàm Mặt HUBT</span>
+                  <span>In bản A4 Landscape</span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

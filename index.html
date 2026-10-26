@@ -15,49 +15,101 @@
     <link rel="stylesheet" href="./public/gh-pages.css" />
     <style>
       @page {
-        size: A4 landscape; /* Ép khổ A4 nằm ngang để đủ 7 cột TKB */
-        margin: 6mm 8mm;    /* Thu gọn lề giấy */
+        size: A4 landscape; /* Ép khổ A4 nằm ngang toàn bộ trang */
+        margin: 5mm 6mm;    /* Thu gọn lề giấy tối đa */
       }
 
       @media print {
-        /* 1. Giữ nguyên màu sắc môn học và ép tỷ lệ vừa trang A4 */
+        /* 1. Ép khổ giấy ngang và tỷ lệ tràn đều 100% trang A4 */
         html, body {
+          width: 100% !important;
+          height: auto !important;
+          margin: 0 !important;
+          padding: 0 !important;
           background: #ffffff !important;
           color: #000000 !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
-          zoom: 82%; /* Thu nhỏ tự động để toàn bộ TKB nằm gọn trong 1 mặt A4 */
+          font-size: 11px !important;
         }
 
-        /* 2. Mở khóa toàn bộ khung cuộn ngang (overflow) đang làm mất cột TKB */
+        /* 2. Mở khóa toàn bộ khung cuộn ngang và ẩn các nút bấm web */
         *, *::before, *::after {
           overflow: visible !important;
           max-height: none !important;
+          box-shadow: none !important;
         }
 
-        /* 3. Ép bảng TKB co giãn vừa khít 100% khổ giấy A4 thay vì tràn lề */
+        header, nav, .sticky, .fixed, button, input, select, .no-print {
+          display: none !important;
+        }
+
+        .print-only {
+          display: block !important;
+        }
+
+        #table-view-container {
+          display: block !important;
+          width: 100% !important;
+          border: 1.5px solid #1e293b !important;
+          border-radius: 6px !important;
+          margin: 0 !important;
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+        }
+
+        #card-view-container {
+          display: none !important;
+        }
+
+        /* 3. Ép bảng TKB dàn đều 100% chiều ngang A4 xoay ngang */
         table {
           width: 100% !important;
-          min-width: 0 !important;
+          min-width: 100% !important;
           max-width: 100% !important;
           table-layout: fixed !important;
           border-collapse: collapse !important;
         }
 
-        th, td {
-          word-break: break-word !important;
-          white-space: normal !important;
+        thead th {
+          padding: 6px 4px !important;
+          border: 1px solid #334155 !important;
+          background-color: #f1f5f9 !important;
+          color: #0f172a !important;
+          font-weight: 800 !important;
+          text-align: center !important;
+        }
+
+        tbody td {
+          border: 1px solid #cbd5e1 !important;
           padding: 4px !important;
+          vertical-align: top !important;
+          height: 64mm !important; /* Tận dụng chiều cao khổ A4 ngang */
+        }
+
+        tbody td:first-child {
+          width: 58px !important;
+          text-align: center !important;
+          vertical-align: middle !important;
+          font-weight: 800 !important;
+          background-color: #f8fafc !important;
+        }
+
+        /* Thẻ môn học in rõ nét, đầy đủ thông tin */
+        tbody td .group {
+          margin-bottom: 4px !important;
+          padding: 4px 6px !important;
+          border-width: 1px !important;
+          border-radius: 4px !important;
           page-break-inside: avoid !important;
           break-inside: avoid !important;
         }
 
-        /* 4. Tắt thanh neo (sticky) và ẩn nút bấm/ô tìm kiếm để không đẩy lệch trang */
-        header, nav, .sticky, .fixed {
-          position: static !important;
-        }
-        button, input, select, .no-print {
-          display: none !important;
+        .print-footer-summary {
+          display: block !important;
+          margin-top: 6px !important;
+          font-size: 10px !important;
+          line-height: 1.35 !important;
         }
       }
     </style>
