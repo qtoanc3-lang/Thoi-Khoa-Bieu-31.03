@@ -119,19 +119,19 @@ export const WEEKS_DATA: WeekData[] = [
   },
   {
     id: '3',
-    name: 'Tuần 3 (26/10 – 01/11/2026) · Bắt đầu Thực hành GP & HH',
+    name: 'Tuần 3 (26/10 – 01/11/2026) · Bắt đầu Thực hành Giải phẫu',
     shortTitle: 'Tuần 3',
     rangeText: '26/10 – 01/11/2026',
-    noteSummary: 'Tuần 3 chính thức bắt đầu Thực hành Giải phẫu (P. C402) và Thực hành Hóa học (P. C606) cho cả Nhóm 5 và Nhóm 6.',
+    noteSummary: 'Tuần 3 bắt đầu Thực hành Giải phẫu (P. C402). Thực hành Hóa học (P. C606) chuyển buổi đầu tiên sang tuần sau (Tuần 4 - từ 02/11/2026) cho cả Nhóm 5 và Nhóm 6.',
     start: '2026-10-26',
     end: '2026-11-01'
   },
   {
     id: '4',
-    name: 'Tuần 4 (02/11 – 08/11/2026) · Học đầy đủ các môn',
+    name: 'Tuần 4 (02/11 – 08/11/2026) · Bắt đầu Thực hành Hóa học',
     shortTitle: 'Tuần 4',
     rangeText: '02/11 – 08/11/2026',
-    noteSummary: 'Tuần 4 học đầy đủ cả Lý thuyết và Thực hành theo đúng phân nhóm.',
+    noteSummary: 'Tuần 4 chính thức bắt đầu buổi đầu tiên Thực hành Hóa học (P. C606) cho cả Nhóm 5 (Chiều T4) và Nhóm 6 (Sáng T5). Học đầy đủ các môn.',
     start: '2026-11-02',
     end: '2026-11-08'
   },
@@ -173,21 +173,30 @@ export const WEEKS_DATA: WeekData[] = [
   },
   {
     id: '9',
-    name: 'Tuần 9 (07/12 – 13/12/2026) · Còn TH Hóa học & môn A00',
+    name: 'Tuần 9 (07/12 – 13/12/2026) · Còn TH Hóa học (Buổi 6/8)',
     shortTitle: 'Tuần 9',
     rangeText: '07/12 – 13/12/2026',
-    noteSummary: 'LT Giải phẫu, TH Giải phẫu & LT Hóa học đã kết thúc (05/12). Chỉ còn Thực hành Hóa học (Buổi 7/8) & các môn nhà A.',
+    noteSummary: 'LT Giải phẫu, TH Giải phẫu & LT Hóa học đã kết thúc (05/12). Học Thực hành Hóa học (Buổi 6/8) & các môn nhà C/D.',
     start: '2026-12-07',
     end: '2026-12-13'
   },
   {
     id: '10',
-    name: 'Tuần 10 (14/12 – 20/12/2026) · Tuần cuối TH Hóa học',
+    name: 'Tuần 10 (14/12 – 20/12/2026) · Còn TH Hóa học (Buổi 7/8)',
     shortTitle: 'Tuần 10',
     rangeText: '14/12 – 20/12/2026',
-    noteSummary: 'Tuần 10 hoàn thành buổi cuối Thực hành Hóa học (Buổi 8/8) và kết thúc lịch học phần HK1.',
+    noteSummary: 'Tuần 10 học Thực hành Hóa học (Buổi 7/8) và hoàn thành các môn lý thuyết còn lại.',
     start: '2026-12-14',
     end: '2026-12-20'
+  },
+  {
+    id: '11',
+    name: 'Tuần 11 (21/12 – 27/12/2026) · Tuần cuối TH Hóa học (Buổi 8/8)',
+    shortTitle: 'Tuần 11',
+    rangeText: '21/12 – 27/12/2026',
+    noteSummary: 'Tuần 11 hoàn thành buổi cuối Thực hành Hóa học (Buổi 8/8) cho cả Nhóm 5 và Nhóm 6.',
+    start: '2026-12-21',
+    end: '2026-12-27'
   }
 ];
 
@@ -240,10 +249,10 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     groupBadge: 'Nhóm 5 (14 SV)',
     rosterKey: 'nhom5',
     periods: '4 tiết/buổi',
-    startDate: '2026-10-26',
-    endDate: '2026-12-19',
+    startDate: '2026-11-02',
+    endDate: '2026-12-26',
     totalWeeks: 8,
-    durationText: '8 tuần (26/10 – 19/12/2026)',
+    durationText: '8 tuần (02/11 – 26/12/2026)',
     colorTheme: 'purple'
   },
   {
@@ -275,10 +284,10 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     groupBadge: 'Nhóm 6 (13 SV)',
     rosterKey: 'nhom6',
     periods: '4 tiết/buổi',
-    startDate: '2026-10-26',
-    endDate: '2026-12-19',
+    startDate: '2026-11-02',
+    endDate: '2026-12-26',
     totalWeeks: 8,
-    durationText: '8 tuần (26/10 – 19/12/2026)',
+    durationText: '8 tuần (02/11 – 26/12/2026)',
     colorTheme: 'purple'
   },
   {

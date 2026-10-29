@@ -612,7 +612,7 @@ export default function App() {
     // Important note on chemistry practical
     ctx.fillStyle = '#fed7aa';
     ctx.font = 'bold 18px system-ui, -apple-system, sans-serif';
-    ctx.fillText('⚡ TH Hóa học: Nhóm 5 học Chiều T4 (P. C606) | Nhóm 6 học Sáng T5 (P. C606)', width / 2, 226);
+    ctx.fillText('⚡ TH Hóa học (P. C606): N5 Chiều T4 | N6 Sáng T5 (Bắt đầu từ 02/11/2026)', width / 2, 226);
 
     // Table columns
     const tableTop = headerHeight + 25;
@@ -722,7 +722,7 @@ export default function App() {
       ctx.textAlign = 'center';
       ctx.fillStyle = '#0f172a';
       ctx.font = 'bold 18px system-ui, -apple-system, sans-serif';
-      const startStr = item.startDate === '2026-10-12' ? 'Từ 12/10/2026' : 'Từ 26/10/2026';
+      const startStr = `Từ ${formatDDMMYYYY(item.startDate)}`;
       ctx.fillText(startStr, (colX[4] + colX[5]) / 2, currentY + 47);
 
       ctx.fillStyle = '#64748b';
@@ -754,7 +754,7 @@ export default function App() {
 
     ctx.fillStyle = '#334155';
     ctx.font = '500 17px system-ui, -apple-system, sans-serif';
-    ctx.fillText('• TH Hóa học (P. C606): Nhóm 5 học Chiều T4 | Nhóm 6 học Sáng T5 (Đã chuyển sang Sáng T5).', colX[0] + 25, footerY + 68);
+    ctx.fillText('• TH Hóa học (P. C606): Nhóm 5 học Chiều T4 | Nhóm 6 học Sáng T5 (Bắt đầu từ 02/11/2026).', colX[0] + 25, footerY + 68);
     ctx.fillText('• TH Giải phẫu (P. C402): Nhóm 5 học Sáng T5 | Nhóm 6 học Chiều T4 (Bắt đầu từ 26/10/2026).', colX[0] + 25, footerY + 96);
     ctx.fillText('• Các phòng lý thuyết: LT Giải phẫu (D112), TNRHM (D210 & D206), Tiếng Anh 1 (C222), Tin 1 (D314), LT Hóa (C208).', colX[0] + 25, footerY + 124);
 
@@ -1786,8 +1786,8 @@ export default function App() {
                 <div className="font-black text-blue-950 uppercase mb-0.5">
                   📍 ĐỊA ĐIỂM &amp; PHÒNG HỌC
                 </div>
-                <div>&bull; <strong>TH Hóa học:</strong> Phòng C606 (N5: Chiều T4 | N6: Sáng T5)</div>
-                <div>&bull; <strong>TH Giải phẫu:</strong> Phòng C402 (N5: Sáng T5 | N6: Chiều T4)</div>
+                <div>&bull; <strong>TH Hóa học:</strong> Phòng C606 (N5: Chiều T4 | N6: Sáng T5, từ 02/11)</div>
+                <div>&bull; <strong>TH Giải phẫu:</strong> Phòng C402 (N5: Sáng T5 | N6: Chiều T4, từ 26/10)</div>
                 <div>&bull; <strong>LT Giải phẫu:</strong> Phòng D112 | <strong>LT Hóa:</strong> Phòng C208</div>
                 <div>&bull; <strong>TNRHM:</strong> D210 &amp; D206 | <strong>HAT:</strong> C222 | <strong>TINT:</strong> D314</div>
               </div>
@@ -1904,7 +1904,7 @@ export default function App() {
                   </span>
                 </div>
                 <p className="text-slate-700 dark:text-slate-300">
-                  • <strong>8 tuần</strong> (26/10 – 19/12) ·{' '}
+                  • <strong>8 tuần</strong> (02/11 – 26/12) ·{' '}
                   <button
                     type="button"
                     onClick={() => openStudentModal('nhom5')}
@@ -2592,7 +2592,7 @@ export default function App() {
                             {/* Ngày áp dụng */}
                             <td className="py-2.5 px-3 text-center text-slate-700 dark:text-slate-300">
                               <div className="font-bold">
-                                {item.startDate === '2026-10-12' ? 'Từ 12/10/2026' : 'Từ 26/10/2026'}
+                                Từ {formatDDMMYYYY(item.startDate)}
                               </div>
                               <div className="text-[10px] text-slate-400">
                                 {item.totalWeeks ? `(${item.totalWeeks} tuần thực học)` : '(Học cả kỳ)'}
@@ -2612,7 +2612,7 @@ export default function App() {
                   <span>📌 LƯU Ý PHÂN PHÒNG HỌC &amp; THỰC HÀNH LỚP RM31.03:</span>
                 </div>
                 <div className="text-[11px] leading-relaxed">
-                  • <strong>Thực hành Hóa học (P. C606):</strong> Nhóm 5 học Chiều Thứ 4 (13:00 - 16:45) | Nhóm 6 học Sáng Thứ 5 (07:00 - 10:45) (Đã điều chỉnh lịch Nhóm 6 sang Thứ 5).
+                  • <strong>Thực hành Hóa học (P. C606):</strong> Nhóm 5 học Chiều Thứ 4 (13:00 - 16:45) | Nhóm 6 học Sáng Thứ 5 (07:00 - 10:45) (Bắt đầu buổi đầu từ tuần sau: 02/11 – 26/12/2026).
                 </div>
                 <div className="text-[11px] leading-relaxed">
                   • <strong>Thực hành Giải phẫu (P. C402):</strong> Nhóm 5 học Sáng Thứ 5 | Nhóm 6 học Chiều Thứ 4 (6 tuần từ 26/10 đến 05/12/2026).
