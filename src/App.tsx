@@ -379,7 +379,8 @@ export default function App() {
     } else {
       summary.items.forEach((it) => {
         const st = evaluateItemStatusOnDate(it, summary.dateISO);
-        text += `• Buổi ${it.session}: ${it.subject} (${it.groupBadge}) | ${it.room} | ${it.periods} [${st.label}]\n`;
+        const timeRange = it.session === 'SÁNG' ? '07h30–11h05' : '13h00–16h35';
+        text += `• Buổi ${it.session} (${timeRange}): ${it.subject} (${it.groupBadge}) | ${it.room} | ${it.periods} [${st.label}]\n`;
       });
     }
 
@@ -505,8 +506,8 @@ export default function App() {
         cursor.setDate(cursor.getDate() + 1);
       }
 
-      const startTimeStr = item.session === 'SÁNG' ? '070000' : '130000';
-      const endTimeStr = item.session === 'SÁNG' ? '104500' : '164500';
+      const startTimeStr = item.session === 'SÁNG' ? '073000' : '130000';
+      const endTimeStr = item.session === 'SÁNG' ? '110500' : '163500';
 
       while (cursor <= endObj) {
         const y = cursor.getFullYear();
@@ -606,8 +607,8 @@ export default function App() {
     ctx.fillText(`ĐỐI TƯỢNG: ${groupName} · BÁC SĨ RĂNG HÀM MẶT`, width / 2, 150);
 
     ctx.fillStyle = '#e2e8f0';
-    ctx.font = '500 20px system-ui, -apple-system, sans-serif';
-    ctx.fillText('Học kỳ I: 12/10/2026 – 19/12/2026 · Mã HP TH Hóa: 191393024', width / 2, 190);
+    ctx.font = '500 19px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Giờ học: Sáng 07h30–11h05 · Chiều 13h00–16h35 · Tối 18h00–21h35 · Mã HP TH Hóa: 191393024', width / 2, 190);
 
     // Important note on chemistry practical
     ctx.fillStyle = '#fed7aa';
@@ -678,7 +679,7 @@ export default function App() {
 
       ctx.fillStyle = '#475569';
       ctx.font = 'bold 15px monospace';
-      ctx.fillText(isMorning ? '07:00 – 10:45' : '13:00 – 16:45', (colX[1] + colX[2]) / 2, currentY + 88);
+      ctx.fillText(isMorning ? '07:30 – 11:05' : '13:00 – 16:35', (colX[1] + colX[2]) / 2, currentY + 88);
 
       // 3. Môn học
       ctx.textAlign = 'left';
@@ -1221,7 +1222,7 @@ export default function App() {
                                   : 'text-blue-700 dark:text-blue-400'
                               }
                             >
-                              {item.session}
+                              {item.session} ({item.session === 'SÁNG' ? '07:30–11:05' : '13:00–16:35'})
                             </span>
                             <span>·</span>
                             <span className={accent.groupText}>{item.groupBadge}</span>
@@ -1289,7 +1290,7 @@ export default function App() {
                                   : 'text-blue-700 dark:text-blue-400'
                               }
                             >
-                              {item.session}
+                              {item.session} ({item.session === 'SÁNG' ? '07:30–11:05' : '13:00–16:35'})
                             </span>
                             <span>·</span>
                             <span className={accent.groupText}>{item.groupBadge}</span>
@@ -1629,7 +1630,7 @@ export default function App() {
                         <div>
                           <div className="text-[11px] font-extrabold text-amber-700 dark:text-amber-400 mb-1.5 flex items-center gap-1">
                             <Sun className="w-3.5 h-3.5" />
-                            <span>SÁNG</span>
+                            <span>SÁNG (07:30 – 11:05)</span>
                           </div>
                           {morningCards.length > 0 ? (
                             <div className="space-y-2">{morningCards}</div>
@@ -1644,7 +1645,7 @@ export default function App() {
                         <div>
                           <div className="text-[11px] font-extrabold text-blue-700 dark:text-blue-400 mb-1.5 flex items-center gap-1">
                             <Sunset className="w-3.5 h-3.5" />
-                            <span>CHIỀU</span>
+                            <span>CHIỀU (13:00 – 16:35)</span>
                           </div>
                           {afternoonCards.length > 0 ? (
                             <div className="space-y-2">{afternoonCards}</div>
@@ -1731,7 +1732,7 @@ export default function App() {
                         )}
                         <span className="font-black text-xs uppercase tracking-wide">{sessionKey}</span>
                         <span className="font-mono text-[9px] font-bold text-slate-700 dark:text-slate-300 whitespace-nowrap">
-                          {sessionKey === 'SÁNG' ? '07:00 – 10:45' : '13:00 – 16:45'}
+                          {sessionKey === 'SÁNG' ? '07:30 – 11:05' : '13:00 – 16:35'}
                         </span>
                         <span className="text-[8.5px] font-semibold text-slate-500 dark:text-slate-400 whitespace-nowrap">
                           {sessionKey === 'SÁNG' ? '(Tiết 1 – 4)' : '(Tiết 7 – 10)'}
@@ -1806,8 +1807,9 @@ export default function App() {
                   <div className="font-black text-slate-900 uppercase mb-0.5">
                     ⏰ KHUNG GIỜ HỌC
                   </div>
-                  <div>&bull; <strong>Sáng:</strong> Tiết 1 &ndash; 4 (07:00 &ndash; 10:45)</div>
-                  <div>&bull; <strong>Chiều:</strong> Tiết 7 &ndash; 10 (13:00 &ndash; 16:45)</div>
+                  <div>&bull; <strong>Sáng:</strong> 07:30 &ndash; 11:05 (Tiết 1 &ndash; 4)</div>
+                  <div>&bull; <strong>Chiều:</strong> 13:00 &ndash; 16:35 (Tiết 7 &ndash; 10)</div>
+                  <div>&bull; <strong>Tối:</strong> 18:00 &ndash; 21:35</div>
                 </div>
                 <div className="text-[8px] text-slate-500 pt-0.5 border-t border-slate-200 flex items-center justify-between">
                   <span>RM31.03 Khoa RHM - HUBT</span>
@@ -2552,7 +2554,7 @@ export default function App() {
                                 {item.session}
                               </span>
                               <div className="font-mono text-[9.5px] text-slate-500 dark:text-slate-400 font-semibold mt-0.5">
-                                {isMorning ? '07:00 – 10:45' : '13:00 – 16:45'}
+                                {isMorning ? '07:30 – 11:05' : '13:00 – 16:35'}
                               </div>
                             </td>
 
@@ -2612,7 +2614,10 @@ export default function App() {
                   <span>📌 LƯU Ý PHÂN PHÒNG HỌC &amp; THỰC HÀNH LỚP RM31.03:</span>
                 </div>
                 <div className="text-[11px] leading-relaxed">
-                  • <strong>Thực hành Hóa học (P. C606):</strong> Nhóm 5 học Chiều Thứ 4 (13:00 - 16:45) | Nhóm 6 học Sáng Thứ 5 (07:00 - 10:45) (Bắt đầu buổi đầu từ tuần sau: 02/11 – 26/12/2026).
+                  • <strong>Khung giờ học quy định:</strong> Sáng: <strong>07h30 – 11h05</strong> | Chiều: <strong>13h00 – 16h35</strong> | Tối: <strong>18h00 – 21h35</strong>.
+                </div>
+                <div className="text-[11px] leading-relaxed">
+                  • <strong>Thực hành Hóa học (P. C606):</strong> Nhóm 5 học Chiều Thứ 4 (13:00 - 16:35) | Nhóm 6 học Sáng Thứ 5 (07:30 - 11:05) (Bắt đầu buổi đầu từ tuần sau: 02/11 – 26/12/2026).
                 </div>
                 <div className="text-[11px] leading-relaxed">
                   • <strong>Thực hành Giải phẫu (P. C402):</strong> Nhóm 5 học Sáng Thứ 5 | Nhóm 6 học Chiều Thứ 4 (6 tuần từ 26/10 đến 05/12/2026).
