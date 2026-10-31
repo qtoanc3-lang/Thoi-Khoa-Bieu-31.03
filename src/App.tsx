@@ -755,13 +755,13 @@ export default function App() {
 
     ctx.fillStyle = '#334155';
     ctx.font = '500 17px system-ui, -apple-system, sans-serif';
-    ctx.fillText('• TH Hóa học (P. C606): Nhóm 5 học Chiều T4 | Nhóm 6 học Sáng T5 (Bắt đầu từ 02/11/2026).', colX[0] + 25, footerY + 68);
+    ctx.fillText('• TH Hóa học (P. C606): N5 Chiều T4 | N6 Sáng T5 (Đẩy sang tuần sau từ 09/11 vì chưa có áo blouse).', colX[0] + 25, footerY + 68);
     ctx.fillText('• TH Giải phẫu (P. C402): Nhóm 5 học Sáng T5 | Nhóm 6 học Chiều T4 (Bắt đầu từ 26/10/2026).', colX[0] + 25, footerY + 96);
     ctx.fillText('• Các phòng lý thuyết: LT Giải phẫu (D112), TNRHM (D210 - Sáng CN), Tiếng Anh 1 (C222), Tin 1 (D314), LT Hóa (C208).', colX[0] + 25, footerY + 124);
 
     ctx.fillStyle = '#b45309';
     ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
-    ctx.fillText('• Môn TNRHM: Cả lớp (27 SV) học cố định vào Sáng Chủ Nhật hàng tuần (07:30 – 11:05).', colX[0] + 25, footerY + 152);
+    ctx.fillText('• Lưu ý: TNRHM học cố định Sáng CN (07:30–11:05) | TH Hóa lùi sang 09/11 do chưa có áo blouse.', colX[0] + 25, footerY + 152);
 
     // Save as PNG
     const link = document.createElement('a');
@@ -1787,7 +1787,7 @@ export default function App() {
                 <div className="font-black text-blue-950 uppercase mb-0.5">
                   📍 ĐỊA ĐIỂM &amp; PHÒNG HỌC
                 </div>
-                <div>&bull; <strong>TH Hóa học:</strong> Phòng C606 (N5: Chiều T4 | N6: Sáng T5, từ 02/11)</div>
+                <div>&bull; <strong>TH Hóa học:</strong> Phòng C606 (N5: Chiều T4 | N6: Sáng T5, lùi sang 09/11 vì chưa có áo blouse)</div>
                 <div>&bull; <strong>TH Giải phẫu:</strong> Phòng C402 (N5: Sáng T5 | N6: Chiều T4, từ 26/10)</div>
                 <div>&bull; <strong>LT Giải phẫu:</strong> Phòng D112 | <strong>LT Hóa:</strong> Phòng C208</div>
                 <div>&bull; <strong>TNRHM:</strong> Sáng CN (P. D210) | <strong>HAT:</strong> C222 | <strong>TINT:</strong> D314</div>
@@ -1799,7 +1799,7 @@ export default function App() {
                 </div>
                 <div>&bull; <strong>Nhóm 5 (14 SV):</strong> STT 01 &rarr; 14 (Lê Phan An &rarr; Trương Hoàng Hiệp)</div>
                 <div>&bull; <strong>Nhóm 6 (13 SV):</strong> STT 01 &rarr; 13 (Lê Văn Hòe &rarr; Phạm Đường Vũ)</div>
-                <div className="text-amber-800 font-semibold italic mt-0.5">* Môn TNRHM: Cả lớp học cố định vào Sáng Chủ Nhật hàng tuần (07:30 &ndash; 11:05).</div>
+                <div className="text-amber-800 font-semibold italic mt-0.5">* TNRHM học cố định Sáng CN | TH Hóa đẩy sang 09/11 vì chưa có áo blouse.</div>
               </div>
 
               <div className="border border-slate-300 rounded p-1 bg-white flex flex-col justify-between">
@@ -1906,7 +1906,7 @@ export default function App() {
                   </span>
                 </div>
                 <p className="text-slate-700 dark:text-slate-300">
-                  • <strong>8 tuần</strong> (02/11 – 26/12) ·{' '}
+                  • <strong>8 tuần</strong> (Từ 09/11 – 02/01/2027) ·{' '}
                   <button
                     type="button"
                     onClick={() => openStudentModal('nhom5')}
@@ -1922,6 +1922,9 @@ export default function App() {
                   >
                     N6: Sáng T5
                   </button>
+                </p>
+                <p className="text-[11px] font-semibold text-amber-800 dark:text-amber-300">
+                  ⚠️ Đẩy sang tuần sau (từ 09/11) vì chưa có áo blouse
                 </p>
               </div>
             </div>
@@ -2617,7 +2620,7 @@ export default function App() {
                   • <strong>Khung giờ học quy định:</strong> Sáng: <strong>07h30 – 11h05</strong> | Chiều: <strong>13h00 – 16h35</strong> | Tối: <strong>18h00 – 21h35</strong>.
                 </div>
                 <div className="text-[11px] leading-relaxed">
-                  • <strong>Thực hành Hóa học (P. C606):</strong> Nhóm 5 học Chiều Thứ 4 (13:00 - 16:35) | Nhóm 6 học Sáng Thứ 5 (07:30 - 11:05) (Bắt đầu buổi đầu từ tuần sau: 02/11 – 26/12/2026).
+                  • <strong>Thực hành Hóa học (P. C606):</strong> Nhóm 5 học Chiều Thứ 4 (13:00 - 16:35) | Nhóm 6 học Sáng Thứ 5 (07:30 - 11:05) — <strong className="text-rose-700 dark:text-amber-300">Đẩy sang tuần sau (bắt đầu từ 09/11/2026) vì chưa có áo blouse</strong>.
                 </div>
                 <div className="text-[11px] leading-relaxed">
                   • <strong>Thực hành Giải phẫu (P. C402):</strong> Nhóm 5 học Sáng Thứ 5 | Nhóm 6 học Chiều Thứ 4 (6 tuần từ 26/10 đến 05/12/2026).

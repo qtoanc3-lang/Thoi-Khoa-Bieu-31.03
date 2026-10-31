@@ -122,25 +122,25 @@ export const WEEKS_DATA: WeekData[] = [
     name: 'Tuần 3 (26/10 – 01/11/2026) · Bắt đầu Thực hành Giải phẫu',
     shortTitle: 'Tuần 3',
     rangeText: '26/10 – 01/11/2026',
-    noteSummary: 'Tuần 3 bắt đầu Thực hành Giải phẫu (P. C402). Thực hành Hóa học (P. C606) chuyển buổi đầu tiên sang tuần sau (Tuần 4 - từ 02/11/2026) cho cả Nhóm 5 và Nhóm 6.',
+    noteSummary: 'Tuần 3 bắt đầu Thực hành Giải phẫu (P. C402). Thực hành Hóa học (P. C606) được đẩy sang tuần sau vì chưa có áo blouse.',
     start: '2026-10-26',
     end: '2026-11-01'
   },
   {
     id: '4',
-    name: 'Tuần 4 (02/11 – 08/11/2026) · Bắt đầu Thực hành Hóa học',
+    name: 'Tuần 4 (02/11 – 08/11/2026) · Lùi TH Hóa (chưa có áo blouse)',
     shortTitle: 'Tuần 4',
     rangeText: '02/11 – 08/11/2026',
-    noteSummary: 'Tuần 4 chính thức bắt đầu buổi đầu tiên Thực hành Hóa học (P. C606) cho cả Nhóm 5 (Chiều T4) và Nhóm 6 (Sáng T5). Học đầy đủ các môn.',
+    noteSummary: 'Buổi Thực hành Hóa học (P. C606) của cả Nhóm 5 và Nhóm 6 được đẩy sang tuần sau (bắt đầu từ 09/11/2026) vì chưa có áo blouse.',
     start: '2026-11-02',
     end: '2026-11-08'
   },
   {
     id: '5',
-    name: 'Tuần 5 (09/11 – 15/11/2026) · Học đầy đủ các môn',
+    name: 'Tuần 5 (09/11 – 15/11/2026) · Bắt đầu Thực hành Hóa học',
     shortTitle: 'Tuần 5',
     rangeText: '09/11 – 15/11/2026',
-    noteSummary: 'Tuần 5 học đầy đủ cả Lý thuyết và Thực hành theo đúng phân nhóm.',
+    noteSummary: 'Tuần 5 chính thức bắt đầu buổi đầu tiên Thực hành Hóa học (P. C606) cho cả Nhóm 5 (Chiều T4) và Nhóm 6 (Sáng T5). Học đầy đủ các môn.',
     start: '2026-11-09',
     end: '2026-11-15'
   },
@@ -173,30 +173,39 @@ export const WEEKS_DATA: WeekData[] = [
   },
   {
     id: '9',
-    name: 'Tuần 9 (07/12 – 13/12/2026) · Còn TH Hóa học (Buổi 6/8)',
+    name: 'Tuần 9 (07/12 – 13/12/2026) · Còn TH Hóa học (Buổi 5/8)',
     shortTitle: 'Tuần 9',
     rangeText: '07/12 – 13/12/2026',
-    noteSummary: 'LT Giải phẫu, TH Giải phẫu & LT Hóa học đã kết thúc (05/12). Học Thực hành Hóa học (Buổi 6/8) & các môn nhà C/D.',
+    noteSummary: 'LT Giải phẫu, TH Giải phẫu & LT Hóa học đã kết thúc (05/12). Học Thực hành Hóa học (Buổi 5/8) & các môn nhà C/D.',
     start: '2026-12-07',
     end: '2026-12-13'
   },
   {
     id: '10',
-    name: 'Tuần 10 (14/12 – 20/12/2026) · Còn TH Hóa học (Buổi 7/8)',
+    name: 'Tuần 10 (14/12 – 20/12/2026) · Còn TH Hóa học (Buổi 6/8)',
     shortTitle: 'Tuần 10',
     rangeText: '14/12 – 20/12/2026',
-    noteSummary: 'Tuần 10 học Thực hành Hóa học (Buổi 7/8) và hoàn thành các môn lý thuyết còn lại.',
+    noteSummary: 'Tuần 10 học Thực hành Hóa học (Buổi 6/8) và hoàn thành các môn lý thuyết còn lại.',
     start: '2026-12-14',
     end: '2026-12-20'
   },
   {
     id: '11',
-    name: 'Tuần 11 (21/12 – 27/12/2026) · Tuần cuối TH Hóa học (Buổi 8/8)',
+    name: 'Tuần 11 (21/12 – 27/12/2026) · Còn TH Hóa học (Buổi 7/8)',
     shortTitle: 'Tuần 11',
     rangeText: '21/12 – 27/12/2026',
-    noteSummary: 'Tuần 11 hoàn thành buổi cuối Thực hành Hóa học (Buổi 8/8) cho cả Nhóm 5 và Nhóm 6.',
+    noteSummary: 'Tuần 11 học Thực hành Hóa học (Buổi 7/8) cho cả Nhóm 5 và Nhóm 6.',
     start: '2026-12-21',
     end: '2026-12-27'
+  },
+  {
+    id: '12',
+    name: 'Tuần 12 (28/12/2026 – 03/01/2027) · Tuần cuối TH Hóa học (Buổi 8/8)',
+    shortTitle: 'Tuần 12',
+    rangeText: '28/12 – 03/01/2027',
+    noteSummary: 'Tuần 12 hoàn thành buổi cuối Thực hành Hóa học (Buổi 8/8) cho cả Nhóm 5 và Nhóm 6.',
+    start: '2026-12-28',
+    end: '2027-01-03'
   }
 ];
 
@@ -231,10 +240,10 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     groupBadge: 'Nhóm 5 (14 SV)',
     rosterKey: 'nhom5',
     periods: '4 tiết/buổi',
-    startDate: '2026-11-02',
-    endDate: '2026-12-26',
+    startDate: '2026-11-09',
+    endDate: '2027-01-02',
     totalWeeks: 8,
-    durationText: '8 tuần (02/11 – 26/12/2026)',
+    durationText: '8 tuần (Từ 09/11 · Lùi vì chưa có áo blouse)',
     colorTheme: 'purple'
   },
   {
@@ -266,10 +275,10 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     groupBadge: 'Nhóm 6 (13 SV)',
     rosterKey: 'nhom6',
     periods: '4 tiết/buổi',
-    startDate: '2026-11-02',
-    endDate: '2026-12-26',
+    startDate: '2026-11-09',
+    endDate: '2027-01-02',
     totalWeeks: 8,
-    durationText: '8 tuần (02/11 – 26/12/2026)',
+    durationText: '8 tuần (Từ 09/11 · Lùi vì chưa có áo blouse)',
     colorTheme: 'purple'
   },
   {
@@ -427,10 +436,13 @@ export function evaluateItemStatusOnDate(item: ScheduleItem, targetDateStr: stri
   const endDate = parseDateLocal(item.endDate);
 
   if (targetDate < startDate) {
+    const isChemLab = item.id === 'wed-chieu-thhh-n5' || item.id === 'thu-sang-thhh-n6';
     return {
       status: 'upcoming',
       active: false,
-      label: `Chưa bắt đầu · Học từ ${formatDDMM(startDate)}`,
+      label: isChemLab
+        ? `Đẩy sang tuần sau (chưa có áo blouse) · Từ ${formatDDMM(startDate)}`
+        : `Chưa bắt đầu · Học từ ${formatDDMM(startDate)}`,
       textClass: 'text-amber-700 dark:text-amber-400'
     };
   }
