@@ -656,7 +656,7 @@ export default function App() {
       ctx.textAlign = 'center';
       ctx.fillStyle = '#0f172a';
       ctx.font = '900 32px system-ui, -apple-system, sans-serif';
-      ctx.fillText(`T${item.dayOfWeek}`, (colX[0] + colX[1]) / 2, currentY + 54);
+      ctx.fillText(item.dayOfWeek === 8 ? 'CN' : `T${item.dayOfWeek}`, (colX[0] + colX[1]) / 2, currentY + 54);
       ctx.fillStyle = '#64748b';
       ctx.font = '600 16px system-ui, -apple-system, sans-serif';
       const dayName = DAYS_INFO.find((d) => d.dayOfWeek === item.dayOfWeek)?.label || '';
@@ -757,11 +757,11 @@ export default function App() {
     ctx.font = '500 17px system-ui, -apple-system, sans-serif';
     ctx.fillText('• TH Hóa học (P. C606): Nhóm 5 học Chiều T4 | Nhóm 6 học Sáng T5 (Bắt đầu từ 02/11/2026).', colX[0] + 25, footerY + 68);
     ctx.fillText('• TH Giải phẫu (P. C402): Nhóm 5 học Sáng T5 | Nhóm 6 học Chiều T4 (Bắt đầu từ 26/10/2026).', colX[0] + 25, footerY + 96);
-    ctx.fillText('• Các phòng lý thuyết: LT Giải phẫu (D112), TNRHM (D210 & D206), Tiếng Anh 1 (C222), Tin 1 (D314), LT Hóa (C208).', colX[0] + 25, footerY + 124);
+    ctx.fillText('• Các phòng lý thuyết: LT Giải phẫu (D112), TNRHM (D210 - Sáng CN), Tiếng Anh 1 (C222), Tin 1 (D314), LT Hóa (C208).', colX[0] + 25, footerY + 124);
 
     ctx.fillStyle = '#b45309';
     ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
-    ctx.fillText('• Lưu ý môn TNRHM: 2 buổi Sáng T4 & Chiều T6 dự kiến chuyển sang Sáng & Chiều Chủ Nhật (theo GV).', colX[0] + 25, footerY + 152);
+    ctx.fillText('• Môn TNRHM: Cả lớp (27 SV) học cố định vào Sáng Chủ Nhật hàng tuần (07:30 – 11:05).', colX[0] + 25, footerY + 152);
 
     // Save as PNG
     const link = document.createElement('a');
@@ -855,7 +855,7 @@ export default function App() {
     );
   };
 
-  const tableDays = DAYS_INFO.slice(0, 6); // Thứ Hai -> Thứ Bảy
+  const tableDays = DAYS_INFO; // Thứ Hai -> Chủ Nhật
   const noteKeys = Object.keys(notes);
 
   return (
@@ -1537,7 +1537,7 @@ export default function App() {
                   : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800'
               }`}
             >
-              Cả tuần (T2–T7)
+              Cả tuần (T2–CN)
             </button>
             {tableDays.map((d) => {
               const colDateObj = getDateForDayInSelectedWeek(d.offsetFromMonday);
@@ -1690,7 +1690,7 @@ export default function App() {
                     return (
                       <th
                         key={d.dayOfWeek}
-                        className={`p-2 sm:p-3 border-r last:border-r-0 border-slate-200 dark:border-slate-700 text-center w-[15.5%] ${
+                        className={`p-2 sm:p-3 border-r last:border-r-0 border-slate-200 dark:border-slate-700 text-center w-[13.2%] ${
                           isTodayCol
                             ? 'bg-blue-600/15 dark:bg-blue-500/25 text-blue-900 dark:text-blue-200 border-t-4 border-t-blue-600'
                             : ''
@@ -1790,7 +1790,7 @@ export default function App() {
                 <div>&bull; <strong>TH Hóa học:</strong> Phòng C606 (N5: Chiều T4 | N6: Sáng T5, từ 02/11)</div>
                 <div>&bull; <strong>TH Giải phẫu:</strong> Phòng C402 (N5: Sáng T5 | N6: Chiều T4, từ 26/10)</div>
                 <div>&bull; <strong>LT Giải phẫu:</strong> Phòng D112 | <strong>LT Hóa:</strong> Phòng C208</div>
-                <div>&bull; <strong>TNRHM:</strong> D210 &amp; D206 | <strong>HAT:</strong> C222 | <strong>TINT:</strong> D314</div>
+                <div>&bull; <strong>TNRHM:</strong> Sáng CN (P. D210) | <strong>HAT:</strong> C222 | <strong>TINT:</strong> D314</div>
               </div>
 
               <div className="border border-slate-300 rounded p-1 bg-white">
@@ -1799,7 +1799,7 @@ export default function App() {
                 </div>
                 <div>&bull; <strong>Nhóm 5 (14 SV):</strong> STT 01 &rarr; 14 (Lê Phan An &rarr; Trương Hoàng Hiệp)</div>
                 <div>&bull; <strong>Nhóm 6 (13 SV):</strong> STT 01 &rarr; 13 (Lê Văn Hòe &rarr; Phạm Đường Vũ)</div>
-                <div className="text-amber-800 font-semibold italic mt-0.5">* Lưu ý: 2 buổi TNRHM (Sáng T4 &amp; Chiều T6) dự kiến chuyển sang Sáng &amp; Chiều Chủ Nhật.</div>
+                <div className="text-amber-800 font-semibold italic mt-0.5">* Môn TNRHM: Cả lớp học cố định vào Sáng Chủ Nhật hàng tuần (07:30 &ndash; 11:05).</div>
               </div>
 
               <div className="border border-slate-300 rounded p-1 bg-white flex flex-col justify-between">
@@ -2536,7 +2536,7 @@ export default function App() {
                           >
                             {/* Thứ */}
                             <td className="py-2.5 px-2 text-center font-black text-sm text-slate-900 dark:text-white border-r border-slate-200 dark:border-slate-800">
-                              <div>{item.dayOfWeek}</div>
+                              <div>{item.dayOfWeek === 8 ? 'CN' : item.dayOfWeek}</div>
                               <div className="text-[10px] text-slate-400 font-normal">
                                 {dayObj?.shortLabel}
                               </div>
@@ -2623,10 +2623,10 @@ export default function App() {
                   • <strong>Thực hành Giải phẫu (P. C402):</strong> Nhóm 5 học Sáng Thứ 5 | Nhóm 6 học Chiều Thứ 4 (6 tuần từ 26/10 đến 05/12/2026).
                 </div>
                 <div className="text-[11px] leading-relaxed">
-                  • <strong>Danh mục phòng lý thuyết:</strong> LT Giải phẫu (P. D112), Thuật ngữ A-V RHM (P. D210 &amp; D206), Tiếng Anh 1 HAT (P. C222), Tin học 1 TINT (P. D314), LT Hóa học (P. C208).
+                  • <strong>Danh mục phòng lý thuyết:</strong> LT Giải phẫu (P. D112), Thuật ngữ A-V RHM (P. D210 - Sáng CN), Tiếng Anh 1 HAT (P. C222), Tin học 1 TINT (P. D314), LT Hóa học (P. C208).
                 </div>
                 <div className="text-[11px] leading-relaxed text-rose-700 dark:text-amber-300 font-semibold">
-                  • <strong>Lưu ý môn TNRHM:</strong> 2 buổi Sáng Thứ 4 &amp; Chiều Thứ 6 giữ theo lịch trường, dự kiến chuyển sang học Sáng &amp; Chiều Chủ Nhật (theo lịch giảng viên).
+                  • <strong>Lịch môn TNRHM:</strong> Cả lớp (27 SV) học cố định vào <strong>Sáng Chủ Nhật hàng tuần (07h30 – 11h05)</strong>.
                 </div>
               </div>
             </div>

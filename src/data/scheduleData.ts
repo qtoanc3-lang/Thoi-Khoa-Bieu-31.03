@@ -219,24 +219,6 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     durationText: '8 tuần (12/10 – 05/12/2026)',
     colorTheme: 'blue'
   },
-  // THỨ TƯ - SÁNG
-  {
-    id: 'wed-sang-tnrhm',
-    dayOfWeek: 4,
-    session: 'SÁNG',
-    subject: 'TNRHM (Thuật ngữ A-V RHM)',
-    shortCode: 'TNRHM',
-    room: 'Phòng D210',
-    groups: ['nhom5', 'nhom6'],
-    groupBadge: 'Cả lớp (27 SV)',
-    rosterKey: 'all',
-    periods: 'Theo lịch nhà D',
-    startDate: '2026-10-12',
-    endDate: '2026-12-19',
-    totalWeeks: null,
-    durationText: 'Từ 12/10 · Dự kiến chuyển sang Sáng & Chiều CN',
-    colorTheme: 'indigo'
-  },
   // THỨ TƯ - CHIỀU (Nhóm 5 học TH Hóa học C606, Nhóm 6 học TH Giải phẫu C402)
   {
     id: 'wed-chieu-thhh-n5',
@@ -325,24 +307,6 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     durationText: 'Bắt đầu từ 12/10/2026',
     colorTheme: 'rose'
   },
-  // THỨ SÁU - CHIỀU: TNRHM (Thuật ngữ A-V RHM) - Phòng D206
-  {
-    id: 'fri-chieu-tnrhm',
-    dayOfWeek: 6,
-    session: 'CHIỀU',
-    subject: 'TNRHM (Thuật ngữ A-V RHM)',
-    shortCode: 'TNRHM',
-    room: 'Phòng D206',
-    groups: ['nhom5', 'nhom6'],
-    groupBadge: 'Cả lớp (27 SV)',
-    rosterKey: 'all',
-    periods: 'Theo lịch nhà D',
-    startDate: '2026-10-12',
-    endDate: '2026-12-19',
-    totalWeeks: null,
-    durationText: 'Từ 12/10 · Dự kiến chuyển sang Sáng & Chiều CN',
-    colorTheme: 'indigo'
-  },
   // THỨ BẢY - SÁNG: TIN 1 (TINT) - Phòng D314
   {
     id: 'sat-sang-tint',
@@ -378,6 +342,24 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     totalWeeks: 8,
     durationText: '8 tuần (12/10 – 05/12/2026)',
     colorTheme: 'emerald'
+  },
+  // CHỦ NHẬT - SÁNG: TNRHM (Thuật ngữ A-V RHM) - Học cố định Sáng Chủ Nhật
+  {
+    id: 'sun-sang-tnrhm',
+    dayOfWeek: 8,
+    session: 'SÁNG',
+    subject: 'TNRHM (Thuật ngữ A-V RHM)',
+    shortCode: 'TNRHM',
+    room: 'Phòng D210',
+    groups: ['nhom5', 'nhom6'],
+    groupBadge: 'Cả lớp (27 SV)',
+    rosterKey: 'all',
+    periods: 'Cố định Sáng CN',
+    startDate: '2026-10-12',
+    endDate: '2026-12-20',
+    totalWeeks: null,
+    durationText: 'Cố định Sáng Chủ Nhật hàng tuần',
+    colorTheme: 'indigo'
   }
 ];
 
