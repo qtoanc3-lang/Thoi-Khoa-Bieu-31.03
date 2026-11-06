@@ -137,10 +137,10 @@ export const WEEKS_DATA: WeekData[] = [
   },
   {
     id: '5',
-    name: 'Tuần 5 (09/11 – 15/11/2026) · Bắt đầu Thực hành Hóa học',
+    name: 'Tuần 5 (09/11 – 15/11/2026) · TH GP N6 học Sáng T2 (09/11) & Bắt đầu TH Hóa',
     shortTitle: 'Tuần 5',
     rangeText: '09/11 – 15/11/2026',
-    noteSummary: 'Tuần 5 chính thức bắt đầu buổi đầu tiên Thực hành Hóa học (P. C606) cho cả Nhóm 5 (Chiều T4) và Nhóm 6 (Sáng T5). Học đầy đủ các môn.',
+    noteSummary: 'Tuần 5: Thực hành Giải phẫu Nhóm 6 (P. C402) chuyển từ Chiều T4 (11/11) sang Sáng T2 (09/11/2026). Chính thức bắt đầu buổi 1/8 Thực hành Hóa học (P. C606) cho cả Nhóm 5 & Nhóm 6.',
     start: '2026-11-09',
     end: '2026-11-15'
   },
@@ -210,6 +210,24 @@ export const WEEKS_DATA: WeekData[] = [
 ];
 
 export const SCHEDULE_ITEMS: ScheduleItem[] = [
+  // THỨ HAI - SÁNG (Riêng Tuần 5 ngày 09/11/2026: TH Giải phẫu Nhóm 6 chuyển từ Chiều T4 11/11 sang Sáng T2 09/11)
+  {
+    id: 'mon-sang-thgp-n6-0911',
+    dayOfWeek: 2,
+    session: 'SÁNG',
+    subject: 'Thực hành Giải phẫu (Đổi lịch T4 11/11)',
+    shortCode: 'TH GP',
+    room: 'Phòng C402',
+    groups: ['nhom6'],
+    groupBadge: 'Nhóm 6 (13 SV)',
+    rosterKey: 'nhom6',
+    periods: '5 tiết/buổi',
+    startDate: '2026-11-09',
+    endDate: '2026-11-09',
+    totalWeeks: 1,
+    durationText: 'Sáng T2 09/11/2026 (Chuyển từ Chiều T4 11/11)',
+    colorTheme: 'amber'
+  },
   // THỨ HAI - CHIỀU
   {
     id: 'mon-chieu-ltgp',
@@ -260,7 +278,7 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     startDate: '2026-10-26',
     endDate: '2026-12-05',
     totalWeeks: 6,
-    durationText: '6 tuần (26/10 – 05/12/2026)',
+    durationText: '6 tuần (26/10 – 05/12 · Tuần 5 học Sáng T2 09/11)',
     colorTheme: 'amber'
   },
   // THỨ NĂM - SÁNG: Nhóm 6 học TH Hóa học (C606), Nhóm 5 học TH Giải phẫu (C402)
@@ -434,6 +452,41 @@ export function evaluateItemStatusOnDate(item: ScheduleItem, targetDateStr: stri
   const targetDate = parseDateLocal(targetDateStr);
   const startDate = parseDateLocal(item.startDate);
   const endDate = parseDateLocal(item.endDate);
+
+  // Riêng buổi Thực hành Giải phẫu Nhóm 6 chuyển từ Chiều T4 (11/11) sang Sáng T2 (09/11/2026)
+  if (item.id === 'mon-sang-thgp-n6-0911') {
+    if (targetDateStr === '2026-11-09') {
+      return {
+        status: 'active',
+        active: true,
+        label: 'Đang học · Buổi 3/6 (Đổi từ Chiều T4 11/11)',
+        textClass: 'text-emerald-700 dark:text-emerald-400'
+      };
+    }
+    if (targetDate < startDate) {
+      return {
+        status: 'upcoming',
+        active: false,
+        label: 'Lịch đổi riêng ngày 09/11 (Tuần 5)',
+        textClass: 'text-amber-700 dark:text-amber-400'
+      };
+    }
+    return {
+      status: 'ended',
+      active: false,
+      label: 'Đã học ngày 09/11 (Tuần 5)',
+      textClass: 'text-slate-500 dark:text-slate-400'
+    };
+  }
+
+  if (item.id === 'wed-chieu-thgp-n6' && targetDateStr === '2026-11-11') {
+    return {
+      status: 'upcoming',
+      active: false,
+      label: 'Chuyển sang Sáng Thứ 2 (09/11/2026)',
+      textClass: 'text-rose-600 dark:text-rose-400'
+    };
+  }
 
   if (targetDate < startDate) {
     const isChemLab = item.id === 'wed-chieu-thhh-n5' || item.id === 'thu-sang-thhh-n6';
