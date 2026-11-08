@@ -210,12 +210,12 @@ export const WEEKS_DATA: WeekData[] = [
 ];
 
 export const SCHEDULE_ITEMS: ScheduleItem[] = [
-  // THỨ HAI - SÁNG (Lịch tạm thời Tuần 5 ngày 09/11/2026: Nhóm 5 học TH Hóa học C606, Nhóm 6 học TH Giải phẫu C402)
+  // THỨ HAI - SÁNG: Nhóm 5 học TH Hóa học (C606), Nhóm 6 học TH Giải phẫu (C402 - đã chuyển từ Chiều T4 sang Sáng T2)
   {
-    id: 'mon-sang-thhh-n5-0911',
+    id: 'mon-sang-thhh-n5',
     dayOfWeek: 2,
     session: 'SÁNG',
-    subject: 'Thực hành Hóa học (Hóa vô cơ - Lịch Tuần 9/11–14/11)',
+    subject: 'Thực hành Hóa học (Hóa vô cơ)',
     shortCode: 'TH HH',
     room: 'Phòng C606',
     groups: ['nhom5'],
@@ -223,26 +223,26 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     rosterKey: 'nhom5',
     periods: '4 tiết/buổi',
     startDate: '2026-11-09',
-    endDate: '2026-11-09',
-    totalWeeks: 1,
-    durationText: 'Sáng T2 09/11/2026 (Lịch tạm thời tuần 09/11–14/11)',
+    endDate: '2027-01-02',
+    totalWeeks: 8,
+    durationText: 'Lịch tạm thời từ 09/11 (8 tuần)',
     colorTheme: 'purple'
   },
   {
-    id: 'mon-sang-thgp-n6-0911',
+    id: 'mon-sang-thgp-n6',
     dayOfWeek: 2,
     session: 'SÁNG',
-    subject: 'Thực hành Giải phẫu (Đổi lịch T4 11/11)',
+    subject: 'Thực hành Giải phẫu',
     shortCode: 'TH GP',
     room: 'Phòng C402',
     groups: ['nhom6'],
     groupBadge: 'Nhóm 6 (13 SV)',
     rosterKey: 'nhom6',
     periods: '5 tiết/buổi',
-    startDate: '2026-11-09',
-    endDate: '2026-11-09',
-    totalWeeks: 1,
-    durationText: 'Sáng T2 09/11/2026 (Chuyển từ Chiều T4 11/11)',
+    startDate: '2026-10-26',
+    endDate: '2026-12-05',
+    totalWeeks: 6,
+    durationText: 'Chuyển sang Sáng T2 (09/11) · 6 tuần',
     colorTheme: 'amber'
   },
   // THỨ HAI - CHIỀU
@@ -263,64 +263,12 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     durationText: '8 tuần (12/10 – 05/12/2026)',
     colorTheme: 'blue'
   },
-  // THỨ TƯ - CHIỀU (Riêng Tuần 5 ngày 11/11: Nhóm 6 học TH Hóa học C606; Các tuần khác: N5 TH Hóa C606, N6 TH Giải phẫu C402)
+  // THỨ TƯ - CHIỀU: Nhóm 6 học Thực hành Hóa học (C606) - Đã xoá TH Giải phẫu Chiều T4 vì đã đổi sang Sáng T2
   {
-    id: 'wed-chieu-thhh-n6-1111',
+    id: 'wed-chieu-thhh-n6',
     dayOfWeek: 4,
     session: 'CHIỀU',
-    subject: 'Thực hành Hóa học (Hóa vô cơ - Lịch Tuần 9/11–14/11)',
-    shortCode: 'TH HH',
-    room: 'Phòng C606',
-    groups: ['nhom6'],
-    groupBadge: 'Nhóm 6 (13 SV)',
-    rosterKey: 'nhom6',
-    periods: '4 tiết/buổi',
-    startDate: '2026-11-11',
-    endDate: '2026-11-11',
-    totalWeeks: 1,
-    durationText: 'Chiều T4 11/11/2026 (Lịch tạm thời tuần 09/11–14/11)',
-    colorTheme: 'purple'
-  },
-  {
-    id: 'wed-chieu-thhh-n5',
-    dayOfWeek: 4,
-    session: 'CHIỀU',
-    subject: 'Thực hành Hóa học',
-    shortCode: 'TH HH',
-    room: 'Phòng C606',
-    groups: ['nhom5'],
-    groupBadge: 'Nhóm 5 (14 SV)',
-    rosterKey: 'nhom5',
-    periods: '4 tiết/buổi',
-    startDate: '2026-11-09',
-    endDate: '2027-01-02',
-    totalWeeks: 8,
-    durationText: '8 tuần (Từ 09/11 · Tuần 9/11–14/11 học Sáng T2 09/11)',
-    colorTheme: 'purple'
-  },
-  {
-    id: 'wed-chieu-thgp-n6',
-    dayOfWeek: 4,
-    session: 'CHIỀU',
-    subject: 'Thực hành Giải phẫu',
-    shortCode: 'TH GP',
-    room: 'Phòng C402',
-    groups: ['nhom6'],
-    groupBadge: 'Nhóm 6 (13 SV)',
-    rosterKey: 'nhom6',
-    periods: '5 tiết/buổi',
-    startDate: '2026-10-26',
-    endDate: '2026-12-05',
-    totalWeeks: 6,
-    durationText: '6 tuần (26/10 – 05/12 · Tuần 5 học Sáng T2 09/11)',
-    colorTheme: 'amber'
-  },
-  // THỨ NĂM - SÁNG: Nhóm 6 học TH Hóa học (C606), Nhóm 5 học TH Giải phẫu (C402)
-  {
-    id: 'thu-sang-thhh-n6',
-    dayOfWeek: 5,
-    session: 'SÁNG',
-    subject: 'Thực hành Hóa học',
+    subject: 'Thực hành Hóa học (Hóa vô cơ)',
     shortCode: 'TH HH',
     room: 'Phòng C606',
     groups: ['nhom6'],
@@ -330,9 +278,10 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     startDate: '2026-11-09',
     endDate: '2027-01-02',
     totalWeeks: 8,
-    durationText: '8 tuần (Từ 09/11 · Tuần 9/11–14/11 học Chiều T4 11/11)',
+    durationText: 'Lịch tạm thời từ 09/11 (8 tuần)',
     colorTheme: 'purple'
   },
+  // THỨ NĂM - SÁNG: Nhóm 5 học Thực hành Giải phẫu (C402)
   {
     id: 'thu-sang-thgp-n5',
     dayOfWeek: 5,
@@ -487,118 +436,13 @@ export function evaluateItemStatusOnDate(item: ScheduleItem, targetDateStr: stri
   const startDate = parseDateLocal(item.startDate);
   const endDate = parseDateLocal(item.endDate);
 
-  // Lịch tạm thời Tuần 5 (09/11 – 14/11/2026): Thực hành Hóa học Nhóm 5 học Sáng T2 (09/11)
-  if (item.id === 'mon-sang-thhh-n5-0911') {
-    if (targetDateStr === '2026-11-09') {
-      return {
-        status: 'active',
-        active: true,
-        label: 'Đang học · Buổi 1/8 (Lịch tạm thời Tuần 9/11–14/11)',
-        textClass: 'text-emerald-700 dark:text-emerald-400'
-      };
-    }
-    if (targetDate < startDate) {
-      return {
-        status: 'upcoming',
-        active: false,
-        label: 'Lịch tạm thời Sáng T2 09/11 (Tuần 5)',
-        textClass: 'text-amber-700 dark:text-amber-400'
-      };
-    }
-    return {
-      status: 'ended',
-      active: false,
-      label: 'Đã học ngày 09/11 (Tuần 5)',
-      textClass: 'text-slate-500 dark:text-slate-400'
-    };
-  }
-
-  // Lịch tạm thời Tuần 5 (09/11 – 14/11/2026): Thực hành Hóa học Nhóm 6 học Chiều T4 (11/11)
-  if (item.id === 'wed-chieu-thhh-n6-1111') {
-    if (targetDateStr === '2026-11-11') {
-      return {
-        status: 'active',
-        active: true,
-        label: 'Đang học · Buổi 1/8 (Lịch tạm thời Tuần 9/11–14/11)',
-        textClass: 'text-emerald-700 dark:text-emerald-400'
-      };
-    }
-    if (targetDate < startDate) {
-      return {
-        status: 'upcoming',
-        active: false,
-        label: 'Lịch tạm thời Chiều T4 11/11 (Tuần 5)',
-        textClass: 'text-amber-700 dark:text-amber-400'
-      };
-    }
-    return {
-      status: 'ended',
-      active: false,
-      label: 'Đã học ngày 11/11 (Tuần 5)',
-      textClass: 'text-slate-500 dark:text-slate-400'
-    };
-  }
-
-  // Riêng buổi Thực hành Giải phẫu Nhóm 6 chuyển từ Chiều T4 (11/11) sang Sáng T2 (09/11/2026)
-  if (item.id === 'mon-sang-thgp-n6-0911') {
-    if (targetDateStr === '2026-11-09') {
-      return {
-        status: 'active',
-        active: true,
-        label: 'Đang học · Buổi 3/6 (Đổi từ Chiều T4 11/11)',
-        textClass: 'text-emerald-700 dark:text-emerald-400'
-      };
-    }
-    if (targetDate < startDate) {
-      return {
-        status: 'upcoming',
-        active: false,
-        label: 'Lịch đổi riêng ngày 09/11 (Tuần 5)',
-        textClass: 'text-amber-700 dark:text-amber-400'
-      };
-    }
-    return {
-      status: 'ended',
-      active: false,
-      label: 'Đã học ngày 09/11 (Tuần 5)',
-      textClass: 'text-slate-500 dark:text-slate-400'
-    };
-  }
-
-  if (item.id === 'wed-chieu-thhh-n5' && targetDateStr === '2026-11-11') {
-    return {
-      status: 'upcoming',
-      active: false,
-      label: 'Tuần 5 học Sáng Thứ 2 (09/11/2026)',
-      textClass: 'text-rose-600 dark:text-rose-400'
-    };
-  }
-
-  if (item.id === 'wed-chieu-thgp-n6' && targetDateStr === '2026-11-11') {
-    return {
-      status: 'upcoming',
-      active: false,
-      label: 'Chuyển sang Sáng Thứ 2 (09/11/2026)',
-      textClass: 'text-rose-600 dark:text-rose-400'
-    };
-  }
-
-  if (item.id === 'thu-sang-thhh-n6' && targetDateStr === '2026-11-12') {
-    return {
-      status: 'upcoming',
-      active: false,
-      label: 'Tuần 5 học Chiều Thứ 4 (11/11/2026)',
-      textClass: 'text-rose-600 dark:text-rose-400'
-    };
-  }
-
   if (targetDate < startDate) {
-    const isChemLab = item.id === 'wed-chieu-thhh-n5' || item.id === 'thu-sang-thhh-n6';
+    const isChemLab = item.id === 'mon-sang-thhh-n5' || item.id === 'wed-chieu-thhh-n6';
     return {
       status: 'upcoming',
       active: false,
       label: isChemLab
-        ? `Đẩy sang tuần sau (chưa có áo blouse) · Từ ${formatDDMM(startDate)}`
+        ? `Đẩy sang tuần 09/11 (chưa có áo blouse)`
         : `Chưa bắt đầu · Học từ ${formatDDMM(startDate)}`,
       textClass: 'text-amber-700 dark:text-amber-400'
     };
