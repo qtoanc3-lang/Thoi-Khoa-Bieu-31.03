@@ -116,7 +116,7 @@ const THEME_ACCENTS: Record<
     roomChip: 'bg-indigo-600 text-white',
     groupText: 'text-indigo-900 dark:text-indigo-300',
     dotColor: 'bg-indigo-600',
-    label: 'TNRHM (A00)'
+    label: 'TNRHM (D202)'
   },
   rose: {
     surface: 'bg-rose-50/95 dark:bg-rose-950/45',
@@ -172,6 +172,10 @@ export default function App() {
 
   const [weekFilter, setWeekFilter] = useState<string>(() => {
     const todayISO = formatDateISO(getVietnamToday());
+    // Cuối tuần Tuần 4 (07/11 - 08/11/2026): mở sẵn Tuần 5 (09/11 - 15/11) để SV xem ngay lịch tạm thời tuần tới
+    if (todayISO >= '2026-11-07' && todayISO <= '2026-11-08') {
+      return '5';
+    }
     const matched = WEEKS_DATA.find((w) => w.id !== 'all' && todayISO >= w.start && todayISO <= w.end);
     return matched ? matched.id : 'all';
   });
@@ -353,7 +357,15 @@ export default function App() {
     const dateISO = formatDateISO(dateObj);
     const items = SCHEDULE_ITEMS.filter((item) => {
       if (item.dayOfWeek !== vnDay) return false;
-      if (item.id === 'mon-sang-thgp-n6-0911' && dateISO !== '2026-11-09') return false;
+      if (
+        (item.id === 'mon-sang-thgp-n6-0911' || item.id === 'mon-sang-thhh-n5-0911') &&
+        dateISO !== '2026-11-09'
+      ) {
+        return false;
+      }
+      if (item.id === 'wed-chieu-thhh-n6-1111' && dateISO !== '2026-11-11') {
+        return false;
+      }
       return groupFilter === 'all' || item.groups.includes(groupFilter);
     });
     return { dayInfo, dateISO, items };
@@ -516,8 +528,12 @@ export default function App() {
         const d = String(cursor.getDate()).padStart(2, '0');
         const datePart = `${y}${m}${d}`;
 
-        // Skip Chiều T4 11/11/2026 for TH Giải phẫu Nhóm 6 since it moved to Sáng T2 09/11/2026
-        if (item.id === 'wed-chieu-thgp-n6' && datePart === '20261111') {
+        // Skip regular slots in Tuần 5 (09/11–14/11) since temporary rescheduled VEVENTs already exist
+        if (
+          ((item.id === 'wed-chieu-thgp-n6' || item.id === 'wed-chieu-thhh-n5') &&
+            datePart === '20261111') ||
+          (item.id === 'thu-sang-thhh-n6' && datePart === '20261112')
+        ) {
           cursor.setDate(cursor.getDate() + 7);
           continue;
         }
@@ -617,10 +633,10 @@ export default function App() {
     ctx.font = '500 19px system-ui, -apple-system, sans-serif';
     ctx.fillText('Giờ học: Sáng 07h30–11h05 · Chiều 13h00–16h35 · Tối 18h00–21h35 · Mã HP TH Hóa: 191393024', width / 2, 190);
 
-    // Important note on chemistry & anatomy practical
+    // Important note on chemistry & anatomy practical for week 9/11 - 14/11
     ctx.fillStyle = '#fed7aa';
     ctx.font = 'bold 18px system-ui, -apple-system, sans-serif';
-    ctx.fillText('⚡ TH Giải phẫu N6: Tuần 5 (11/11) chuyển sang Sáng T2 (09/11) | TH Hóa bắt đầu từ 09/11', width / 2, 226);
+    ctx.fillText('⚡ Lịch Tuần 9/11–14/11: TH Hóa (C606) N5 học Sáng T2 (9/11), N6 học Chiều T4 (11/11) | TH GP N6 học Sáng T2 (9/11)', width / 2, 226);
 
     // Table columns
     const tableTop = headerHeight + 25;
@@ -762,13 +778,13 @@ export default function App() {
 
     ctx.fillStyle = '#334155';
     ctx.font = '500 17px system-ui, -apple-system, sans-serif';
-    ctx.fillText('• TH Hóa học (P. C606): N5 Chiều T4 | N6 Sáng T5 (Đẩy sang tuần sau từ 09/11 vì chưa có áo blouse).', colX[0] + 25, footerY + 68);
+    ctx.fillText('• TH Hóa học - Hóa vô cơ (P. C606) Tuần 9/11–14/11: Nhóm 5 học Sáng T2 (09/11) | Nhóm 6 học Chiều T4 (11/11).', colX[0] + 25, footerY + 68);
     ctx.fillText('• TH Giải phẫu (P. C402): N5 Sáng T5 | N6 Chiều T4 (Riêng Tuần 5: N6 chuyển Chiều T4 11/11 sang Sáng T2 09/11).', colX[0] + 25, footerY + 96);
-    ctx.fillText('• Các phòng lý thuyết: LT Giải phẫu (D112), TNRHM (D210 - Sáng CN), Tiếng Anh 1 (C222), Tin 1 (D314), LT Hóa (C208).', colX[0] + 25, footerY + 124);
+    ctx.fillText('• Các phòng lý thuyết: LT Giải phẫu (D112), TNRHM (D202 - Sáng CN), Tiếng Anh 1 (C222), Tin 1 (D314), LT Hóa (C208).', colX[0] + 25, footerY + 124);
 
     ctx.fillStyle = '#b45309';
     ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
-    ctx.fillText('• Lưu ý: Sáng T2 (09/11) Nhóm 6 học TH Giải phẫu (C402) thay cho Chiều T4 (11/11) | TNRHM học Sáng CN.', colX[0] + 25, footerY + 152);
+    ctx.fillText('• Lưu ý Tuần 9/11–14/11: Sáng T2 (09/11) N5 học TH Hóa (C606) & N6 học TH Giải phẫu (C402); Chiều T4 (11/11) N6 học TH Hóa.', colX[0] + 25, footerY + 152);
 
     // Save as PNG
     const link = document.createElement('a');
@@ -786,8 +802,15 @@ export default function App() {
     const userNote = notes[item.id] || '';
     const specificDateISO = specificDateObj ? formatDateISO(specificDateObj) : null;
 
-    // Buổi đổi lịch TH Giải phẫu Nhóm 6 (Sáng T2 09/11) chỉ hiển thị ở Tuần 5 (09/11) hoặc chế độ Toàn kỳ
-    if (item.id === 'mon-sang-thgp-n6-0911' && specificDateISO && specificDateISO !== '2026-11-09') {
+    // Các buổi lịch tạm thời / đổi lịch riêng trong Tuần 5 (09/11 – 14/11) chỉ hiển thị ở đúng ngày trong Tuần 5 hoặc chế độ Toàn kỳ
+    if (
+      (item.id === 'mon-sang-thgp-n6-0911' || item.id === 'mon-sang-thhh-n5-0911') &&
+      specificDateISO &&
+      specificDateISO !== '2026-11-09'
+    ) {
+      return null;
+    }
+    if (item.id === 'wed-chieu-thhh-n6-1111' && specificDateISO && specificDateISO !== '2026-11-11') {
       return null;
     }
 
@@ -1801,10 +1824,10 @@ export default function App() {
                 <div className="font-black text-blue-950 uppercase mb-0.5">
                   📍 ĐỊA ĐIỂM &amp; PHÒNG HỌC
                 </div>
-                <div>&bull; <strong>TH Hóa học:</strong> Phòng C606 (N5: Chiều T4 | N6: Sáng T5, lùi sang 09/11 vì chưa có áo blouse)</div>
+                <div>&bull; <strong>TH Hóa học (C606):</strong> Tuần 9/11–14/11: N5 Sáng T2 (09/11) | N6 Chiều T4 (11/11)</div>
                 <div>&bull; <strong>TH Giải phẫu:</strong> Phòng C402 (N5: Sáng T5 | N6: Chiều T4; riêng Tuần 5 N6 học Sáng T2 09/11)</div>
                 <div>&bull; <strong>LT Giải phẫu:</strong> Phòng D112 | <strong>LT Hóa:</strong> Phòng C208</div>
-                <div>&bull; <strong>TNRHM:</strong> Sáng CN (P. D210) | <strong>HAT:</strong> C222 | <strong>TINT:</strong> D314</div>
+                <div>&bull; <strong>TNRHM:</strong> Sáng CN (P. D202) | <strong>HAT:</strong> C222 | <strong>TINT:</strong> D314</div>
               </div>
 
               <div className="border border-slate-300 rounded p-1 bg-white">
@@ -1813,7 +1836,7 @@ export default function App() {
                 </div>
                 <div>&bull; <strong>Nhóm 5 (14 SV):</strong> STT 01 &rarr; 14 (Lê Phan An &rarr; Trương Hoàng Hiệp)</div>
                 <div>&bull; <strong>Nhóm 6 (13 SV):</strong> STT 01 &rarr; 13 (Lê Văn Hòe &rarr; Phạm Đường Vũ)</div>
-                <div className="text-amber-800 font-semibold italic mt-0.5">* Tuần 5: TH GP Nhóm 6 chuyển Chiều T4 (11/11) sang Sáng T2 (09/11) | TNRHM cố định Sáng CN.</div>
+                <div className="text-amber-800 font-semibold italic mt-0.5">* Tuần 9/11–14/11: Sáng T2 (09/11) N5 học TH Hóa &amp; N6 học TH GP; Chiều T4 (11/11) N6 học TH Hóa.</div>
               </div>
 
               <div className="border border-slate-300 rounded p-1 bg-white flex flex-col justify-between">
@@ -1941,7 +1964,7 @@ export default function App() {
                   </button>
                 </p>
                 <p className="text-[11px] font-semibold text-amber-800 dark:text-amber-300">
-                  ⚠️ Đẩy sang tuần sau (từ 09/11) vì chưa có áo blouse
+                  🔄 Lịch tạm thời Tuần 9/11–14/11 (Hóa vô cơ - C606): N5 học Sáng T2 (09/11) | N6 học Chiều T4 (11/11)
                 </p>
               </div>
             </div>
@@ -2637,16 +2660,16 @@ export default function App() {
                   • <strong>Khung giờ học quy định:</strong> Sáng: <strong>07h30 – 11h05</strong> | Chiều: <strong>13h00 – 16h35</strong> | Tối: <strong>18h00 – 21h35</strong>.
                 </div>
                 <div className="text-[11px] leading-relaxed">
-                  • <strong>Thực hành Hóa học (P. C606):</strong> Nhóm 5 học Chiều Thứ 4 (13:00 - 16:35) | Nhóm 6 học Sáng Thứ 5 (07:30 - 11:05) — <strong className="text-rose-700 dark:text-amber-300">Đẩy sang tuần sau (bắt đầu từ 09/11/2026) vì chưa có áo blouse</strong>.
+                  • <strong>Thực hành Hóa học - Phần Hóa vô cơ (P. C606):</strong> <strong className="text-rose-700 dark:text-amber-300">Lịch tạm thời Tuần 09/11 – 14/11: Nhóm 5 học Sáng Thứ 2 (09/11, 07:30–11:05) | Nhóm 6 học Chiều Thứ 4 (11/11, 13:00–16:35)</strong> (Lịch chuẩn các tuần khác: N5 Chiều T4, N6 Sáng T5).
                 </div>
                 <div className="text-[11px] leading-relaxed">
                   • <strong>Thực hành Giải phẫu (P. C402):</strong> Nhóm 5 học Sáng Thứ 5 | Nhóm 6 học Chiều Thứ 4 (6 tuần từ 26/10 – 05/12/2026; <strong className="text-rose-700 dark:text-amber-300">riêng Tuần 5 Nhóm 6 chuyển buổi Chiều T4 11/11 sang Sáng Thứ 2 ngày 09/11/2026</strong>).
                 </div>
                 <div className="text-[11px] leading-relaxed">
-                  • <strong>Danh mục phòng lý thuyết:</strong> LT Giải phẫu (P. D112), Thuật ngữ A-V RHM (P. D210 - Sáng CN), Tiếng Anh 1 HAT (P. C222), Tin học 1 TINT (P. D314), LT Hóa học (P. C208).
+                  • <strong>Danh mục phòng lý thuyết:</strong> LT Giải phẫu (P. D112), Thuật ngữ A-V RHM (P. D202 - Sáng CN), Tiếng Anh 1 HAT (P. C222), Tin học 1 TINT (P. D314), LT Hóa học (P. C208).
                 </div>
                 <div className="text-[11px] leading-relaxed text-rose-700 dark:text-amber-300 font-semibold">
-                  • <strong>Lịch môn TNRHM:</strong> Cả lớp (27 SV) học cố định vào <strong>Sáng Chủ Nhật hàng tuần (07h30 – 11h05)</strong>.
+                  • <strong>Lịch môn TNRHM:</strong> Cả lớp (27 SV) học cố định vào <strong>Sáng Chủ Nhật hàng tuần (07h30 – 11h05) tại Phòng D202</strong>.
                 </div>
               </div>
             </div>
