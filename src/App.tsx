@@ -614,10 +614,10 @@ export default function App() {
     ctx.font = '500 19px system-ui, -apple-system, sans-serif';
     ctx.fillText('Giờ học: Sáng 07h30–11h05 · Chiều 13h00–16h35 · Tối 18h00–21h35 · Mã HP TH Hóa: 191393024', width / 2, 190);
 
-    // Important note on chemistry & anatomy practical for week 9/11 - 14/11
+    // Important note on chemistry & anatomy practical
     ctx.fillStyle = '#fed7aa';
     ctx.font = 'bold 18px system-ui, -apple-system, sans-serif';
-    ctx.fillText('⚡ Lịch Tuần 9/11–14/11: TH Hóa (C606) N5 học Sáng T2 (9/11), N6 học Chiều T4 (11/11) | TH GP N6 học Sáng T2 (9/11)', width / 2, 226);
+    ctx.fillText('⚡ TH Hóa học (P. C606): Nhóm 5 học Sáng Thứ 2 | Nhóm 6 học Chiều Thứ 4 (Từ 09/11/2026)', width / 2, 226);
 
     // Table columns
     const tableTop = headerHeight + 25;
@@ -759,13 +759,13 @@ export default function App() {
 
     ctx.fillStyle = '#334155';
     ctx.font = '500 17px system-ui, -apple-system, sans-serif';
-    ctx.fillText('• TH Hóa học - Hóa vô cơ (P. C606): Nhóm 5 học Sáng T2 (09/11) | Nhóm 6 học Chiều T4 (11/11).', colX[0] + 25, footerY + 68);
-    ctx.fillText('• TH Giải phẫu (P. C402): Nhóm 5 học Sáng T5 | Nhóm 6 học Sáng T2 (đã chuyển từ Chiều T4 sang Sáng T2).', colX[0] + 25, footerY + 96);
+    ctx.fillText('• TH Hóa học (P. C606): Nhóm 5 học Sáng Thứ 2 | Nhóm 6 học Chiều Thứ 4 (8 tuần từ 09/11/2026).', colX[0] + 25, footerY + 68);
+    ctx.fillText('• TH Giải phẫu (P. C402): Nhóm 5 học Sáng Thứ 5 | Nhóm 6 học Sáng Thứ 2 (6 tuần).', colX[0] + 25, footerY + 96);
     ctx.fillText('• Các phòng lý thuyết: LT Giải phẫu (D112), TNRHM (D202 - Sáng CN), Tiếng Anh 1 (C222), Tin 1 (D314), LT Hóa (C208).', colX[0] + 25, footerY + 124);
 
     ctx.fillStyle = '#b45309';
     ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
-    ctx.fillText('• Lưu ý Tuần 9/11–14/11: Sáng T2 (09/11) N5 học TH Hóa (C606) & N6 học TH Giải phẫu (C402); Chiều T4 (11/11) N6 học TH Hóa.', colX[0] + 25, footerY + 152);
+    ctx.fillText('• Lưu ý: Sáng Thứ 2 Nhóm 5 học TH Hóa học (P. C606) & Nhóm 6 học TH Giải phẫu (P. C402) | TNRHM học Sáng CN (P. D202).', colX[0] + 25, footerY + 152);
 
     // Save as PNG
     const link = document.createElement('a');
@@ -1793,8 +1793,8 @@ export default function App() {
                 <div className="font-black text-blue-950 uppercase mb-0.5">
                   📍 ĐỊA ĐIỂM &amp; PHÒNG HỌC
                 </div>
-                <div>&bull; <strong>TH Hóa học (C606):</strong> N5: Sáng T2 (09/11) | N6: Chiều T4 (11/11)</div>
-                <div>&bull; <strong>TH Giải phẫu (C402):</strong> N5: Sáng T5 | N6: Sáng T2 (đổi từ Chiều T4)</div>
+                <div>&bull; <strong>TH Hóa học (C606):</strong> N5: Sáng T2 | N6: Chiều T4 (từ 09/11)</div>
+                <div>&bull; <strong>TH Giải phẫu (C402):</strong> N5: Sáng T5 | N6: Sáng T2</div>
                 <div>&bull; <strong>LT Giải phẫu:</strong> Phòng D112 | <strong>LT Hóa:</strong> Phòng C208</div>
                 <div>&bull; <strong>TNRHM:</strong> Sáng CN (P. D202) | <strong>HAT:</strong> C222 | <strong>TINT:</strong> D314</div>
               </div>
@@ -1805,7 +1805,7 @@ export default function App() {
                 </div>
                 <div>&bull; <strong>Nhóm 5 (14 SV):</strong> STT 01 &rarr; 14 (Lê Phan An &rarr; Trương Hoàng Hiệp)</div>
                 <div>&bull; <strong>Nhóm 6 (13 SV):</strong> STT 01 &rarr; 13 (Lê Văn Hòe &rarr; Phạm Đường Vũ)</div>
-                <div className="text-amber-800 font-semibold italic mt-0.5">* Tuần 9/11–14/11: Sáng T2 (09/11) N5 học TH Hóa &amp; N6 học TH GP; Chiều T4 (11/11) N6 học TH Hóa.</div>
+                <div className="text-amber-800 font-semibold italic mt-0.5">* Sáng T2: N5 học TH Hóa (C606) &amp; N6 học TH GP (C402); Chiều T4: N6 học TH Hóa (C606).</div>
               </div>
 
               <div className="border border-slate-300 rounded p-1 bg-white flex flex-col justify-between">
@@ -1933,7 +1933,7 @@ export default function App() {
                   </button>
                 </p>
                 <p className="text-[11px] font-semibold text-amber-800 dark:text-amber-300">
-                  🔄 Lịch tạm thời Tuần 9/11–14/11 (Hóa vô cơ - C606): N5 học Sáng T2 (09/11) | N6 học Chiều T4 (11/11)
+                  📌 Nhóm 5 học Sáng Thứ 2 (07:30 – 11:05) | Nhóm 6 học Chiều Thứ 4 (13:00 – 16:35)
                 </p>
               </div>
             </div>
@@ -2629,7 +2629,7 @@ export default function App() {
                   • <strong>Khung giờ học quy định:</strong> Sáng: <strong>07h30 – 11h05</strong> | Chiều: <strong>13h00 – 16h35</strong> | Tối: <strong>18h00 – 21h35</strong>.
                 </div>
                 <div className="text-[11px] leading-relaxed">
-                  • <strong>Thực hành Hóa học - Phần Hóa vô cơ (P. C606):</strong> <strong className="text-rose-700 dark:text-amber-300">Nhóm 5 học Sáng Thứ 2 (09/11, 07:30–11:05) | Nhóm 6 học Chiều Thứ 4 (11/11, 13:00–16:35)</strong>.
+                  • <strong>Thực hành Hóa học (P. C606):</strong> <strong className="text-rose-700 dark:text-amber-300">Nhóm 5 học Sáng Thứ 2 (07:30 – 11:05) | Nhóm 6 học Chiều Thứ 4 (13:00 – 16:35)</strong> (8 tuần từ 09/11/2026 – 02/01/2027).
                 </div>
                 <div className="text-[11px] leading-relaxed">
                   • <strong>Thực hành Giải phẫu (P. C402):</strong> Nhóm 5 học Sáng Thứ 5 | <strong className="text-rose-700 dark:text-amber-300">Nhóm 6 học Sáng Thứ 2 (đã chuyển từ Chiều T4 sang Sáng T2 ngày 09/11/2026)</strong>.
