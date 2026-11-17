@@ -126,7 +126,7 @@ const THEME_ACCENTS: Record<
     roomChip: 'bg-rose-600 text-white',
     groupText: 'text-rose-900 dark:text-rose-300',
     dotColor: 'bg-rose-600',
-    label: 'HAT (A00)'
+    label: 'HAT (C222)'
   },
   cyan: {
     surface: 'bg-cyan-50/95 dark:bg-cyan-950/45',
@@ -136,7 +136,7 @@ const THEME_ACCENTS: Record<
     roomChip: 'bg-cyan-600 text-white',
     groupText: 'text-cyan-900 dark:text-cyan-300',
     dotColor: 'bg-cyan-600',
-    label: 'TINT (A00)'
+    label: 'TINT (D314)'
   }
 };
 

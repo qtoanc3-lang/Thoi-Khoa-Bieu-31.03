@@ -95,7 +95,7 @@ export const WEEKS_DATA: WeekData[] = [
     name: 'Lịch tổng quát toàn kỳ (12/10 – 19/12/2026)',
     shortTitle: 'Toàn học kỳ I',
     rangeText: '12/10 – 19/12/2026',
-    noteSummary: 'Hiển thị tất cả các học phần trong Học kỳ I. Nhấn vào tên nhóm trên từng môn để xem danh sách sinh viên.',
+    noteSummary: 'Hiển thị toàn bộ học phần Học kỳ I (N6: TH Hóa Sáng T2, TH GP Chiều T4 · N5: TH Hóa Chiều T4, TH GP Sáng T5). Nhấn vào tên nhóm để xem danh sách SV.',
     start: '2026-10-12',
     end: '2026-12-20'
   },
