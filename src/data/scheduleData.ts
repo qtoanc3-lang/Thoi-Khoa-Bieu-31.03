@@ -137,10 +137,10 @@ export const WEEKS_DATA: WeekData[] = [
   },
   {
     id: '5',
-    name: 'Tuần 5 (09/11 – 15/11/2026) · Bắt đầu Thực hành Hóa học (N5 Sáng T2, N6 Chiều T4)',
+    name: 'Tuần 5 (09/11 – 15/11/2026) · Bắt đầu Thực hành Hóa học (N6 Sáng T2, N5 Chiều T4)',
     shortTitle: 'Tuần 5',
     rangeText: '09/11 – 15/11/2026',
-    noteSummary: 'Tuần 5 bắt đầu Thực hành Hóa học (P. C606): Nhóm 5 học Sáng Thứ 2, Nhóm 6 học Chiều Thứ 4. Thực hành Giải phẫu Nhóm 6 (P. C402) học Sáng Thứ 2.',
+    noteSummary: 'Tuần 5 bắt đầu Thực hành Hóa học (P. C606): Nhóm 6 học Sáng Thứ 2, Nhóm 5 học Chiều Thứ 4. Thực hành Giải phẫu (P. C402): Nhóm 6 học Chiều Thứ 4, Nhóm 5 học Sáng Thứ 5.',
     start: '2026-11-09',
     end: '2026-11-15'
   },
@@ -149,7 +149,7 @@ export const WEEKS_DATA: WeekData[] = [
     name: 'Tuần 6 (16/11 – 22/11/2026) · Học đầy đủ các môn',
     shortTitle: 'Tuần 6',
     rangeText: '16/11 – 22/11/2026',
-    noteSummary: 'Tuần 6 học đầy đủ cả Lý thuyết và Thực hành theo đúng phân nhóm (Sáng T2: N5 TH Hóa C606, N6 TH Giải phẫu C402).',
+    noteSummary: 'Tuần 6 học đầy đủ cả Lý thuyết và Thực hành theo đúng phân nhóm (N6: TH Hóa Sáng T2 & TH GP Chiều T4; N5: TH Hóa Chiều T4 & TH GP Sáng T5).',
     start: '2026-11-16',
     end: '2026-11-22'
   },
@@ -210,40 +210,23 @@ export const WEEKS_DATA: WeekData[] = [
 ];
 
 export const SCHEDULE_ITEMS: ScheduleItem[] = [
-  // THỨ HAI - SÁNG: Nhóm 5 học Thực hành Hóa học (C606), Nhóm 6 học Thực hành Giải phẫu (C402)
+  // THỨ HAI - SÁNG: Nhóm 6 học Thực hành Hóa học (C606)
   {
-    id: 'mon-sang-thhh-n5',
+    id: 'mon-sang-thhh-n6',
     dayOfWeek: 2,
     session: 'SÁNG',
     subject: 'Thực hành Hóa học',
     shortCode: 'TH HH',
     room: 'Phòng C606',
-    groups: ['nhom5'],
-    groupBadge: 'Nhóm 5 (14 SV)',
-    rosterKey: 'nhom5',
+    groups: ['nhom6'],
+    groupBadge: 'Nhóm 6 (13 SV)',
+    rosterKey: 'nhom6',
     periods: '4 tiết/buổi',
     startDate: '2026-11-09',
     endDate: '2027-01-02',
     totalWeeks: 8,
     durationText: '8 tuần (09/11/2026 – 02/01/2027)',
     colorTheme: 'purple'
-  },
-  {
-    id: 'mon-sang-thgp-n6',
-    dayOfWeek: 2,
-    session: 'SÁNG',
-    subject: 'Thực hành Giải phẫu',
-    shortCode: 'TH GP',
-    room: 'Phòng C402',
-    groups: ['nhom6'],
-    groupBadge: 'Nhóm 6 (13 SV)',
-    rosterKey: 'nhom6',
-    periods: '5 tiết/buổi',
-    startDate: '2026-10-26',
-    endDate: '2026-12-05',
-    totalWeeks: 6,
-    durationText: '6 tuần (26/10 – 05/12/2026)',
-    colorTheme: 'amber'
   },
   // THỨ HAI - CHIỀU
   {
@@ -263,23 +246,40 @@ export const SCHEDULE_ITEMS: ScheduleItem[] = [
     durationText: '8 tuần (12/10 – 05/12/2026)',
     colorTheme: 'blue'
   },
-  // THỨ TƯ - CHIỀU: Nhóm 6 học Thực hành Hóa học (C606)
+  // THỨ TƯ - CHIỀU: Nhóm 5 học Thực hành Hóa học (C606), Nhóm 6 học Thực hành Giải phẫu (C402)
   {
-    id: 'wed-chieu-thhh-n6',
+    id: 'wed-chieu-thhh-n5',
     dayOfWeek: 4,
     session: 'CHIỀU',
     subject: 'Thực hành Hóa học',
     shortCode: 'TH HH',
     room: 'Phòng C606',
-    groups: ['nhom6'],
-    groupBadge: 'Nhóm 6 (13 SV)',
-    rosterKey: 'nhom6',
+    groups: ['nhom5'],
+    groupBadge: 'Nhóm 5 (14 SV)',
+    rosterKey: 'nhom5',
     periods: '4 tiết/buổi',
     startDate: '2026-11-09',
     endDate: '2027-01-02',
     totalWeeks: 8,
     durationText: '8 tuần (09/11/2026 – 02/01/2027)',
     colorTheme: 'purple'
+  },
+  {
+    id: 'wed-chieu-thgp-n6',
+    dayOfWeek: 4,
+    session: 'CHIỀU',
+    subject: 'Thực hành Giải phẫu',
+    shortCode: 'TH GP',
+    room: 'Phòng C402',
+    groups: ['nhom6'],
+    groupBadge: 'Nhóm 6 (13 SV)',
+    rosterKey: 'nhom6',
+    periods: '5 tiết/buổi',
+    startDate: '2026-10-26',
+    endDate: '2026-12-05',
+    totalWeeks: 6,
+    durationText: '6 tuần (26/10 – 05/12/2026)',
+    colorTheme: 'amber'
   },
   // THỨ NĂM - SÁNG: Nhóm 5 học Thực hành Giải phẫu (C402)
   {
@@ -437,7 +437,7 @@ export function evaluateItemStatusOnDate(item: ScheduleItem, targetDateStr: stri
   const endDate = parseDateLocal(item.endDate);
 
   if (targetDate < startDate) {
-    const isChemLab = item.id === 'mon-sang-thhh-n5' || item.id === 'wed-chieu-thhh-n6';
+    const isChemLab = item.id === 'mon-sang-thhh-n6' || item.id === 'wed-chieu-thhh-n5';
     return {
       status: 'upcoming',
       active: false,

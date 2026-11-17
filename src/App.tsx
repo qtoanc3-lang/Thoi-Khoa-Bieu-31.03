@@ -617,7 +617,7 @@ export default function App() {
     // Important note on chemistry & anatomy practical
     ctx.fillStyle = '#fed7aa';
     ctx.font = 'bold 18px system-ui, -apple-system, sans-serif';
-    ctx.fillText('⚡ TH Hóa học (P. C606): Nhóm 5 học Sáng Thứ 2 | Nhóm 6 học Chiều Thứ 4 (Từ 09/11/2026)', width / 2, 226);
+    ctx.fillText('⚡ TH Hóa (C606): N6 Sáng T2 | N5 Chiều T4 · TH GP (C402): N6 Chiều T4 | N5 Sáng T5', width / 2, 226);
 
     // Table columns
     const tableTop = headerHeight + 25;
@@ -759,13 +759,13 @@ export default function App() {
 
     ctx.fillStyle = '#334155';
     ctx.font = '500 17px system-ui, -apple-system, sans-serif';
-    ctx.fillText('• TH Hóa học (P. C606): Nhóm 5 học Sáng Thứ 2 | Nhóm 6 học Chiều Thứ 4 (8 tuần từ 09/11/2026).', colX[0] + 25, footerY + 68);
-    ctx.fillText('• TH Giải phẫu (P. C402): Nhóm 5 học Sáng Thứ 5 | Nhóm 6 học Sáng Thứ 2 (6 tuần).', colX[0] + 25, footerY + 96);
+    ctx.fillText('• TH Hóa học (P. C606): Nhóm 6 học Sáng Thứ 2 | Nhóm 5 học Chiều Thứ 4 (8 tuần từ 09/11/2026).', colX[0] + 25, footerY + 68);
+    ctx.fillText('• TH Giải phẫu (P. C402): Nhóm 6 học Chiều Thứ 4 | Nhóm 5 học Sáng Thứ 5 (6 tuần từ 26/10/2026).', colX[0] + 25, footerY + 96);
     ctx.fillText('• Các phòng lý thuyết: LT Giải phẫu (D112), TNRHM (D202 - Sáng CN), Tiếng Anh 1 (C222), Tin 1 (D314), LT Hóa (C208).', colX[0] + 25, footerY + 124);
 
     ctx.fillStyle = '#b45309';
     ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
-    ctx.fillText('• Lưu ý: Sáng Thứ 2 Nhóm 5 học TH Hóa học (P. C606) & Nhóm 6 học TH Giải phẫu (P. C402) | TNRHM học Sáng CN (P. D202).', colX[0] + 25, footerY + 152);
+    ctx.fillText('• Lưu ý: Nhóm 6 (TH Hóa Sáng T2, TH GP Chiều T4) · Nhóm 5 (TH Hóa Chiều T4, TH GP Sáng T5) | TNRHM Sáng CN (D202).', colX[0] + 25, footerY + 152);
 
     // Save as PNG
     const link = document.createElement('a');
@@ -1091,8 +1091,8 @@ export default function App() {
                   </div>
                   <p className="text-[11px] text-blue-100 mt-0.5 leading-snug">
                     {myStudent.group === 'nhom5'
-                      ? 'TH Hóa: Sáng T2 (C606) · TH Giải phẫu: Sáng T5 (C402)'
-                      : 'TH Giải phẫu: Sáng T2 (C402) · TH Hóa: Chiều T4 (C606)'}
+                      ? 'TH Hóa: Chiều T4 (C606) · TH Giải phẫu: Sáng T5 (C402)'
+                      : 'TH Hóa: Sáng T2 (C606) · TH Giải phẫu: Chiều T4 (C402)'}
                   </p>
                 </div>
               </div>
@@ -1793,8 +1793,8 @@ export default function App() {
                 <div className="font-black text-blue-950 uppercase mb-0.5">
                   📍 ĐỊA ĐIỂM &amp; PHÒNG HỌC
                 </div>
-                <div>&bull; <strong>TH Hóa học (C606):</strong> N5: Sáng T2 | N6: Chiều T4 (từ 09/11)</div>
-                <div>&bull; <strong>TH Giải phẫu (C402):</strong> N5: Sáng T5 | N6: Sáng T2</div>
+                <div>&bull; <strong>TH Hóa học (C606):</strong> N6: Sáng T2 | N5: Chiều T4 (từ 09/11)</div>
+                <div>&bull; <strong>TH Giải phẫu (C402):</strong> N6: Chiều T4 | N5: Sáng T5 (từ 26/10)</div>
                 <div>&bull; <strong>LT Giải phẫu:</strong> Phòng D112 | <strong>LT Hóa:</strong> Phòng C208</div>
                 <div>&bull; <strong>TNRHM:</strong> Sáng CN (P. D202) | <strong>HAT:</strong> C222 | <strong>TINT:</strong> D314</div>
               </div>
@@ -1805,7 +1805,7 @@ export default function App() {
                 </div>
                 <div>&bull; <strong>Nhóm 5 (14 SV):</strong> STT 01 &rarr; 14 (Lê Phan An &rarr; Trương Hoàng Hiệp)</div>
                 <div>&bull; <strong>Nhóm 6 (13 SV):</strong> STT 01 &rarr; 13 (Lê Văn Hòe &rarr; Phạm Đường Vũ)</div>
-                <div className="text-amber-800 font-semibold italic mt-0.5">* Sáng T2: N5 học TH Hóa (C606) &amp; N6 học TH GP (C402); Chiều T4: N6 học TH Hóa (C606).</div>
+                <div className="text-amber-800 font-semibold italic mt-0.5">* N6: TH Hóa Sáng T2, TH GP Chiều T4 | N5: TH Hóa Chiều T4, TH GP Sáng T5.</div>
               </div>
 
               <div className="border border-slate-300 rounded p-1 bg-white flex flex-col justify-between">
@@ -1876,22 +1876,22 @@ export default function App() {
                   • <strong>6 tuần</strong> (26/10 – 05/12) ·{' '}
                   <button
                     type="button"
-                    onClick={() => openStudentModal('nhom5')}
+                    onClick={() => openStudentModal('nhom6')}
                     className="underline font-bold text-amber-900 dark:text-amber-300 cursor-pointer"
                   >
-                    N5: Sáng T5
+                    N6: Chiều T4
                   </button>{' '}
                   |{' '}
                   <button
                     type="button"
-                    onClick={() => openStudentModal('nhom6')}
+                    onClick={() => openStudentModal('nhom5')}
                     className="underline font-bold text-amber-900 dark:text-amber-300 cursor-pointer"
                   >
-                    N6: Sáng T2
+                    N5: Sáng T5
                   </button>
                 </p>
                 <p className="text-[11px] font-semibold text-rose-700 dark:text-amber-300">
-                  🔄 Nhóm 6 đã đổi lịch từ Chiều T4 sang Sáng T2 (09/11/2026)
+                  📌 Nhóm 6 học Chiều Thứ 4 (13:00 – 16:35) | Nhóm 5 học Sáng Thứ 5 (07:30 – 11:05)
                 </p>
               </div>
 
@@ -1918,22 +1918,22 @@ export default function App() {
                   • <strong>8 tuần</strong> (Từ 09/11 – 02/01/2027) ·{' '}
                   <button
                     type="button"
-                    onClick={() => openStudentModal('nhom5')}
+                    onClick={() => openStudentModal('nhom6')}
                     className="underline font-bold text-purple-900 dark:text-purple-300 cursor-pointer"
                   >
-                    N5: Sáng T2
+                    N6: Sáng T2
                   </button>{' '}
                   |{' '}
                   <button
                     type="button"
-                    onClick={() => openStudentModal('nhom6')}
+                    onClick={() => openStudentModal('nhom5')}
                     className="underline font-bold text-purple-900 dark:text-purple-300 cursor-pointer"
                   >
-                    N6: Chiều T4
+                    N5: Chiều T4
                   </button>
                 </p>
                 <p className="text-[11px] font-semibold text-amber-800 dark:text-amber-300">
-                  📌 Nhóm 5 học Sáng Thứ 2 (07:30 – 11:05) | Nhóm 6 học Chiều Thứ 4 (13:00 – 16:35)
+                  📌 Nhóm 6 học Sáng Thứ 2 (07:30 – 11:05) | Nhóm 5 học Chiều Thứ 4 (13:00 – 16:35)
                 </p>
               </div>
             </div>
@@ -2629,10 +2629,10 @@ export default function App() {
                   • <strong>Khung giờ học quy định:</strong> Sáng: <strong>07h30 – 11h05</strong> | Chiều: <strong>13h00 – 16h35</strong> | Tối: <strong>18h00 – 21h35</strong>.
                 </div>
                 <div className="text-[11px] leading-relaxed">
-                  • <strong>Thực hành Hóa học (P. C606):</strong> <strong className="text-rose-700 dark:text-amber-300">Nhóm 5 học Sáng Thứ 2 (07:30 – 11:05) | Nhóm 6 học Chiều Thứ 4 (13:00 – 16:35)</strong> (8 tuần từ 09/11/2026 – 02/01/2027).
+                  • <strong>Thực hành Hóa học (P. C606):</strong> <strong className="text-rose-700 dark:text-amber-300">Nhóm 6 học Sáng Thứ 2 (07:30 – 11:05) | Nhóm 5 học Chiều Thứ 4 (13:00 – 16:35)</strong> (8 tuần từ 09/11/2026 – 02/01/2027).
                 </div>
                 <div className="text-[11px] leading-relaxed">
-                  • <strong>Thực hành Giải phẫu (P. C402):</strong> Nhóm 5 học Sáng Thứ 5 | <strong className="text-rose-700 dark:text-amber-300">Nhóm 6 học Sáng Thứ 2 (đã chuyển từ Chiều T4 sang Sáng T2 ngày 09/11/2026)</strong>.
+                  • <strong>Thực hành Giải phẫu (P. C402):</strong> <strong className="text-rose-700 dark:text-amber-300">Nhóm 6 học Chiều Thứ 4 (13:00 – 16:35) | Nhóm 5 học Sáng Thứ 5 (07:30 – 11:05)</strong> (6 tuần từ 26/10 – 05/12/2026).
                 </div>
                 <div className="text-[11px] leading-relaxed">
                   • <strong>Danh mục phòng lý thuyết:</strong> LT Giải phẫu (P. D112), Thuật ngữ A-V RHM (P. D202 - Sáng CN), Tiếng Anh 1 HAT (P. C222), Tin học 1 TINT (P. D314), LT Hóa học (P. C208).
